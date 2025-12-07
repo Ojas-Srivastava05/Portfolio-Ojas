@@ -7,16 +7,21 @@ import { Navbar } from "./components/navbar"
 
 function App() {
   return (
-    <div className="relative min-h-screen text-white">
+    <div className="relative min-h-screen text-white overflow-x-hidden bg-black">
       <CustomCursor/>
       <Background />
-      <Navbar/>
       
-      <main className="relative z-10">
-        <Hero/>
-        <Projects/>
-        <CodingStats/>
-      </main>
+      {/* Vignette effect */}
+      <div className="fixed inset-0 pointer-events-none z-[5] bg-gradient-radial from-transparent via-transparent to-black/60" />
+      
+      <div className="relative z-10">
+        <Navbar/>
+        <main>
+          <Hero/>
+          <Projects/>
+          <CodingStats/>
+        </main>
+      </div>
     </div>
   );
 }

@@ -5,7 +5,15 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      fontFamily: {
+        'typewriter': ['"Courier Prime"', '"Courier New"', 'Courier', 'monospace'],
+        'hacker': ['"JetBrains Mono"', '"IBM Plex Mono"', '"SF Mono"', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+      },
+    },
   },
   plugins: [],
 };

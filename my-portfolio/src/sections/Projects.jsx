@@ -87,32 +87,17 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.h2
-            className="text-5xl md:text-6xl font-bold mb-4"
-            style={{
-              background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 40px rgba(239, 68, 68, 0.8), 0 0 60px rgba(239, 68, 68, 0.5)',
-            }}
-          >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-typewriter tracking-tight">
             Featured Projects
-          </motion.h2>
-          <motion.p
-            className="text-neon-red-subtle text-lg max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
+          </h2>
+          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide">
             A collection of projects showcasing my skills in web development, AI/ML, and competitive programming
-          </motion.p>
+          </p>
         </motion.div>
 
         {/* Projects Grid */}
