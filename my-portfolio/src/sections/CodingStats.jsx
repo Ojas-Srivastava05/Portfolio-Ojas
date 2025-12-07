@@ -6,19 +6,18 @@ import { EncryptButton } from "../components/ui/EncryptButton";
 export default function CodingStats() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  // Replace with your actual usernames
   const usernames = {
     github: "Ojas-Srivastava05",
     leetcode: "Oju_Srivastava",
     codechef: "ojassrivastava",
     codeforces: "oju",
     kaggle: "ojassrivastava05",
-    linkedin: "ojas-srivastava05", // Add your LinkedIn username
+    linkedin: "ojas-srivastava05",
   };
 
   const { stats, loading, errors } = useCodingStats(usernames);
 
-  // Dynamic profiles based on fetched data
+  // Enhanced profiles with more detailed stats
   const profiles = [
     {
       name: "GitHub",
@@ -26,31 +25,24 @@ export default function CodingStats() {
       icon: "💻",
       color: "#ef4444",
       stats: stats.github ? [
-        { label: "Repositories", value: stats.github.repositories },
-        { label: "Contributions", value: stats.github.contributions },
-        { label: "Stars", value: stats.github.stars },
+        { label: "Public Repos", value: stats.github.repositories, icon: "📦", description: "Open source projects" },
+        { label: "Total Stars", value: stats.github.stars, icon: "⭐", description: "Community appreciation" },
+        { label: "Followers", value: stats.github.followers, icon: "👥", description: "Developer network" },
+        { label: "Following", value: stats.github.following, icon: "👤", description: "Connections" },
+        { label: "Contributions", value: stats.github.contributions, icon: "📊", description: "This year" },
+        { label: "Public Gists", value: stats.github.gists || 0, icon: "📝", description: "Code snippets" },
       ] : [
-        { label: "Repositories", value: "..." },
-        { label: "Contributions", value: "..." },
-        { label: "Stars", value: "..." },
+        { label: "Public Repos", value: "...", icon: "📦", description: "Loading..." },
+        { label: "Total Stars", value: "...", icon: "⭐", description: "Loading..." },
+        { label: "Followers", value: "...", icon: "👥", description: "Loading..." },
+        { label: "Following", value: "...", icon: "👤", description: "Loading..." },
+        { label: "Contributions", value: "...", icon: "📊", description: "Loading..." },
+        { label: "Public Gists", value: "...", icon: "📝", description: "Loading..." },
       ],
       link: `https://github.com/${usernames.github}`,
       bgGradient: "from-red-900/30 to-slate-900/50",
       error: errors.github,
-    },
-    {
-      name: "LinkedIn",
-      username: `@${usernames.linkedin}`,
-      icon: "💼",
-      color: "#dc2626",
-      stats: [
-        { label: "Network", value: "500+" },
-        { label: "Profile Views", value: "Professional" },
-        { label: "Engagement", value: "Active" },
-      ],
-      link: `https://www.linkedin.com/in/${usernames.linkedin}`,
-      bgGradient: "from-red-900/30 to-slate-900/50",
-      error: null,
+      highlights: ["Active contributor", "Open source enthusiast", "Clean code advocate"],
     },
     {
       name: "LeetCode",
@@ -58,17 +50,24 @@ export default function CodingStats() {
       icon: "🏆",
       color: "#f87171",
       stats: stats.leetcode ? [
-        { label: "Problems Solved", value: stats.leetcode.totalSolved },
-        { label: "Easy", value: stats.leetcode.easySolved },
-        { label: "Medium", value: stats.leetcode.mediumSolved },
+        { label: "Total Solved", value: stats.leetcode.totalSolved, icon: "✅", description: "Problems completed" },
+        { label: "Easy Problems", value: stats.leetcode.easySolved, icon: "🟢", description: `/${stats.leetcode.totalEasy || 0}` },
+        { label: "Medium Problems", value: stats.leetcode.mediumSolved, icon: "🟡", description: `/${stats.leetcode.totalMedium || 0}` },
+        { label: "Hard Problems", value: stats.leetcode.hardSolved, icon: "🔴", description: `/${stats.leetcode.totalHard || 0}` },
+        { label: "Acceptance Rate", value: `${stats.leetcode.acceptanceRate || 0}%`, icon: "📈", description: "Solution quality" },
+        { label: "Contest Rating", value: stats.leetcode.rating || "N/A", icon: "🎯", description: "Competitive score" },
       ] : [
-        { label: "Problems Solved", value: "..." },
-        { label: "Contest Rating", value: "..." },
-        { label: "Global Rank", value: "..." },
+        { label: "Total Solved", value: "...", icon: "✅", description: "Loading..." },
+        { label: "Easy Problems", value: "...", icon: "🟢", description: "Loading..." },
+        { label: "Medium Problems", value: "...", icon: "🟡", description: "Loading..." },
+        { label: "Hard Problems", value: "...", icon: "🔴", description: "Loading..." },
+        { label: "Acceptance Rate", value: "...", icon: "📈", description: "Loading..." },
+        { label: "Contest Rating", value: "...", icon: "🎯", description: "Loading..." },
       ],
       link: `https://leetcode.com/${usernames.leetcode}`,
-      bgGradient: "from-red-900/30 to-slate-900/50",
+      bgGradient: "from-orange-900/30 to-slate-900/50",
       error: errors.leetcode,
+      highlights: ["Algorithm expert", "Problem solver", "Contest participant"],
     },
     {
       name: "CodeChef",
@@ -76,17 +75,24 @@ export default function CodingStats() {
       icon: "👨‍🍳",
       color: "#ef4444",
       stats: stats.codechef ? [
-        { label: "Rating", value: stats.codechef.rating },
-        { label: "Max Rating", value: stats.codechef.maxRating },
-        { label: "Stars", value: stats.codechef.stars },
+        { label: "Current Rating", value: stats.codechef.rating, icon: "⭐", description: "Live ranking" },
+        { label: "Max Rating", value: stats.codechef.maxRating, icon: "🏆", description: "Peak performance" },
+        { label: "Stars", value: `${stats.codechef.stars} ⭐`, icon: "✨", description: "Skill level" },
+        { label: "Global Rank", value: stats.codechef.globalRank || "N/A", icon: "🌍", description: "Worldwide standing" },
+        { label: "Country Rank", value: stats.codechef.countryRank || "N/A", icon: "🇮🇳", description: "National position" },
+        { label: "Problems Solved", value: stats.codechef.problemsSolved || "N/A", icon: "✅", description: "Total challenges" },
       ] : [
-        { label: "Rating", value: "..." },
-        { label: "Stars", value: "..." },
-        { label: "Global Rank", value: "..." },
+        { label: "Current Rating", value: "...", icon: "⭐", description: "Loading..." },
+        { label: "Max Rating", value: "...", icon: "🏆", description: "Loading..." },
+        { label: "Stars", value: "...", icon: "✨", description: "Loading..." },
+        { label: "Global Rank", value: "...", icon: "🌍", description: "Loading..." },
+        { label: "Country Rank", value: "...", icon: "🇮🇳", description: "Loading..." },
+        { label: "Problems Solved", value: "...", icon: "✅", description: "Loading..." },
       ],
       link: `https://www.codechef.com/users/${usernames.codechef}`,
-      bgGradient: "from-red-900/30 to-slate-900/50",
+      bgGradient: "from-brown-900/30 to-slate-900/50",
       error: errors.codechef,
+      highlights: ["Competitive coder", "Contest regular", "DSA specialist"],
     },
     {
       name: "Codeforces",
@@ -94,17 +100,24 @@ export default function CodingStats() {
       icon: "🎯",
       color: "#dc2626",
       stats: stats.codeforces ? [
-        { label: "Rating", value: stats.codeforces.rating },
-        { label: "Max Rating", value: stats.codeforces.maxRating },
-        { label: "Rank", value: stats.codeforces.rank },
+        { label: "Current Rating", value: stats.codeforces.rating, icon: "⭐", description: "Active score" },
+        { label: "Max Rating", value: stats.codeforces.maxRating, icon: "🏆", description: "Personal best" },
+        { label: "Rank", value: stats.codeforces.rank, icon: "🎖️", description: "Skill division" },
+        { label: "Max Rank", value: stats.codeforces.maxRank || "N/A", icon: "👑", description: "Highest achieved" },
+        { label: "Contests", value: stats.codeforces.contests || "N/A", icon: "🎪", description: "Participated" },
+        { label: "Problems Solved", value: stats.codeforces.problemsSolved || "N/A", icon: "✅", description: "Total count" },
       ] : [
-        { label: "Rating", value: "..." },
-        { label: "Max Rating", value: "..." },
-        { label: "Contests", value: "..." },
+        { label: "Current Rating", value: "...", icon: "⭐", description: "Loading..." },
+        { label: "Max Rating", value: "...", icon: "🏆", description: "Loading..." },
+        { label: "Rank", value: "...", icon: "🎖️", description: "Loading..." },
+        { label: "Max Rank", value: "...", icon: "👑", description: "Loading..." },
+        { label: "Contests", value: "...", icon: "🎪", description: "Loading..." },
+        { label: "Problems Solved", value: "...", icon: "✅", description: "Loading..." },
       ],
       link: `https://codeforces.com/profile/${usernames.codeforces}`,
-      bgGradient: "from-red-900/30 to-slate-900/50",
+      bgGradient: "from-blue-900/30 to-slate-900/50",
       error: errors.codeforces,
+      highlights: ["Algorithmic thinker", "Contest enthusiast", "Math problem solver"],
     },
     {
       name: "Kaggle",
@@ -112,21 +125,45 @@ export default function CodingStats() {
       icon: "📊",
       color: "#f87171",
       stats: stats.kaggle ? [
-        { label: "Tier", value: stats.kaggle.tier },
-        { label: "Competitions", value: stats.kaggle.competitions },
-        { label: "Datasets", value: stats.kaggle.datasets },
+        { label: "Tier", value: stats.kaggle.tier, icon: "🏅", description: "Achievement level" },
+        { label: "Competition Rank", value: stats.kaggle.competitionRank || "N/A", icon: "🏆", description: "Leaderboard position" },
+        { label: "Competitions", value: stats.kaggle.competitions, icon: "🎯", description: "Participated" },
+        { label: "Datasets", value: stats.kaggle.datasets, icon: "📁", description: "Contributions" },
+        { label: "Notebooks", value: stats.kaggle.notebooks || 0, icon: "📓", description: "Published work" },
+        { label: "Total Medals", value: stats.kaggle.totalMedals || 0, icon: "🥇", description: "Achievements" },
       ] : [
-        { label: "Competitions", value: "..." },
-        { label: "Datasets", value: "..." },
-        { label: "Notebooks", value: "..." },
+        { label: "Tier", value: "...", icon: "🏅", description: "Loading..." },
+        { label: "Competition Rank", value: "...", icon: "🏆", description: "Loading..." },
+        { label: "Competitions", value: "...", icon: "🎯", description: "Loading..." },
+        { label: "Datasets", value: "...", icon: "📁", description: "Loading..." },
+        { label: "Notebooks", value: "...", icon: "📓", description: "Loading..." },
+        { label: "Total Medals", value: "...", icon: "🥇", description: "Loading..." },
       ],
       link: `https://www.kaggle.com/${usernames.kaggle}`,
-      bgGradient: "from-red-900/30 to-slate-900/50",
+      bgGradient: "from-cyan-900/30 to-slate-900/50",
       error: errors.kaggle,
+      highlights: ["Data scientist", "ML practitioner", "Competition solver"],
+    },
+    {
+      name: "LinkedIn",
+      username: `@${usernames.linkedin}`,
+      icon: "💼",
+      color: "#dc2626",
+      stats: [
+        { label: "Network Size", value: "500+", icon: "👥", description: "Professional connections" },
+        { label: "Profile Views", value: "Active", icon: "👁️", description: "Engagement" },
+        { label: "Posts", value: "Regular", icon: "📝", description: "Content creation" },
+        { label: "Endorsements", value: "Multiple", icon: "👍", description: "Skill validation" },
+        { label: "Recommendations", value: "Available", icon: "⭐", description: "Peer reviews" },
+        { label: "Articles", value: "Published", icon: "📰", description: "Thought leadership" },
+      ],
+      link: `https://www.linkedin.com/in/${usernames.linkedin}`,
+      bgGradient: "from-blue-900/30 to-slate-900/50",
+      error: null,
+      highlights: ["Tech professional", "Network builder", "Industry insights"],
     },
   ];
 
-  // Calculate overall stats from fetched data
   const overallStats = [
     { 
       label: "Total Problems", 
@@ -224,8 +261,8 @@ export default function CodingStats() {
           ))}
         </div>
 
-        {/* Profile Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Enhanced Profile Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {profiles.map((profile, index) => (
             <motion.div
               key={index}
@@ -245,19 +282,19 @@ export default function CodingStats() {
                 }}
               />
 
-              {/* Card */}
+              {/* Enhanced Card */}
               <motion.div
                 className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)',
+                  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%)',
                   border: `1px solid ${profile.color}40`,
                 }}
                 animate={{
-                  scale: hoveredCard === index ? 1.02 : 1,
+                  scale: hoveredCard === index ? 1.01 : 1,
                 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Header with icon and platform name */}
+                {/* Header */}
                 <div className={`relative p-6 bg-gradient-to-br ${profile.bgGradient}`}>
                   <div className="flex items-center justify-between mb-4">
                     <motion.div
@@ -271,7 +308,6 @@ export default function CodingStats() {
                       {profile.icon}
                     </motion.div>
                     
-                    {/* External link icon */}
                     <motion.div
                       className="text-white text-2xl opacity-50 group-hover:opacity-100"
                       animate={{
@@ -283,72 +319,70 @@ export default function CodingStats() {
                     </motion.div>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-white mb-1">
+                  <h3 className="text-2xl font-bold text-white mb-1 font-typewriter">
                     {profile.name}
                   </h3>
-                  <p className="text-sm opacity-70" style={{ color: profile.color }}>
+                  <p className="text-sm opacity-70 font-hacker mb-3" style={{ color: profile.color }}>
                     {profile.username}
                   </p>
 
-                  {/* Error indicator */}
+                  {/* Highlights */}
+                  <div className="flex flex-wrap gap-2">
+                    {profile.highlights.map((highlight, i) => (
+                      <span
+                        key={i}
+                        className="text-xs px-2 py-1 rounded-md bg-white/10 text-white/80 backdrop-blur-sm"
+                      >
+                        {highlight}
+                      </span>
+                    ))}
+                  </div>
+
                   {profile.error && (
                     <p className="text-xs text-red-400 mt-2">
-                      Unable to fetch live data
+                      ⚠️ Unable to fetch live data
                     </p>
                   )}
                 </div>
 
-                {/* Stats section */}
+                {/* Detailed Stats Grid */}
                 <div className="p-6">
-                  {profile.stats.map((stat, i) => (
-                    <motion.div
-                      key={i}
-                      className="mb-4 last:mb-0"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1 * i }}
-                    >
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-slate-400">{stat.label}</span>
-                        <span className="text-lg font-bold text-white">
-                          {loading ? (
-                            <motion.span
-                              animate={{ opacity: [0.5, 1, 0.5] }}
-                              transition={{ duration: 1.5, repeat: Infinity }}
-                            >
-                              ...
-                            </motion.span>
-                          ) : stat.value}
-                        </span>
-                      </div>
-                      
-                      {/* Animated progress bar */}
-                      <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{
-                            background: `linear-gradient(90deg, ${profile.color}, ${profile.color}80)`,
-                            boxShadow: `0 0 10px ${profile.color}40`,
-                          }}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: loading ? '50%' : `${60 + (i * 15)}%` }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.3 + (i * 0.1), duration: 0.8 }}
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
+                  <div className="grid grid-cols-2 gap-4">
+                    {profile.stats.map((stat, i) => (
+                      <motion.div
+                        key={i}
+                        className="relative p-3 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-red-500/50 transition-colors"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.05 * i }}
+                      >
+                        <div className="flex items-start gap-2 mb-2">
+                          <span className="text-2xl">{stat.icon}</span>
+                          <div className="flex-1">
+                            <span className="text-xs text-slate-400 font-hacker block leading-tight">
+                              {stat.label}
+                            </span>
+                            <span className="text-base font-bold text-white font-mono block mt-1">
+                              {loading ? "..." : stat.value}
+                            </span>
+                            <span className="text-xs text-slate-500 block mt-1">
+                              {stat.description}
+                            </span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Visit Profile Button with EncryptButton */}
+                {/* Visit Profile Button */}
                 <div className="px-6 pb-6">
                   <EncryptButton
-                    text="Visit Profile"
-                    icon="→"
+                    text="Visit Profile →"
                     href={profile.link}
                     variant="primary"
-                    className="w-full text-sm"
+                    className="w-full text-sm py-3"
                   />
                 </div>
 
@@ -367,7 +401,6 @@ export default function CodingStats() {
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );
