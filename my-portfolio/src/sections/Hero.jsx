@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { TypingAnimation } from "../components/magicui/typing-animation";
 import { RotatingText } from "../components/magicui/rotating-text";
+import { NeuButton } from "../components/ui/NeuButton";
 
 export default function Hero() {
   const roles = [
@@ -16,6 +17,100 @@ export default function Hero() {
       id="hero"
       className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden"
     >
+      {/* Animated red border edges */}
+      {/* Top edge */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-[2px] origin-left"
+        style={{
+          background: 'linear-gradient(90deg, rgba(239, 68, 68, 0) 0%, rgba(239, 68, 68, 0.8) 50%, rgba(239, 68, 68, 0) 100%)',
+          boxShadow: '0 0 10px rgba(239, 68, 68, 0.5)',
+        }}
+        animate={{
+          scaleX: [0, 1],
+          opacity: [0, 1, 1],
+        }}
+        transition={{
+          duration: 2,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Right edge */}
+      <motion.div
+        className="absolute top-0 right-0 bottom-0 w-[2px] origin-top"
+        style={{
+          background: 'linear-gradient(180deg, rgba(239, 68, 68, 0) 0%, rgba(239, 68, 68, 0.8) 50%, rgba(239, 68, 68, 0) 100%)',
+          boxShadow: '0 0 10px rgba(239, 68, 68, 0.5)',
+        }}
+        animate={{
+          scaleY: [0, 1],
+          opacity: [0, 1, 1],
+        }}
+        transition={{
+          duration: 2,
+          delay: 0.5,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Bottom edge */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] origin-right"
+        style={{
+          background: 'linear-gradient(90deg, rgba(239, 68, 68, 0) 0%, rgba(239, 68, 68, 0.8) 50%, rgba(239, 68, 68, 0) 100%)',
+          boxShadow: '0 0 10px rgba(239, 68, 68, 0.5)',
+        }}
+        animate={{
+          scaleX: [0, 1],
+          opacity: [0, 1, 1],
+        }}
+        transition={{
+          duration: 2,
+          delay: 1,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Left edge */}
+      <motion.div
+        className="absolute top-0 left-0 bottom-0 w-[2px] origin-bottom"
+        style={{
+          background: 'linear-gradient(180deg, rgba(239, 68, 68, 0) 0%, rgba(239, 68, 68, 0.8) 50%, rgba(239, 68, 68, 0) 100%)',
+          boxShadow: '0 0 10px rgba(239, 68, 68, 0.5)',
+        }}
+        animate={{
+          scaleY: [0, 1],
+          opacity: [0, 1, 1],
+        }}
+        transition={{
+          duration: 2,
+          delay: 1.5,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Pulsing glow effect on edges */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-[1px]"
+        animate={{
+          opacity: [0.3, 0.8, 0.3],
+          boxShadow: [
+            '0 0 20px rgba(239, 68, 68, 0.3)',
+            '0 0 40px rgba(239, 68, 68, 0.6)',
+            '0 0 20px rgba(239, 68, 68, 0.3)',
+          ],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+        style={{
+          background: 'rgba(239, 68, 68, 0.5)',
+        }}
+      />
+
       {/* Multiple layered animated glows */}
       <motion.div 
         className="absolute inset-0 -z-10 flex items-center justify-center"
@@ -147,60 +242,21 @@ export default function Hero() {
         />
       ))}
 
-      {/* Call To Action with enhanced effects */}
-      <motion.a
-        href="#projects"
+      {/* Call To Action with NeuButton */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        whileHover={{ 
-          scale: 1.08,
-          boxShadow: "0 0 30px rgba(239, 68, 68, 0.6), 0 0 60px rgba(239, 68, 68, 0.3)"
-        }}
-        whileTap={{ scale: 0.95 }}
         transition={{ delay: 4.5, duration: 0.6 }}
-        className="mt-10 inline-flex items-center gap-2 px-10 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 transition-all relative z-10 overflow-hidden group"
+        className="mt-10 relative z-10"
       >
-        {/* Button shine effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-          animate={{
-            x: ['-100%', '200%'],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+        <NeuButton
+          text="View My Work"
+          subtext="Explore projects"
+          icon="→"
+          href="#projects"
+          showAvatar={false}
         />
-        
-        <motion.span
-          className="relative z-10"
-          animate={{
-            opacity: [1, 0.8, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          View My Work
-        </motion.span>
-        
-        <motion.span
-          className="relative z-10"
-          animate={{
-            x: [0, 5, 0],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          →
-        </motion.span>
-      </motion.a>
+      </motion.div>
 
       {/* Animated border accent at bottom */}
       <motion.div
