@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useCodingStats } from "../hooks/useCodingStats";
+import { EncryptButton } from "../components/ui/EncryptButton";
 
 export default function CodingStats() {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -260,11 +261,8 @@ export default function CodingStats() {
               />
 
               {/* Card */}
-              <motion.a
-                href={profile.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative block h-full rounded-2xl overflow-hidden backdrop-blur-sm"
+              <motion.div
+                className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
                 style={{
                   background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)',
                   border: `1px solid ${profile.color}40`,
@@ -358,22 +356,15 @@ export default function CodingStats() {
                   ))}
                 </div>
 
-                {/* Visit Profile Button */}
+                {/* Visit Profile Button with EncryptButton */}
                 <div className="px-6 pb-6">
-                  <motion.div
-                    className="w-full py-3 px-4 rounded-lg text-center font-semibold transition-all"
-                    style={{
-                      background: `${profile.color}20`,
-                      border: `1px solid ${profile.color}40`,
-                      color: profile.color,
-                    }}
-                    whileHover={{
-                      background: `${profile.color}30`,
-                      boxShadow: `0 0 20px ${profile.color}40`,
-                    }}
-                  >
-                    Visit Profile →
-                  </motion.div>
+                  <EncryptButton
+                    text="Visit Profile"
+                    icon="→"
+                    href={profile.link}
+                    variant="primary"
+                    className="w-full text-sm"
+                  />
                 </div>
 
                 {/* Hover gradient overlay */}
@@ -387,7 +378,7 @@ export default function CodingStats() {
                     background: `radial-gradient(circle at 50% 0%, ${profile.color}60, transparent 70%)`,
                   }}
                 />
-              </motion.a>
+              </motion.div>
             </motion.div>
           ))}
         </div>

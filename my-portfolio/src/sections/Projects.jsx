@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { EncryptButton } from "../components/ui/EncryptButton";
 
 export default function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -196,40 +197,20 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  {/* Links */}
+                  {/* Links with EncryptButton */}
                   <div className="flex gap-3">
-                    <motion.a
+                    <EncryptButton
+                      text="GitHub"
                       href={project.github}
-                      className="flex-1 py-2 px-4 rounded-lg text-center text-sm font-semibold transition-all"
-                      style={{
-                        background: 'rgba(239, 68, 68, 0.1)',
-                        border: '1px solid rgba(239, 68, 68, 0.3)',
-                        color: '#fca5a5',
-                      }}
-                      whileHover={{
-                        background: 'rgba(239, 68, 68, 0.2)',
-                        scale: 1.05,
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      GitHub
-                    </motion.a>
-                    <motion.a
+                      variant="outline"
+                      className="flex-1 text-xs py-2"
+                    />
+                    <EncryptButton
+                      text="Live Demo"
                       href={project.live}
-                      className="flex-1 py-2 px-4 rounded-lg text-center text-sm font-semibold transition-all"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.2))',
-                        border: '1px solid rgba(239, 68, 68, 0.4)',
-                        color: '#fff',
-                      }}
-                      whileHover={{
-                        background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(220, 38, 38, 0.3))',
-                        scale: 1.05,
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Live Demo
-                    </motion.a>
+                      variant="primary"
+                      className="flex-1 text-xs py-2"
+                    />
                   </div>
                 </div>
 
@@ -257,23 +238,13 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <motion.a
+          <EncryptButton
+            text="View All Projects"
+            icon="→"
             href="#"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold transition-all"
-            style={{
-              background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.15))',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
-              color: '#fca5a5',
-            }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 30px rgba(239, 68, 68, 0.4)',
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View All Projects
-            <span className="text-xl">→</span>
-          </motion.a>
+            variant="primary"
+            className="text-base"
+          />
         </motion.div>
       </div>
     </section>

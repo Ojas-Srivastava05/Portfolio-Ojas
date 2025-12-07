@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { TypingAnimation } from "../components/magicui/typing-animation";
 import { RotatingText } from "../components/magicui/rotating-text";
-import { NeuButton } from "../components/ui/NeuButton";
+import { EncryptButton } from "../components/ui/EncryptButton";
 
 export default function Hero() {
   const roles = [
@@ -242,19 +242,19 @@ export default function Hero() {
         />
       ))}
 
-      {/* Call To Action with NeuButton */}
+      {/* Call To Action with EncryptButton */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 4.5, duration: 0.6 }}
         className="mt-10 relative z-10"
       >
-        <NeuButton
+        <EncryptButton
           text="View My Work"
-          subtext="Explore projects"
           icon="→"
           href="#projects"
-          showAvatar={false}
+          variant="primary"
+          className="text-lg px-8 py-4"
         />
       </motion.div>
 
