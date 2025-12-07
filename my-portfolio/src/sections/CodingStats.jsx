@@ -218,7 +218,7 @@ export default function CodingStats() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-typewriter tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-hacker tracking-tight">
             Coding Profiles & Stats
           </h2>
           <p className="text-gray-400 text-lg font-hacker font-light tracking-wide uppercase">
@@ -280,7 +280,7 @@ export default function CodingStats() {
                       <div className="text-white text-2xl opacity-50">↗</div>
                     </div>
 
-                    <h3 className="text-2xl font-bold text-white mb-1 font-typewriter">
+                    <h3 className="text-2xl font-bold text-white mb-1 font-hacker">
                       {profile.name}
                     </h3>
                     <p className="text-sm opacity-70 font-hacker mb-3" style={{ color: profile.color }}>

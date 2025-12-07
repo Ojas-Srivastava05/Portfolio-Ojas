@@ -25,11 +25,11 @@ export default function Hero() {
           }}
           className="relative z-10"
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 font-typewriter tracking-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-hacker tracking-tight">
             <TypingAnimation
               text="Hi, I'm Ojas Srivastava"
               duration={80}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight"
             />
           </h1>
         </motion.div>

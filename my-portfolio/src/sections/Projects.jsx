@@ -93,11 +93,11 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-typewriter tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 font-hacker tracking-tight">
             Featured Projects
           </h2>
-          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide">
-            A collection of projects showcasing my skills in web development, AI/ML, and competitive programming
+          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide uppercase">
+            Showcasing my recent work
           </p>
         </motion.div>
 
