@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { EncryptButton } from "../components/ui/EncryptButton";
+import SpringCard from "../components/ui/SpringCard";
 
 export default function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -109,108 +110,73 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
-              className="relative group"
             >
-              {/* Card glow effect */}
-              <motion.div
-                className="absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(220, 38, 38, 0.3))',
-                }}
-              />
-
-              {/* Card */}
-              <motion.div
-                className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)',
-                  border: '1px solid rgba(239, 68, 68, 0.2)',
-                }}
-                animate={{
-                  scale: hoveredIndex === index ? 1.02 : 1,
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Project Icon/Emoji */}
-                <div className="relative h-48 flex items-center justify-center bg-gradient-to-br from-red-950/50 to-slate-900/50">
-                  <motion.div
-                    className="text-8xl"
-                    animate={{
-                      scale: hoveredIndex === index ? 1.1 : 1,
-                      rotate: hoveredIndex === index ? 5 : 0,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {project.image}
-                  </motion.div>
-                  
-                  {/* Category badge */}
-                  <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold"
-                    style={{
-                      background: 'rgba(239, 68, 68, 0.2)',
-                      border: '1px solid rgba(239, 68, 68, 0.4)',
-                      color: '#fca5a5',
-                    }}
-                  >
-                    {project.category}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-neon-red-intense mb-2 group-hover:text-red-300 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-neon-red-subtle text-sm mb-4 line-clamp-2">
-                    {project.description}
-                  </p>
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="text-xs px-2 py-1 rounded-md bg-red-950/30 text-red-300 border border-red-800/50"
-                        style={{
-                          textShadow: '0 0 5px rgba(239, 68, 68, 0.5)',
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Links with EncryptButton */}
-                  <div className="flex gap-3">
-                    <EncryptButton
-                      text="GitHub"
-                      href={project.github}
-                      variant="outline"
-                      className="flex-1 text-xs py-2"
-                    />
-                    <EncryptButton
-                      text="Live Demo"
-                      href={project.live}
-                      variant="primary"
-                      className="flex-1 text-xs py-2"
-                    />
-                  </div>
-                </div>
-
-                {/* Hover gradient overlay */}
-                <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: hoveredIndex === index ? 0.1 : 0,
-                  }}
+              <SpringCard>
+                <div
+                  className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
                   style={{
-                    background: 'radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.4), transparent 70%)',
+                    background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)',
+                    border: '1px solid rgba(239, 68, 68, 0.2)',
                   }}
-                />
-              </motion.div>
+                >
+                  {/* Project Icon/Emoji */}
+                  <div className="relative h-48 flex items-center justify-center bg-gradient-to-br from-red-950/50 to-slate-900/50">
+                    <div className="text-8xl">{project.image}</div>
+                    
+                    {/* Category badge */}
+                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold"
+                      style={{
+                        background: 'rgba(239, 68, 68, 0.2)',
+                        border: '1px solid rgba(239, 68, 68, 0.4)',
+                        color: '#fca5a5',
+                      }}
+                    >
+                      {project.category}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-neon-red-intense mb-2 group-hover:text-red-300 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-neon-red-subtle text-sm mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="text-xs px-2 py-1 rounded-md bg-red-950/30 text-red-300 border border-red-800/50"
+                          style={{
+                            textShadow: '0 0 5px rgba(239, 68, 68, 0.5)',
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Links with EncryptButton */}
+                    <div className="flex gap-3">
+                      <EncryptButton
+                        text="GitHub"
+                        href={project.github}
+                        variant="outline"
+                        className="flex-1 text-xs py-2"
+                      />
+                      <EncryptButton
+                        text="Live Demo"
+                        href={project.live}
+                        variant="primary"
+                        className="flex-1 text-xs py-2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </SpringCard>
             </motion.div>
           ))}
         </div>

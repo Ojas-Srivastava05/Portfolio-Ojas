@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useCodingStats } from "../hooks/useCodingStats";
 import { EncryptButton } from "../components/ui/EncryptButton";
+import SpringCard from "../components/ui/SpringCard";
 
 export default function CodingStats() {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -225,7 +226,7 @@ export default function CodingStats() {
           </p>
         </motion.div>
 
-        {/* Overall Stats Grid */}
+        {/* Overall Stats Grid with SpringCard */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {overallStats.map((stat, index) => (
             <motion.div
@@ -234,34 +235,27 @@ export default function CodingStats() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="relative group"
             >
-              <motion.div
-                className="p-6 rounded-2xl text-center backdrop-blur-sm"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)',
-                  border: '1px solid rgba(239, 68, 68, 0.2)',
-                }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="text-4xl mb-2">{stat.icon}</div>
-                <div className="text-3xl font-bold text-white mb-1">
-                  {loading ? (
-                    <motion.span
-                      animate={{ opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      ...
-                    </motion.span>
-                  ) : stat.value}
+              <SpringCard>
+                <div
+                  className="p-6 rounded-2xl text-center backdrop-blur-sm"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)',
+                    border: '1px solid rgba(239, 68, 68, 0.2)',
+                  }}
+                >
+                  <div className="text-4xl mb-2">{stat.icon}</div>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    {loading ? "..." : stat.value}
+                  </div>
+                  <div className="text-sm text-slate-400">{stat.label}</div>
                 </div>
-                <div className="text-sm text-slate-400">{stat.label}</div>
-              </motion.div>
+              </SpringCard>
             </motion.div>
           ))}
         </div>
 
-        {/* Enhanced Profile Cards Grid */}
+        {/* Enhanced Profile Cards Grid with SpringCard */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {profiles.map((profile, index) => (
             <motion.div
@@ -270,134 +264,86 @@ export default function CodingStats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              onHoverStart={() => setHoveredCard(index)}
-              onHoverEnd={() => setHoveredCard(null)}
-              className="relative group"
             >
-              {/* Card glow effect */}
-              <motion.div
-                className="absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
-                style={{
-                  background: `linear-gradient(135deg, ${profile.color}80, ${profile.color}40)`,
-                }}
-              />
+              <SpringCard>
+                <div
+                  className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%)',
+                    border: `1px solid ${profile.color}40`,
+                  }}
+                >
+                  {/* Header */}
+                  <div className={`relative p-6 bg-gradient-to-br ${profile.bgGradient}`}>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="text-6xl">{profile.icon}</div>
+                      <div className="text-white text-2xl opacity-50">↗</div>
+                    </div>
 
-              {/* Enhanced Card */}
-              <motion.div
-                className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%)',
-                  border: `1px solid ${profile.color}40`,
-                }}
-                animate={{
-                  scale: hoveredCard === index ? 1.01 : 1,
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Header */}
-                <div className={`relative p-6 bg-gradient-to-br ${profile.bgGradient}`}>
-                  <div className="flex items-center justify-between mb-4">
-                    <motion.div
-                      className="text-6xl"
-                      animate={{
-                        scale: hoveredCard === index ? 1.2 : 1,
-                        rotate: hoveredCard === index ? 10 : 0,
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {profile.icon}
-                    </motion.div>
-                    
-                    <motion.div
-                      className="text-white text-2xl opacity-50 group-hover:opacity-100"
-                      animate={{
-                        x: hoveredCard === index ? 5 : 0,
-                        y: hoveredCard === index ? -5 : 0,
-                      }}
-                    >
-                      ↗
-                    </motion.div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-1 font-typewriter">
-                    {profile.name}
-                  </h3>
-                  <p className="text-sm opacity-70 font-hacker mb-3" style={{ color: profile.color }}>
-                    {profile.username}
-                  </p>
-
-                  {/* Highlights */}
-                  <div className="flex flex-wrap gap-2">
-                    {profile.highlights.map((highlight, i) => (
-                      <span
-                        key={i}
-                        className="text-xs px-2 py-1 rounded-md bg-white/10 text-white/80 backdrop-blur-sm"
-                      >
-                        {highlight}
-                      </span>
-                    ))}
-                  </div>
-
-                  {profile.error && (
-                    <p className="text-xs text-red-400 mt-2">
-                      ⚠️ Unable to fetch live data
+                    <h3 className="text-2xl font-bold text-white mb-1 font-typewriter">
+                      {profile.name}
+                    </h3>
+                    <p className="text-sm opacity-70 font-hacker mb-3" style={{ color: profile.color }}>
+                      {profile.username}
                     </p>
-                  )}
-                </div>
 
-                {/* Detailed Stats Grid */}
-                <div className="p-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    {profile.stats.map((stat, i) => (
-                      <motion.div
-                        key={i}
-                        className="relative p-3 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-red-500/50 transition-colors"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.05 * i }}
-                      >
-                        <div className="flex items-start gap-2 mb-2">
-                          <span className="text-2xl">{stat.icon}</span>
-                          <div className="flex-1">
-                            <span className="text-xs text-slate-400 font-hacker block leading-tight">
-                              {stat.label}
-                            </span>
-                            <span className="text-base font-bold text-white font-mono block mt-1">
-                              {loading ? "..." : stat.value}
-                            </span>
-                            <span className="text-xs text-slate-500 block mt-1">
-                              {stat.description}
-                            </span>
+                    {/* Highlights */}
+                    <div className="flex flex-wrap gap-2">
+                      {profile.highlights.map((highlight, i) => (
+                        <span
+                          key={i}
+                          className="text-xs px-2 py-1 rounded-md bg-white/10 text-white/80 backdrop-blur-sm"
+                        >
+                          {highlight}
+                        </span>
+                      ))}
+                    </div>
+
+                    {profile.error && (
+                      <p className="text-xs text-red-400 mt-2">
+                        ⚠️ Unable to fetch live data
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Detailed Stats Grid */}
+                  <div className="p-6">
+                    <div className="grid grid-cols-2 gap-4">
+                      {profile.stats.map((stat, i) => (
+                        <div
+                          key={i}
+                          className="relative p-3 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-red-500/50 transition-colors"
+                        >
+                          <div className="flex items-start gap-2 mb-2">
+                            <span className="text-2xl">{stat.icon}</span>
+                            <div className="flex-1">
+                              <span className="text-xs text-slate-400 font-hacker block leading-tight">
+                                {stat.label}
+                              </span>
+                              <span className="text-base font-bold text-white font-mono block mt-1">
+                                {loading ? "..." : stat.value}
+                              </span>
+                              <span className="text-xs text-slate-500 block mt-1">
+                                {stat.description}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </motion.div>
-                    ))}
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Visit Profile Button */}
+                  <div className="px-6 pb-6">
+                    <EncryptButton
+                      text="Visit Profile →"
+                      href={profile.link}
+                      variant="primary"
+                      className="w-full text-sm py-3"
+                    />
                   </div>
                 </div>
-
-                {/* Visit Profile Button */}
-                <div className="px-6 pb-6">
-                  <EncryptButton
-                    text="Visit Profile →"
-                    href={profile.link}
-                    variant="primary"
-                    className="w-full text-sm py-3"
-                  />
-                </div>
-
-                {/* Hover gradient overlay */}
-                <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: hoveredCard === index ? 0.1 : 0,
-                  }}
-                  style={{
-                    background: `radial-gradient(circle at 50% 0%, ${profile.color}60, transparent 70%)`,
-                  }}
-                />
-              </motion.div>
+              </SpringCard>
             </motion.div>
           ))}
         </div>
