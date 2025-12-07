@@ -191,11 +191,11 @@ export default function Hero() {
         }}
         className="relative z-10"
       >
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white">
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
           <TypingAnimation 
             text="Hi, I'm Ojas Srivastava" 
             duration={80}
-            className="text-5xl md:text-7xl font-extrabold tracking-tight"
+            className="text-5xl md:text-7xl font-extrabold tracking-tight text-neon-red-intense"
           />
         </h1>
       </motion.div>
@@ -209,13 +209,13 @@ export default function Hero() {
           duration: 0.8,
           ease: [0.16, 1, 0.3, 1]
         }}
-        className="mt-6 text-2xl md:text-3xl text-slate-300 max-w-2xl relative z-10 font-medium"
+        className="mt-6 text-2xl md:text-3xl max-w-2xl relative z-10 font-medium"
       >
-        <span className="text-white"></span>
+
         <RotatingText 
           items={roles}
           interval={2500}
-          className="text-2xl md:text-3xl"
+          className="text-2xl md:text-3xl text-neon-red"
         />
       </motion.div>
 
