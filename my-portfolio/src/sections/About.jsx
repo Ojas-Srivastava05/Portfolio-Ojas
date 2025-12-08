@@ -13,9 +13,28 @@ export default function About() {
       detail: "Building strong foundations in algorithms and systems",
       hasDetails: true,
       educationDetails: [
-        { label: "10th Board", score: "95.2%", year: "2020" },
-        { label: "12th Board", score: "92.8%", year: "2022" },
-        { label: "Current CGPA", score: "8.9", year: "B.Tech CS" }
+        { 
+          label: "B.Tech - Computer Science", 
+          score: "9.44/10", 
+          year: "2023 - Present",
+          school: "SRM Institute of Science and Technology",
+          location: "Chennai, Tamil Nadu",
+          note: "Till Sem-3"
+        },
+        { 
+          label: "12th (CBSE)", 
+          score: "95.2%", 
+          year: "2022 - 2023",
+          school: "Your High School Name",
+          location: "Your City, State"
+        },
+        { 
+          label: "10th (CBSE)", 
+          score: "98.2%", 
+          year: "2020 - 2021",
+          school: "Your High School Name",
+          location: "Your City, State"
+        }
       ]
     },
     {
@@ -83,19 +102,25 @@ export default function About() {
                   Hi, I'm Ojas! 👋
                 </h3>
                 <div className="space-y-4 text-gray-300 leading-relaxed">
-                  <p>
-                    I'm a passionate <span className="text-red-500 font-semibold">Computer Science student</span> and 
-                    <span className="text-red-500 font-semibold"> full-stack developer</span> who loves turning complex problems 
-                    into elegant solutions.
+                  <p className="text-lg text-red-400 font-semibold italic">
+                    Engineering digital experiences with precision and creativity
                   </p>
                   <p>
-                    My journey in tech started with a curiosity about how things work, which evolved into a deep passion 
-                    for building impactful applications. I specialize in modern web technologies and have a strong 
-                    foundation in data structures and algorithms.
+                    I'm <span className="text-red-500 font-semibold">Ojas Srivastava</span>, a B.Tech AI sophomore at 
+                    <span className="text-red-500 font-semibold"> NIT Surat</span>, building impactful products at the intersection 
+                    of engineering, AI, and user experience. I blend human-centred design, full-stack development, and practical 
+                    machine learning to create solutions that are both technically strong and intuitively usable.
                   </p>
                   <p>
-                    When I'm not coding, you'll find me participating in competitive programming contests, contributing 
-                    to open-source projects, or exploring the latest tech trends.
+                    I'm currently pursuing the <span className="text-red-500 font-semibold">Stanford Online ML Specialization</span> and 
+                    have built a strong foundation in core engineering subjects such as Computer Organization & Architecture, Database 
+                    Management Systems, Operating Systems, and more. I also hold a broad understanding of machine learning concepts and 
+                    algorithms, enabling me to design scalable and efficient AI-driven systems.
+                  </p>
+                  <p>
+                    Beyond development, I actively sharpen my problem-solving skills and hold a 
+                    <span className="text-red-500 font-semibold"> 3⭐ rating on CodeChef</span>. I aim to build tools that deliver 
+                    real-world value while pushing the boundaries of modern AI and product design.
                   </p>
                   <p className="text-red-400 font-semibold">
                     Let's build something amazing together! 🚀
@@ -237,25 +262,36 @@ export default function About() {
                                   transition={{ delay: idx * 0.15, type: "spring" }}
                                   className="group relative"
                                 >
-                                  <div className="p-4 rounded-xl bg-gradient-to-br from-red-500/10 to-transparent border-2 border-red-500/30 transition-all duration-300 hover:border-red-500 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:scale-[1.02]">
-                                    <div className="flex items-center justify-between">
-                                      <div>
-                                        <p className="text-sm text-gray-300 mb-1 font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                                  <div className="p-5 rounded-xl bg-gradient-to-br from-red-500/10 to-transparent border-2 border-red-500/30 transition-all duration-300 hover:border-red-500 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:scale-[1.02]">
+                                    <div className="flex items-start justify-between gap-4">
+                                      <div className="flex-1">
+                                        <p className="text-base text-white mb-1 font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                                           {edu.label}
                                         </p>
+                                        <p className="text-sm text-red-400 font-semibold mb-2">
+                                          {edu.school}
+                                        </p>
+                                        <p className="text-xs text-gray-400 mb-1">
+                                          📍 {edu.location}
+                                        </p>
                                         <p className="text-xs text-gray-500 font-mono">
-                                          {edu.year}
+                                          📅 {edu.year}
                                         </p>
                                       </div>
-                                      <div className="text-right">
+                                      <div className="text-right flex-shrink-0">
                                         <motion.p 
-                                          className="text-3xl font-bold text-red-400 font-mono"
+                                          className="text-3xl font-bold text-red-400 font-mono mb-1"
                                           initial={{ scale: 0 }}
                                           animate={{ scale: 1 }}
                                           transition={{ delay: idx * 0.15 + 0.2, type: "spring", bounce: 0.5 }}
                                         >
                                           {edu.score}
                                         </motion.p>
+                                        {edu.note && (
+                                          <p className="text-[10px] text-gray-500 italic">
+                                            {edu.note}
+                                          </p>
+                                        )}
                                       </div>
                                     </div>
                                     
