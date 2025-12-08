@@ -3,7 +3,7 @@ import CustomCursor from "./components/CustomCursor";
 import Hero from "./sections/Hero";
 import Projects from "./sections/Projects";
 import CodingStats from "./sections/CodingStats";
-import { Navbar } from "./components/navbar"
+import Navbar from "./components/Navbar";
 import About from "./sections/About";
 import Toolkit from "./sections/Toolkit";
 import Contact from "./sections/Contact";
