@@ -104,10 +104,10 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-hacker tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Get In Touch
           </h2>
-          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide uppercase">
+          <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Let's Create Something Amazing Together
           </p>
         </motion.div>
@@ -122,7 +122,7 @@ export default function Contact() {
           >
             <SpringCard>
               <div className="p-8 rounded-xl bg-black border border-red-500/20">
-                <h3 className="text-2xl font-bold mb-6 text-white font-hacker">
+                <h3 className="text-2xl font-bold mb-6 text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   Send a Message 📬
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -215,7 +215,7 @@ export default function Contact() {
           >
             <SpringCard>
               <div className="p-8 rounded-xl bg-black border border-red-500/20">
-                <h3 className="text-2xl font-bold mb-6 text-white font-hacker">
+                <h3 className="text-2xl font-bold mb-6 text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   Contact Information
                 </h3>
                 <div className="space-y-4">
@@ -258,7 +258,7 @@ export default function Contact() {
 
             <SpringCard>
               <div className="p-8 rounded-xl bg-black border border-red-500/20">
-                <h3 className="text-xl font-bold mb-4 text-white font-hacker">
+                <h3 className="text-xl font-bold mb-4 text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   Available For
                 </h3>
                 <div className="space-y-3">

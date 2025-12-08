@@ -60,10 +60,10 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-hacker tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             About Me
           </h2>
-          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide uppercase">
+          <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Get to know me better
           </p>
         </motion.div>
@@ -79,7 +79,7 @@ export default function About() {
           >
             <SpringCard>
               <div className="p-8 rounded-xl bg-black border border-red-500/20">
-                <h3 className="text-2xl font-bold mb-4 text-white font-hacker">
+                <h3 className="text-2xl font-bold mb-4 text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   Hi, I'm Ojas! 👋
                 </h3>
                 <div className="space-y-4 text-gray-300 leading-relaxed">
@@ -127,7 +127,7 @@ export default function About() {
                 <SpringCard>
                   <div className="p-6 rounded-xl bg-black border border-red-500/20 h-full">
                     <div className="text-4xl mb-3">{item.icon}</div>
-                    <h4 className="text-lg font-bold text-white mb-1 font-hacker">
+                    <h4 className="text-lg font-bold text-white mb-1" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                       {item.title}
                     </h4>
                     <p className="text-sm text-red-400 mb-2 font-semibold">
@@ -206,10 +206,10 @@ export default function About() {
                                   🎯
                                 </motion.div>
                                 <div>
-                                  <h3 className="text-2xl font-bold text-white font-hacker">
+                                  <h3 className="text-2xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                                     Academic Record
                                   </h3>
-                                  <p className="text-xs text-gray-400 font-hacker">
+                                  <p className="text-xs text-gray-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                                     Excellence in Education
                                   </p>
                                 </div>
@@ -240,7 +240,7 @@ export default function About() {
                                   <div className="p-4 rounded-xl bg-gradient-to-br from-red-500/10 to-transparent border-2 border-red-500/30 transition-all duration-300 hover:border-red-500 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:scale-[1.02]">
                                     <div className="flex items-center justify-between">
                                       <div>
-                                        <p className="text-sm text-gray-300 font-hacker mb-1 font-semibold">
+                                        <p className="text-sm text-gray-300 mb-1 font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                                           {edu.label}
                                         </p>
                                         <p className="text-xs text-gray-500 font-mono">
@@ -277,7 +277,7 @@ export default function About() {
                               transition={{ delay: 0.5 }}
                             >
                               <div className="inline-block px-4 py-2 rounded-full border-2 border-red-500/50 bg-red-500/10 hover:bg-red-500/20 transition-colors">
-                                <p className="text-xs text-red-400 font-bold font-hacker">
+                                <p className="text-xs text-red-400 font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                                   🏆 ACADEMIC EXCELLENCE
                                 </p>
                               </div>
@@ -312,7 +312,7 @@ export default function About() {
                 <div className="text-3xl font-bold text-red-500 mb-2 font-mono">
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-400 font-hacker">
+                <div className="text-sm text-gray-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   {stat.label}
                 </div>
               </div>

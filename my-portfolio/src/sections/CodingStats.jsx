@@ -185,10 +185,10 @@ export default function CodingStats() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-hacker tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Coding Profiles & Stats
           </h2>
-          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide uppercase">
+          <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Live statistics from multiple platforms
           </p>
         </motion.div>
@@ -251,10 +251,10 @@ export default function CodingStats() {
                       <div className="text-white text-lg opacity-50">↗</div>
                     </div>
 
-                    <h3 className="text-lg font-bold text-white mb-0.5 font-hacker">
+                    <h3 className="text-lg font-bold text-white mb-0.5" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                       {profile.name}
                     </h3>
-                    <p className="text-xs opacity-70 font-hacker mb-2" style={{ color: profile.color }}>
+                    <p className="text-xs opacity-70 mb-2" style={{ color: profile.color, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {profile.username}
                     </p>
 
@@ -288,7 +288,7 @@ export default function CodingStats() {
                           <div className="flex items-start gap-1.5">
                             <span className="text-base">{stat.icon}</span>
                             <div className="flex-1 min-w-0">
-                              <span className="text-[10px] text-slate-400 font-hacker block leading-tight truncate">
+                              <span className="text-[10px] text-slate-400 block leading-tight truncate" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                                 {stat.label}
                               </span>
                               <span className="text-sm font-bold text-white font-mono block mt-0.5 truncate">

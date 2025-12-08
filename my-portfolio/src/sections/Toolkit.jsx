@@ -80,10 +80,10 @@ export default function Toolkit() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-hacker tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             My Toolkit
           </h2>
-          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide uppercase">
+          <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Technologies & Tools I Work With
           </p>
         </motion.div>
@@ -104,7 +104,7 @@ export default function Toolkit() {
                 <div className="text-2xl bg-red-500/10 p-2 rounded-xl border-2 border-red-500/30">
                   {category.icon}
                 </div>
-                <h3 className="text-xl font-bold text-white font-hacker">
+                <h3 className="text-xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   {category.title}
                 </h3>
               </div>
@@ -127,7 +127,7 @@ export default function Toolkit() {
                           alt={skill.name}
                           className="w-5 h-5 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"
                         />
-                        <span className="text-xs font-bold text-white font-hacker group-hover:text-red-400 transition-colors">
+                        <span className="text-xs font-bold text-white group-hover:text-red-400 transition-colors" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                           {skill.name}
                         </span>
                       </div>
@@ -144,7 +144,7 @@ export default function Toolkit() {
 
               {/* Category Badge */}
               <div className="mt-4 pt-3 border-t-2 border-dashed border-red-500/30">
-                <div className="inline-block px-3 py-1.5 rounded-full border-2 border-red-500/50 bg-red-500/10 text-[10px] font-bold text-red-400 font-hacker">
+                <div className="inline-block px-3 py-1.5 rounded-full border-2 border-red-500/50 bg-red-500/10 text-[10px] font-bold text-red-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   {category.skills.length} TOOLS
                 </div>
               </div>

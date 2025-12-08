@@ -93,10 +93,10 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 font-hacker tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Featured Projects
           </h2>
-          <p className="text-gray-400 text-lg font-hacker font-light tracking-wide uppercase">
+          <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Showcasing my recent work
           </p>
         </motion.div>
@@ -126,7 +126,7 @@ export default function Projects() {
                   {/* Content */}
                   <div className="p-5">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors font-hacker">
+                      <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                         {project.title}
                       </h3>
                       <span className="text-2xl">{project.icon}</span>

@@ -59,7 +59,8 @@ export const Navbar = () => {
           {/* Logo */}
           <motion.button
             onClick={() => scrollToSection("hero")}
-            className="relative text-2xl font-bold font-hacker text-white group"
+            className="relative text-2xl font-bold text-white group"
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -79,7 +80,8 @@ export const Navbar = () => {
               <motion.button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="relative px-5 py-2.5 rounded-lg font-hacker text-sm font-medium overflow-hidden group"
+                className="relative px-5 py-2.5 rounded-lg text-sm font-medium overflow-hidden group"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -191,7 +193,8 @@ export const Navbar = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="relative px-4 py-3 rounded-lg font-hacker text-left group overflow-hidden"
+                    className="relative px-4 py-3 rounded-lg text-left group overflow-hidden"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   >
                     {/* Background */}
                     <motion.div
