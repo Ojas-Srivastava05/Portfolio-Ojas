@@ -160,19 +160,19 @@ export default function Projects() {
               transition={{ delay: index * 0.1 }}
             >
               <SpringCard>
-                <div className="group relative h-full rounded-xl overflow-hidden bg-gradient-to-br from-black/95 to-slate-900/95 border border-red-500/20 hover:border-red-500/50 transition-all duration-300">
+                <div className="group relative h-full rounded-xl overflow-hidden bg-black border border-red-500/20 hover:border-red-500/50 transition-all duration-300">
                   {/* Project Image */}
-                  <div className="relative h-40 overflow-hidden bg-gradient-to-br from-red-500/10 to-purple-500/10">
+                  <div className="relative h-40 overflow-hidden bg-black">
                     <motion.img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                   </div>
 
                   {/* Content */}
-                  <div className="p-5">
+                  <div className="p-5 bg-black">
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                         {project.title}
