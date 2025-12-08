@@ -115,12 +115,12 @@ export default function Projects() {
                 <div
                   className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)',
+                    background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(15, 23, 42, 0.8) 100%)',
                     border: '1px solid rgba(239, 68, 68, 0.2)',
                   }}
                 >
                   {/* Project Icon/Emoji */}
-                  <div className="relative h-48 flex items-center justify-center bg-gradient-to-br from-red-950/50 to-slate-900/50">
+                  <div className="relative h-48 flex items-center justify-center bg-gradient-to-br from-black/90 to-slate-950/90">
                     <div className="text-8xl">{project.image}</div>
                     
                     {/* Category badge */}

@@ -227,7 +227,7 @@ export default function CodingStats() {
         </motion.div>
 
         {/* Overall Stats Grid with SpringCard */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-4 gap-3 mb-12 max-w-4xl mx-auto">
           {overallStats.map((stat, index) => (
             <motion.div
               key={index}
@@ -238,17 +238,17 @@ export default function CodingStats() {
             >
               <SpringCard>
                 <div
-                  className="p-6 rounded-2xl text-center backdrop-blur-sm"
+                  className="p-4 rounded-xl text-center backdrop-blur-sm"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)',
+                    background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%)',
                     border: '1px solid rgba(239, 68, 68, 0.2)',
                   }}
                 >
-                  <div className="text-4xl mb-2">{stat.icon}</div>
-                  <div className="text-3xl font-bold text-white mb-1">
+                  <div className="text-2xl mb-1">{stat.icon}</div>
+                  <div className="text-xl font-bold text-white mb-0.5">
                     {loading ? "..." : stat.value}
                   </div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
+                  <div className="text-xs text-slate-400">{stat.label}</div>
                 </div>
               </SpringCard>
             </motion.div>
@@ -256,7 +256,7 @@ export default function CodingStats() {
         </div>
 
         {/* Enhanced Profile Cards Grid with SpringCard */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {profiles.map((profile, index) => (
             <motion.div
               key={index}
@@ -267,32 +267,32 @@ export default function CodingStats() {
             >
               <SpringCard>
                 <div
-                  className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
+                  className="relative h-full rounded-xl overflow-hidden backdrop-blur-sm"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%)',
+                    background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.98) 0%, rgba(15, 23, 42, 0.95) 100%)',
                     border: `1px solid ${profile.color}40`,
                   }}
                 >
                   {/* Header */}
-                  <div className={`relative p-6 bg-gradient-to-br ${profile.bgGradient}`}>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="text-6xl">{profile.icon}</div>
-                      <div className="text-white text-2xl opacity-50">↗</div>
+                  <div className={`relative p-4 bg-gradient-to-br ${profile.bgGradient}`}>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-3xl">{profile.icon}</div>
+                      <div className="text-white text-lg opacity-50">↗</div>
                     </div>
 
-                    <h3 className="text-2xl font-bold text-white mb-1 font-hacker">
+                    <h3 className="text-lg font-bold text-white mb-0.5 font-hacker">
                       {profile.name}
                     </h3>
-                    <p className="text-sm opacity-70 font-hacker mb-3" style={{ color: profile.color }}>
+                    <p className="text-xs opacity-70 font-hacker mb-2" style={{ color: profile.color }}>
                       {profile.username}
                     </p>
 
                     {/* Highlights */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1">
                       {profile.highlights.map((highlight, i) => (
                         <span
                           key={i}
-                          className="text-xs px-2 py-1 rounded-md bg-white/10 text-white/80 backdrop-blur-sm"
+                          className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-white/80 backdrop-blur-sm"
                         >
                           {highlight}
                         </span>
@@ -300,30 +300,30 @@ export default function CodingStats() {
                     </div>
 
                     {profile.error && (
-                      <p className="text-xs text-red-400 mt-2">
+                      <p className="text-[10px] text-red-400 mt-1">
                         ⚠️ Unable to fetch live data
                       </p>
                     )}
                   </div>
 
                   {/* Detailed Stats Grid */}
-                  <div className="p-6">
-                    <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3">
+                    <div className="grid grid-cols-2 gap-2">
                       {profile.stats.map((stat, i) => (
                         <div
                           key={i}
-                          className="relative p-3 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-red-500/50 transition-colors"
+                          className="relative p-2 rounded-lg bg-black/60 border border-slate-700/50 hover:border-red-500/50 transition-colors"
                         >
-                          <div className="flex items-start gap-2 mb-2">
-                            <span className="text-2xl">{stat.icon}</span>
-                            <div className="flex-1">
-                              <span className="text-xs text-slate-400 font-hacker block leading-tight">
+                          <div className="flex items-start gap-1.5">
+                            <span className="text-base">{stat.icon}</span>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-[10px] text-slate-400 font-hacker block leading-tight truncate">
                                 {stat.label}
                               </span>
-                              <span className="text-base font-bold text-white font-mono block mt-1">
+                              <span className="text-sm font-bold text-white font-mono block mt-0.5 truncate">
                                 {loading ? "..." : stat.value}
                               </span>
-                              <span className="text-xs text-slate-500 block mt-1">
+                              <span className="text-[9px] text-slate-500 block mt-0.5 truncate">
                                 {stat.description}
                               </span>
                             </div>
@@ -334,12 +334,12 @@ export default function CodingStats() {
                   </div>
 
                   {/* Visit Profile Button */}
-                  <div className="px-6 pb-6">
+                  <div className="px-3 pb-3">
                     <EncryptButton
                       text="Visit Profile →"
                       href={profile.link}
                       variant="primary"
-                      className="w-full text-sm py-3"
+                      className="w-full text-xs py-2"
                     />
                   </div>
                 </div>
