@@ -14,6 +14,59 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center px-6">
+      {/* Pulsating edge lines */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent"
+        animate={{
+          opacity: [0.3, 1, 0.3],
+          scaleX: [0.8, 1, 0.8],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent"
+        animate={{
+          opacity: [0.3, 1, 0.3],
+          scaleX: [0.8, 1, 0.8],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+      <motion.div
+        className="absolute top-0 bottom-0 left-0 w-[2px] bg-gradient-to-b from-transparent via-red-500 to-transparent"
+        animate={{
+          opacity: [0.3, 1, 0.3],
+          scaleY: [0.8, 1, 0.8],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
+      />
+      <motion.div
+        className="absolute top-0 bottom-0 right-0 w-[2px] bg-gradient-to-b from-transparent via-red-500 to-transparent"
+        animate={{
+          opacity: [0.3, 1, 0.3],
+          scaleY: [0.8, 1, 0.8],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1.5,
+        }}
+      />
+
       <div className="max-w-5xl mx-auto text-center">
         {/* Heading with typewriter font */}
         <motion.div
@@ -25,7 +78,7 @@ export default function Hero() {
           }}
           className="relative z-10"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-hacker tracking-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
             <TypingAnimation
               text="Hi, I'm Ojas Srivastava"
               duration={80}
