@@ -14,26 +14,26 @@ export default function About() {
       hasDetails: true,
       educationDetails: [
         { 
-          label: "B.Tech - Computer Science", 
-          score: "9.44/10", 
-          year: "2023 - Present",
-          school: "SRM Institute of Science and Technology",
-          location: "Chennai, Tamil Nadu",
-          note: "Till Sem-3"
+          label: "B.Tech - Artificial Intelligence", 
+          score: "9.12/10", 
+          year: "2024 - Present",
+          school: "Sardar Vallabhbhai National Institute of Technology",
+          location: "Surat,Gujarat",
+          note: "Till Sem-2"
         },
         { 
           label: "12th (CBSE)", 
           score: "95.2%", 
-          year: "2022 - 2023",
-          school: "Your High School Name",
-          location: "Your City, State"
+          year: "2023 - 2024",
+          school: "Shiv Jyoti Convent School",
+          location: "Kota,Rajasthan"
         },
         { 
-          label: "10th (CBSE)", 
-          score: "98.2%", 
-          year: "2020 - 2021",
-          school: "Your High School Name",
-          location: "Your City, State"
+          label: "10th (ICSE)", 
+          score: "97.2%", 
+          year: "2021 - 2022",
+          school: "St. Joseph's College",
+          location: "Prayagraj,Uttar Pradesh"
         }
       ]
     },
@@ -42,6 +42,12 @@ export default function About() {
       title: "Developer",
       description: "Full-Stack Enthusiast",
       detail: "Creating seamless web experiences"
+    },
+    {
+      icon: "🤖",
+      title: "AI/ML",
+      description: "Machine Learning Enthusiast",
+      detail: "Building intelligent systems and models"
     },
     {
       icon: "🏆",
@@ -339,20 +345,40 @@ export default function About() {
         >
           {[
             { label: "Years Coding", value: "3+" },
-            { label: "Projects Built", value: "20+" },
-            { label: "Problems Solved", value: "500+" },
+            { label: "Projects Built", value: "5+" },
+            { label: "Problems Solved", value: "300+" },
             { label: "Cups of Coffee", value: "∞" }
           ].map((stat, index) => (
-            <SpringCard key={index}>
-              <div className="p-6 rounded-xl bg-black border border-red-500/20 text-center">
-                <div className="text-3xl font-bold text-red-500 mb-2 font-mono">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              className="group relative"
+            >
+              <div className="p-6 rounded-xl bg-black border-2 border-dashed border-red-500/30 text-center transition-all duration-300 hover:border-red-500 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
+                <motion.div 
+                  className="text-3xl font-bold text-red-500 mb-2 font-mono"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 + 0.2, type: "spring", bounce: 0.5 }}
+                >
                   {stat.value}
-                </div>
+                </motion.div>
                 <div className="text-sm text-gray-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   {stat.label}
                 </div>
+                
+                {/* Corner dots */}
+                <div className="absolute -top-1 -left-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-            </SpringCard>
+            </motion.div>
           ))}
         </motion.div>
       </div>
