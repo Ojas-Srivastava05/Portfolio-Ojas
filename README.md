@@ -232,3 +232,20 @@ This project is open source and available under the [MIT License](LICENSE).
   <p>Built with ❤️ by Ojas Srivastava</p>
   <p>© 2024 Ojas Srivastava. All rights reserved.</p>
 </div>
+
+## Contact Form Setup
+
+The contact form uses **FormSubmit.co** (free service, no backend needed).
+
+### First-Time Setup:
+1. Submit the contact form once from your deployed website
+2. Check your email (`srivastavaojas454@gmail.com`) for a verification link from FormSubmit
+3. Click the verification link to activate the form
+4. All future submissions will be sent directly to your email
+
+### Features:
+- ✅ No backend required
+- ✅ AJAX submission (no page reload)
+- ✅ Success/error notifications
+- ✅ Form validation
+- ✅ Spam protection built-in

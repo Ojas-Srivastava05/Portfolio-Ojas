@@ -18,7 +18,6 @@ export default function Contact() {
     setSubmitStatus(null);
 
     try {
-      // Using FormSubmit.co - a free form submission service
       const response = await fetch('https://formsubmit.co/ajax/srivastavaojas454@gmail.com', {
         method: 'POST',
         headers: {
@@ -30,17 +29,21 @@ export default function Contact() {
           email: formData.email,
           message: formData.message,
           _subject: `Portfolio Contact from ${formData.name}`,
-          _captcha: 'false'
+          _captcha: 'false',
+          _template: 'table'
         })
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setSubmitStatus('success');
         setFormData({ name: "", email: "", message: "" });
       } else {
         setSubmitStatus('error');
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -77,7 +80,7 @@ export default function Contact() {
     {
       icon: "https://cdn.simpleicons.org/googlemaps/4285F4",
       label: "Location",
-      value: "Prayagraj,India",
+      value: "Prayagraj, India",
       link: null
     }
   ];
