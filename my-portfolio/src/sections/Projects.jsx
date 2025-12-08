@@ -8,56 +8,104 @@ export default function Projects() {
 
   const projects = [
     {
-      title: "AI Chat Application",
-      description: "Real-time chat application with AI-powered responses using OpenAI GPT-4 API",
-      tech: ["React", "Node.js", "OpenAI", "Socket.io"],
-      image: "🤖",
-      github: "#",
-      live: "#",
-      category: "AI/ML"
+      title: "RangRiti – Cultural Tech Platform",
+      description: "Full-stack web platform bridging traditional Indian art and modern digital audience with AI-powered tools, VR rooms, and artisan marketplace",
+      tech: ["Node.js", "Express", "MongoDB", "Cloudinary", "Hugging Face", "EJS"],
+      image: "🎨",
+      github: "https://github.com/Ojas-Srivastava05/RangRiti",
+      live: "https://rangriti.onrender.com",
+      category: "Web Dev",
+      featured: true,
+      details: {
+        tagline: "Bridging Tradition and Technology to Celebrate Indian Art",
+        highlights: [
+          "40+ Indian artforms with educational context",
+          "AI-powered art preview generation",
+          "Immersive VR cultural rooms",
+          "Global artisan marketplace",
+          "Text-to-speech mythology narrations"
+        ]
+      }
     },
     {
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with payment integration and admin dashboard",
-      tech: ["Next.js", "MongoDB", "Stripe", "Tailwind"],
-      image: "🛒",
-      github: "#",
-      live: "#",
-      category: "Web Dev"
+      title: "ClimaTrack – Temperature Predictor",
+      description: "Machine Learning temperature prediction system using Linear Regression with Gradient Descent trained from scratch in Python",
+      tech: ["Python", "Flask", "Linear Regression", "React", "OpenWeather API"],
+      image: "🌤️",
+      github: "https://github.com/Ojas-Srivastava05/TempPredictor",
+      live: "https://climatrack-2o3u.onrender.com",
+      category: "ML",
+      details: {
+        highlights: [
+          "Custom gradient descent implementation",
+          "Real-time weather data integration",
+          "Tomorrow's temperature prediction",
+          "Full-stack ML deployment",
+          "First ML project milestone"
+        ]
+      }
     },
     {
-      title: "Algorithm Visualizer",
-      description: "Interactive tool to visualize sorting and pathfinding algorithms in real-time",
-      tech: ["React", "TypeScript", "D3.js"],
-      image: "📊",
-      github: "#",
-      live: "#",
-      category: "DSA"
+      title: "Clubify – Campus Community Platform",
+      description: "Modern platform streamlining how students discover, join, and engage with campus clubs and events through unified communication and management",
+      tech: ["React", "Node.js", "Express", "MongoDB", "JWT Auth", "Cloudinary"],
+      image: "🎯",
+      github: "https://github.com/Ojas-Srivastava05/WPP-Project.git",
+      live: "https://github.com/Ojas-Srivastava05/WPP-Project.git",
+      category: "Web Dev",
+      featured: true,
+      details: {
+        highlights: [
+          "Personalized club discovery feed",
+          "Event management & registration tracking",
+          "Seamless membership onboarding workflow",
+          "Role-based admin dashboard",
+          "Real-time updates and analytics"
+        ]
+      }
     },
     {
-      title: "Neural Network Trainer",
-      description: "Custom neural network implementation with visualization of training process",
-      tech: ["Python", "TensorFlow", "Flask", "React"],
-      image: "🧠",
-      github: "#",
-      live: "#",
-      category: "ML"
+      title: "INK'D – Digital Diary Terminal",
+      description: "Futuristic AI-powered diary app with PDF generation, QR code linking, and intelligent AI summaries using Cohere API",
+      tech: ["Node.js", "Express", "Cohere API", "PDF Generation", "QR Code"],
+      image: "✍️",
+      github: "https://github.com/Ojas-Srivastava05/inkd-diary",
+      live: "https://inkd-diary.onrender.com",
+      category: "Web Dev",
+      details: {
+        highlights: [
+          "Auto-generated PDF for each entry",
+          "QR code links to generated PDFs",
+          "AI-powered entry summaries",
+          "Animated, responsive UI",
+          "Secure diary management"
+        ]
+      }
     },
     {
-      title: "Code Compiler",
-      description: "Online code editor and compiler supporting multiple programming languages",
-      tech: ["React", "Node.js", "Docker", "Monaco"],
-      image: "💻",
-      github: "#",
-      live: "#",
-      category: "Web Dev"
+      title: "DSA Problem Solutions",
+      description: "Comprehensive collection of Data Structures & Algorithms solutions across multiple competitive programming platforms",
+      tech: ["C++", "Python", "Java", "Algorithms", "Problem Solving"],
+      image: "💡",
+      github: "https://github.com/Ojas-Srivastava05",
+      live: "https://github.com/Ojas-Srivastava05",
+      category: "DSA",
+      details: {
+        platforms: ["LeetCode", "CodeChef", "Codeforces", "TLE Eliminators"],
+        highlights: [
+          "300+ problems solved",
+          "Organized by topic and difficulty",
+          "Optimized solutions with explanations",
+          "Regular updates with new problems"
+        ]
+      }
     },
     {
       title: "Portfolio Website",
       description: "Modern portfolio with smooth animations and interactive UI components",
       tech: ["React", "Framer Motion", "Tailwind"],
       image: "🎨",
-      github: "#",
+      github: "https://github.com/Ojas-Srivastava05/Portfolio-Ojas.git",
       live: "#",
       category: "Web Dev"
     }
@@ -152,7 +200,7 @@ export default function Projects() {
                     <div className="flex gap-2">
                       <EncryptButton
                         text="View Demo"
-                        href={project.demo}
+                        href={project.live}
                         variant="primary"
                         className="flex-1 text-xs py-2"
                       />
