@@ -109,71 +109,68 @@ export default function Projects() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              transition={{ delay: index * 0.1 }}
             >
               <SpringCard>
-                <div
-                  className="relative h-full rounded-2xl overflow-hidden backdrop-blur-sm"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(15, 23, 42, 0.8) 100%)',
-                    border: '1px solid rgba(239, 68, 68, 0.2)',
-                  }}
-                >
-                  {/* Project Icon/Emoji */}
-                  <div className="relative h-48 flex items-center justify-center bg-gradient-to-br from-black/90 to-slate-950/90">
-                    <div className="text-8xl">{project.image}</div>
-                    
-                    {/* Category badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold font-hacker"
-                      style={{
-                        background: 'rgba(239, 68, 68, 0.2)',
-                        border: '1px solid rgba(239, 68, 68, 0.4)',
-                        color: '#fca5a5',
-                      }}
-                    >
-                      {project.category}
-                    </div>
+                <div className="group relative h-full rounded-xl overflow-hidden bg-gradient-to-br from-black/95 to-slate-900/95 border border-red-500/20 hover:border-red-500/50 transition-all duration-300">
+                  {/* Project Image */}
+                  <div className="relative h-40 overflow-hidden bg-gradient-to-br from-red-500/10 to-purple-500/10">
+                    <motion.img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                   </div>
 
                   {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-2xl font-bold text-neon-red-intense mb-2 group-hover:text-red-300 transition-colors font-hacker">
-                      {project.title}
-                    </h3>
-                    <p className="text-neon-red-subtle text-sm mb-4 line-clamp-2 font-hacker">
+                  <div className="p-5">
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors font-hacker">
+                        {project.title}
+                      </h3>
+                      <span className="text-2xl">{project.icon}</span>
+                    </div>
+
+                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                       {project.description}
                     </p>
 
                     {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {project.tech.map((tech, i) => (
                         <span
                           key={i}
-                          className="text-xs px-2 py-1 rounded-md bg-red-950/30 text-red-300 border border-red-800/50 font-hacker"
-                          style={{
-                            textShadow: '0 0 5px rgba(239, 68, 68, 0.5)',
-                          }}
+                          className="px-2 py-1 text-[10px] font-semibold rounded-md bg-red-500/10 text-red-400 border border-red-500/30"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
 
-                    {/* Links with EncryptButton */}
-                    <div className="flex gap-3">
+                    {/* Action Buttons */}
+                    <div className="flex gap-2">
                       <EncryptButton
-                        text="GitHub"
-                        href={project.github}
-                        variant="outline"
-                        className="flex-1 text-xs py-2 font-hacker"
+                        text="View Demo"
+                        href={project.demo}
+                        variant="primary"
+                        className="flex-1 text-xs py-2"
                       />
                       <EncryptButton
-                        text="Live Demo"
-                        href={project.live}
-                        variant="primary"
-                        className="flex-1 text-xs py-2 font-hacker"
+                        text="Code"
+                        href={project.github}
+                        variant="secondary"
+                        className="flex-1 text-xs py-2"
                       />
                     </div>
+                  </div>
+
+                  {/* Hover Effect Border */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-red-500" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-red-500" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-red-500" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-red-500" />
                   </div>
                 </div>
               </SpringCard>

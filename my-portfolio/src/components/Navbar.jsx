@@ -63,7 +63,7 @@ export const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="relative z-10">{"Ojas."}</span>
+            <span className="relative z-10">{"Ojas Srivastava."}</span>
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-purple-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity"
               animate={{
