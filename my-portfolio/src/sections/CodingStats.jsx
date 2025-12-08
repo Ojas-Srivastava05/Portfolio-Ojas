@@ -205,10 +205,9 @@ export default function CodingStats() {
             >
               <SpringCard>
                 <div
-                  className="p-4 rounded-xl text-center backdrop-blur-sm"
+                  className="p-4 rounded-xl text-center backdrop-blur-sm border border-red-500/20"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%)',
-                    border: '1px solid rgba(239, 68, 68, 0.2)',
+                    background: 'black',
                   }}
                 >
                   <div className="text-2xl mb-1">{stat.icon}</div>
@@ -236,12 +235,12 @@ export default function CodingStats() {
                 <div
                   className="relative h-full rounded-xl overflow-hidden backdrop-blur-sm"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.98) 0%, rgba(15, 23, 42, 0.95) 100%)',
+                    background: 'black',
                     border: `1px solid ${profile.color}40`,
                   }}
                 >
                   {/* Header */}
-                  <div className={`relative p-4 bg-gradient-to-br ${profile.bgGradient}`}>
+                  <div className="relative p-4 bg-black">
                     <div className="flex items-center justify-between mb-2">
                       <img 
                         src={profile.icon} 
@@ -283,7 +282,8 @@ export default function CodingStats() {
                       {profile.stats.map((stat, i) => (
                         <div
                           key={i}
-                          className="relative p-2 rounded-lg bg-black/60 border border-slate-700/50 hover:border-red-500/50 transition-colors"
+                          className="relative p-2 rounded-lg border border-red-500/20 hover:border-red-500/50 transition-colors"
+                          style={{ background: 'black' }}
                         >
                           <div className="flex items-start gap-1.5">
                             <span className="text-base">{stat.icon}</span>
