@@ -28,17 +28,11 @@ export default function CodingStats() {
       stats: stats.github ? [
         { label: "Public Repos", value: stats.github.repositories, icon: "📦", description: "Open source projects" },
         { label: "Total Stars", value: stats.github.stars, icon: "⭐", description: "Community appreciation" },
-        { label: "Followers", value: stats.github.followers, icon: "👥", description: "Developer network" },
-        { label: "Following", value: stats.github.following, icon: "👤", description: "Connections" },
         { label: "Contributions", value: stats.github.contributions, icon: "📊", description: "This year" },
-        { label: "Public Gists", value: stats.github.gists || 0, icon: "📝", description: "Code snippets" },
       ] : [
         { label: "Public Repos", value: "...", icon: "📦", description: "Loading..." },
         { label: "Total Stars", value: "...", icon: "⭐", description: "Loading..." },
-        { label: "Followers", value: "...", icon: "👥", description: "Loading..." },
-        { label: "Following", value: "...", icon: "👤", description: "Loading..." },
         { label: "Contributions", value: "...", icon: "📊", description: "Loading..." },
-        { label: "Public Gists", value: "...", icon: "📝", description: "Loading..." },
       ],
       link: `https://github.com/${usernames.github}`,
       bgGradient: "from-red-900/30 to-slate-900/50",
@@ -52,18 +46,12 @@ export default function CodingStats() {
       color: "#f87171",
       stats: stats.leetcode ? [
         { label: "Total Solved", value: stats.leetcode.totalSolved, icon: "✅", description: "Problems completed" },
-        { label: "Easy Problems", value: stats.leetcode.easySolved, icon: "🟢", description: `/${stats.leetcode.totalEasy || 0}` },
-        { label: "Medium Problems", value: stats.leetcode.mediumSolved, icon: "🟡", description: `/${stats.leetcode.totalMedium || 0}` },
-        { label: "Hard Problems", value: stats.leetcode.hardSolved, icon: "🔴", description: `/${stats.leetcode.totalHard || 0}` },
-        { label: "Acceptance Rate", value: `${stats.leetcode.acceptanceRate || 0}%`, icon: "📈", description: "Solution quality" },
         { label: "Contest Rating", value: stats.leetcode.rating || "N/A", icon: "🎯", description: "Competitive score" },
+        { label: "Acceptance Rate", value: `${stats.leetcode.acceptanceRate || 0}%`, icon: "📈", description: "Solution quality" },
       ] : [
         { label: "Total Solved", value: "...", icon: "✅", description: "Loading..." },
-        { label: "Easy Problems", value: "...", icon: "🟢", description: "Loading..." },
-        { label: "Medium Problems", value: "...", icon: "🟡", description: "Loading..." },
-        { label: "Hard Problems", value: "...", icon: "🔴", description: "Loading..." },
-        { label: "Acceptance Rate", value: "...", icon: "📈", description: "Loading..." },
         { label: "Contest Rating", value: "...", icon: "🎯", description: "Loading..." },
+        { label: "Acceptance Rate", value: "...", icon: "📈", description: "Loading..." },
       ],
       link: `https://leetcode.com/${usernames.leetcode}`,
       bgGradient: "from-orange-900/30 to-slate-900/50",
@@ -79,16 +67,10 @@ export default function CodingStats() {
         { label: "Current Rating", value: stats.codechef.rating, icon: "⭐", description: "Live ranking" },
         { label: "Max Rating", value: stats.codechef.maxRating, icon: "🏆", description: "Peak performance" },
         { label: "Stars", value: `${stats.codechef.stars} ⭐`, icon: "✨", description: "Skill level" },
-        { label: "Global Rank", value: stats.codechef.globalRank || "N/A", icon: "🌍", description: "Worldwide standing" },
-        { label: "Country Rank", value: stats.codechef.countryRank || "N/A", icon: "🇮🇳", description: "National position" },
-        { label: "Problems Solved", value: stats.codechef.problemsSolved || "N/A", icon: "✅", description: "Total challenges" },
       ] : [
         { label: "Current Rating", value: "...", icon: "⭐", description: "Loading..." },
         { label: "Max Rating", value: "...", icon: "🏆", description: "Loading..." },
         { label: "Stars", value: "...", icon: "✨", description: "Loading..." },
-        { label: "Global Rank", value: "...", icon: "🌍", description: "Loading..." },
-        { label: "Country Rank", value: "...", icon: "🇮🇳", description: "Loading..." },
-        { label: "Problems Solved", value: "...", icon: "✅", description: "Loading..." },
       ],
       link: `https://www.codechef.com/users/${usernames.codechef}`,
       bgGradient: "from-brown-900/30 to-slate-900/50",
@@ -104,16 +86,10 @@ export default function CodingStats() {
         { label: "Current Rating", value: stats.codeforces.rating, icon: "⭐", description: "Active score" },
         { label: "Max Rating", value: stats.codeforces.maxRating, icon: "🏆", description: "Personal best" },
         { label: "Rank", value: stats.codeforces.rank, icon: "🎖️", description: "Skill division" },
-        { label: "Max Rank", value: stats.codeforces.maxRank || "N/A", icon: "👑", description: "Highest achieved" },
-        { label: "Contests", value: stats.codeforces.contests || "N/A", icon: "🎪", description: "Participated" },
-        { label: "Problems Solved", value: stats.codeforces.problemsSolved || "N/A", icon: "✅", description: "Total count" },
       ] : [
         { label: "Current Rating", value: "...", icon: "⭐", description: "Loading..." },
         { label: "Max Rating", value: "...", icon: "🏆", description: "Loading..." },
         { label: "Rank", value: "...", icon: "🎖️", description: "Loading..." },
-        { label: "Max Rank", value: "...", icon: "👑", description: "Loading..." },
-        { label: "Contests", value: "...", icon: "🎪", description: "Loading..." },
-        { label: "Problems Solved", value: "...", icon: "✅", description: "Loading..." },
       ],
       link: `https://codeforces.com/profile/${usernames.codeforces}`,
       bgGradient: "from-blue-900/30 to-slate-900/50",
@@ -127,17 +103,11 @@ export default function CodingStats() {
       color: "#f87171",
       stats: stats.kaggle ? [
         { label: "Tier", value: stats.kaggle.tier, icon: "🏅", description: "Achievement level" },
-        { label: "Competition Rank", value: stats.kaggle.competitionRank || "N/A", icon: "🏆", description: "Leaderboard position" },
         { label: "Competitions", value: stats.kaggle.competitions, icon: "🎯", description: "Participated" },
-        { label: "Datasets", value: stats.kaggle.datasets, icon: "📁", description: "Contributions" },
-        { label: "Notebooks", value: stats.kaggle.notebooks || 0, icon: "📓", description: "Published work" },
         { label: "Total Medals", value: stats.kaggle.totalMedals || 0, icon: "🥇", description: "Achievements" },
       ] : [
         { label: "Tier", value: "...", icon: "🏅", description: "Loading..." },
-        { label: "Competition Rank", value: "...", icon: "🏆", description: "Loading..." },
         { label: "Competitions", value: "...", icon: "🎯", description: "Loading..." },
-        { label: "Datasets", value: "...", icon: "📁", description: "Loading..." },
-        { label: "Notebooks", value: "...", icon: "📓", description: "Loading..." },
         { label: "Total Medals", value: "...", icon: "🥇", description: "Loading..." },
       ],
       link: `https://www.kaggle.com/${usernames.kaggle}`,
@@ -153,10 +123,7 @@ export default function CodingStats() {
       stats: [
         { label: "Network Size", value: "500+", icon: "👥", description: "Professional connections" },
         { label: "Profile Views", value: "Active", icon: "👁️", description: "Engagement" },
-        { label: "Posts", value: "Regular", icon: "📝", description: "Content creation" },
         { label: "Endorsements", value: "Multiple", icon: "👍", description: "Skill validation" },
-        { label: "Recommendations", value: "Available", icon: "⭐", description: "Peer reviews" },
-        { label: "Articles", value: "Published", icon: "📰", description: "Thought leadership" },
       ],
       link: `https://www.linkedin.com/in/${usernames.linkedin}`,
       bgGradient: "from-blue-900/30 to-slate-900/50",
@@ -308,7 +275,7 @@ export default function CodingStats() {
 
                   {/* Detailed Stats Grid */}
                   <div className="p-3">
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 gap-2">
                       {profile.stats.map((stat, i) => (
                         <div
                           key={i}
