@@ -87,7 +87,7 @@ export default function Hero() {
           </h1>
         </motion.div>
 
-        {/* Subtitle with hacker font and rotating text */}
+        {/* Subtitle with rotating text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,9 +96,10 @@ export default function Hero() {
             duration: 0.8,
             ease: [0.16, 1, 0.3, 1]
           }}
-          className="text-xl md:text-2xl lg:text-3xl text-gray-400 mb-12 h-12 font-hacker font-light tracking-widest uppercase"
+          className="text-xl md:text-2xl lg:text-3xl text-gray-400 mb-12 h-12 font-light tracking-widest uppercase"
           style={{
             textShadow: '0 0 10px rgba(239, 68, 68, 0.3)',
+            fontFamily: "'Space Grotesk', sans-serif"
           }}
         >
           <RotatingText
