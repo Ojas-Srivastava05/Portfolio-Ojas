@@ -9,7 +9,7 @@ export default function About() {
     {
       icon: "🎓",
       title: "Education",
-      description: "Computer Science Student",
+      description: "Artificial Intelligence Student",
       detail: "Building strong foundations in algorithms and systems",
       hasDetails: true,
       educationDetails: [
