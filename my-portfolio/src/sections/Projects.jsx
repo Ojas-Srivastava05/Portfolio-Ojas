@@ -102,12 +102,13 @@ export default function Projects() {
     },
     {
       title: "Portfolio Website",
-      description: "Modern portfolio with smooth animations and interactive UI components",
+      description: "Modern portfolio with smooth animations and interactive UI components built in just 16 hours",
       tech: ["React", "Framer Motion", "Tailwind"],
       image: "/portfolio-preview.png?v=1",
       github: "https://github.com/Ojas-Srivastava05/Portfolio-Ojas.git",
       live: "https://portfolio-ojas-teal.vercel.app/",
-      category: "Web Dev"
+      category: "Web Dev",
+      buildTime: "16 hours"
     }
   ];
 
@@ -169,6 +170,22 @@ export default function Projects() {
                       className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                    
+                    {/* Build Time Badge */}
+                    {project.buildTime && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="absolute top-3 right-3 z-10"
+                      >
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/90 backdrop-blur-sm border border-red-400 shadow-lg shadow-red-500/50">
+                          <span className="text-lg">⚡</span>
+                          <span className="text-xs font-bold text-white">
+                            {project.buildTime}
+                          </span>
+                        </div>
+                      </motion.div>
+                    )}
                   </div>
 
                   {/* Content */}
