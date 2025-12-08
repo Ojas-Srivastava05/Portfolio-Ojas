@@ -7,6 +7,10 @@
 
 > A modern, interactive portfolio website showcasing my journey as a Computer Science student, Full-Stack Developer, and Machine Learning enthusiast.
 
+## 🌐 Live Demo
+
+**🔗 [View Live Portfolio](https://portfolio-ojas-teal.vercel.app/)**
+
 ## ✨ Features
 
 - **🎨 Modern UI/UX**: Built with React and Framer Motion for smooth animations and transitions

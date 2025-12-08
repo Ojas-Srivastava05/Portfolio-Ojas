@@ -106,7 +106,7 @@ export default function Projects() {
       tech: ["React", "Framer Motion", "Tailwind"],
       image: "public/Screenshot 2025-12-08 at 2.49.59 PM.png",
       github: "https://github.com/Ojas-Srivastava05/Portfolio-Ojas.git",
-      live: "#",
+      live: "https://portfolio-ojas-teal.vercel.app/",
       category: "Web Dev"
     }
   ];
