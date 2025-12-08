@@ -124,7 +124,7 @@ export default function Projects() {
                     <div className="text-8xl">{project.image}</div>
                     
                     {/* Category badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold"
+                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold font-hacker"
                       style={{
                         background: 'rgba(239, 68, 68, 0.2)',
                         border: '1px solid rgba(239, 68, 68, 0.4)',
@@ -137,10 +137,10 @@ export default function Projects() {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-2xl font-bold text-neon-red-intense mb-2 group-hover:text-red-300 transition-colors">
+                    <h3 className="text-2xl font-bold text-neon-red-intense mb-2 group-hover:text-red-300 transition-colors font-hacker">
                       {project.title}
                     </h3>
-                    <p className="text-neon-red-subtle text-sm mb-4 line-clamp-2">
+                    <p className="text-neon-red-subtle text-sm mb-4 line-clamp-2 font-hacker">
                       {project.description}
                     </p>
 
@@ -149,7 +149,7 @@ export default function Projects() {
                       {project.tech.map((tech, i) => (
                         <span
                           key={i}
-                          className="text-xs px-2 py-1 rounded-md bg-red-950/30 text-red-300 border border-red-800/50"
+                          className="text-xs px-2 py-1 rounded-md bg-red-950/30 text-red-300 border border-red-800/50 font-hacker"
                           style={{
                             textShadow: '0 0 5px rgba(239, 68, 68, 0.5)',
                           }}
@@ -165,13 +165,13 @@ export default function Projects() {
                         text="GitHub"
                         href={project.github}
                         variant="outline"
-                        className="flex-1 text-xs py-2"
+                        className="flex-1 text-xs py-2 font-hacker"
                       />
                       <EncryptButton
                         text="Live Demo"
                         href={project.live}
                         variant="primary"
-                        className="flex-1 text-xs py-2"
+                        className="flex-1 text-xs py-2 font-hacker"
                       />
                     </div>
                   </div>
