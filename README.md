@@ -218,10 +218,13 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📬 Contact
 
 **Ojas Srivastava**
-- 🌐 Portfolio: [Visit Live Site](#)
-- 💼 LinkedIn: [Connect with me](#)
+- 💼 LinkedIn: [linkedin.com/in/ojas-srivastava05](https://www.linkedin.com/in/ojas-srivastava05)
 - 🐱 GitHub: [@Ojas-Srivastava05](https://github.com/Ojas-Srivastava05)
-- 📧 Email: [Contact via portfolio](#)
+- 📧 Email: srivastavaojas454@gmail.com
+- 💻 LeetCode: [Oju_Srivastava](https://leetcode.com/Oju_Srivastava)
+- 🏆 CodeChef: [ojassrivastava](https://www.codechef.com/users/ojassrivastava)
+- 🎯 Codeforces: [oju](https://codeforces.com/profile/oju)
+- 📊 Kaggle: [ojassrivastava05](https://www.kaggle.com/ojassrivastava05)
 
 ---
 
