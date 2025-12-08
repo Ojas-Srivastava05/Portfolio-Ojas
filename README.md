@@ -5,7 +5,7 @@
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4.18-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-> A modern, interactive portfolio website showcasing my journey as a Computer Science student, Full-Stack Developer, and Machine Learning enthusiast.
+> A modern, interactive portfolio website showcasing my journey as a Artificial Intelligence student, Full-Stack Developer, and Machine Learning enthusiast.
 
 ## 🌐 Live Demo
 
