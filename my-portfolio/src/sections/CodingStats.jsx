@@ -23,7 +23,7 @@ export default function CodingStats() {
     {
       name: "GitHub",
       username: `@${usernames.github}`,
-      icon: "💻",
+      icon: "https://cdn.simpleicons.org/github/white",
       color: "#ef4444",
       stats: stats.github ? [
         { label: "Public Repos", value: stats.github.repositories, icon: "📦", description: "Open source projects" },
@@ -35,14 +35,14 @@ export default function CodingStats() {
         { label: "Contributions", value: "...", icon: "📊", description: "Loading..." },
       ],
       link: `https://github.com/${usernames.github}`,
-      bgGradient: "from-red-900/30 to-slate-900/50",
+      bgGradient: "from-black/50 to-slate-900/50",
       error: errors.github,
       highlights: ["Active contributor", "Open source enthusiast", "Clean code advocate"],
     },
     {
       name: "LeetCode",
       username: `@${usernames.leetcode}`,
-      icon: "🏆",
+      icon: "https://cdn.simpleicons.org/leetcode/FFA116",
       color: "#f87171",
       stats: stats.leetcode ? [
         { label: "Total Solved", value: stats.leetcode.totalSolved, icon: "✅", description: "Problems completed" },
@@ -54,14 +54,14 @@ export default function CodingStats() {
         { label: "Acceptance Rate", value: "...", icon: "📈", description: "Loading..." },
       ],
       link: `https://leetcode.com/${usernames.leetcode}`,
-      bgGradient: "from-orange-900/30 to-slate-900/50",
+      bgGradient: "from-black/50 to-slate-900/50",
       error: errors.leetcode,
       highlights: ["Algorithm expert", "Problem solver", "Contest participant"],
     },
     {
       name: "CodeChef",
       username: `@${usernames.codechef}`,
-      icon: "👨‍🍳",
+      icon: "https://cdn.simpleicons.org/codechef/5B4638",
       color: "#ef4444",
       stats: stats.codechef ? [
         { label: "Current Rating", value: stats.codechef.rating, icon: "⭐", description: "Live ranking" },
@@ -73,14 +73,14 @@ export default function CodingStats() {
         { label: "Stars", value: "...", icon: "✨", description: "Loading..." },
       ],
       link: `https://www.codechef.com/users/${usernames.codechef}`,
-      bgGradient: "from-brown-900/30 to-slate-900/50",
+      bgGradient: "from-black/50 to-slate-900/50",
       error: errors.codechef,
       highlights: ["Competitive coder", "Contest regular", "DSA specialist"],
     },
     {
       name: "Codeforces",
       username: `@${usernames.codeforces}`,
-      icon: "🎯",
+      icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
       color: "#dc2626",
       stats: stats.codeforces ? [
         { label: "Current Rating", value: stats.codeforces.rating, icon: "⭐", description: "Active score" },
@@ -92,14 +92,14 @@ export default function CodingStats() {
         { label: "Rank", value: "...", icon: "🎖️", description: "Loading..." },
       ],
       link: `https://codeforces.com/profile/${usernames.codeforces}`,
-      bgGradient: "from-blue-900/30 to-slate-900/50",
+      bgGradient: "from-black/50 to-slate-900/50",
       error: errors.codeforces,
       highlights: ["Algorithmic thinker", "Contest enthusiast", "Math problem solver"],
     },
     {
       name: "Kaggle",
       username: `@${usernames.kaggle}`,
-      icon: "📊",
+      icon: "https://cdn.simpleicons.org/kaggle/20BEFF",
       color: "#f87171",
       stats: stats.kaggle ? [
         { label: "Tier", value: stats.kaggle.tier, icon: "🏅", description: "Achievement level" },
@@ -111,14 +111,14 @@ export default function CodingStats() {
         { label: "Total Medals", value: "...", icon: "🥇", description: "Loading..." },
       ],
       link: `https://www.kaggle.com/${usernames.kaggle}`,
-      bgGradient: "from-cyan-900/30 to-slate-900/50",
+      bgGradient: "from-black/50 to-slate-900/50",
       error: errors.kaggle,
       highlights: ["Data scientist", "ML practitioner", "Competition solver"],
     },
     {
       name: "LinkedIn",
       username: `@${usernames.linkedin}`,
-      icon: "💼",
+      icon: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
       color: "#dc2626",
       stats: [
         { label: "Network Size", value: "500+", icon: "👥", description: "Professional connections" },
@@ -126,7 +126,7 @@ export default function CodingStats() {
         { label: "Endorsements", value: "Multiple", icon: "👍", description: "Skill validation" },
       ],
       link: `https://www.linkedin.com/in/${usernames.linkedin}`,
-      bgGradient: "from-blue-900/30 to-slate-900/50",
+      bgGradient: "from-black/50 to-slate-900/50",
       error: null,
       highlights: ["Tech professional", "Network builder", "Industry insights"],
     },
@@ -243,7 +243,11 @@ export default function CodingStats() {
                   {/* Header */}
                   <div className={`relative p-4 bg-gradient-to-br ${profile.bgGradient}`}>
                     <div className="flex items-center justify-between mb-2">
-                      <div className="text-3xl">{profile.icon}</div>
+                      <img 
+                        src={profile.icon} 
+                        alt={profile.name}
+                        className="w-12 h-12 object-contain"
+                      />
                       <div className="text-white text-lg opacity-50">↗</div>
                     </div>
 
