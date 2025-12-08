@@ -4,6 +4,10 @@ import Hero from "./sections/Hero";
 import Projects from "./sections/Projects";
 import CodingStats from "./sections/CodingStats";
 import { Navbar } from "./components/navbar"
+import About from "./sections/About";
+import Toolkit from "./sections/Toolkit";
+import Contact from "./sections/Contact";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -18,9 +22,13 @@ function App() {
         <Navbar/>
         <main>
           <Hero/>
+          <About />
           <Projects/>
           <CodingStats/>
+          <Toolkit />
+          <Contact />
         </main>
+        <Footer />
       </div>
     </div>
   );

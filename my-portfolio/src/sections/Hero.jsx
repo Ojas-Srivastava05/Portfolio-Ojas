@@ -13,7 +13,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6">
       <div className="max-w-5xl mx-auto text-center">
         {/* Heading with typewriter font */}
         <motion.div
@@ -55,19 +55,28 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* Call To Action */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 4.5, duration: 0.6 }}
-          className="mt-10 relative z-10"
+          className="flex flex-wrap gap-4 justify-center"
         >
           <EncryptButton
             text="View My Work"
-            icon="→"
-            href="#projects"
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             variant="primary"
-            className="text-lg px-8 py-4"
+          />
+          <EncryptButton
+            text="Download CV"
+            onClick={() => {
+              // Replace with your actual CV file path
+              const link = document.createElement('a');
+              link.href = '/Ojas_Srivastava_CV.pdf'; // Update this path
+              link.download = 'Ojas_Srivastava_CV.pdf';
+              link.click();
+            }}
+            variant="secondary"
           />
         </motion.div>
 
