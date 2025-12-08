@@ -156,18 +156,83 @@ export default function About() {
                 className="relative"
               >
                 <SpringCard>
-                  <div className="p-6 rounded-xl bg-black border border-red-500/20 h-full">
-                    <div className="text-4xl mb-3">{item.icon}</div>
-                    <h4 className="text-lg font-bold text-white mb-1" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                  <motion.div 
+                    className={`p-6 rounded-xl bg-black border h-full relative overflow-hidden ${
+                      item.hasDetails 
+                        ? 'border-red-500/40' 
+                        : 'border-red-500/20'
+                    }`}
+                    animate={item.hasDetails ? {
+                      boxShadow: [
+                        '0 0 20px rgba(239, 68, 68, 0.3)',
+                        '0 0 40px rgba(239, 68, 68, 0.5)',
+                        '0 0 20px rgba(239, 68, 68, 0.3)',
+                      ],
+                    } : {}}
+                    transition={item.hasDetails ? {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    } : {}}
+                  >
+                    {/* Shimmer effect for Education card */}
+                    {item.hasDetails && (
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/20 to-transparent"
+                        animate={{
+                          x: ['-100%', '200%'],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "linear",
+                          repeatDelay: 1,
+                        }}
+                      />
+                    )}
+
+                    <motion.div 
+                      className="text-4xl mb-3 relative z-10"
+                      animate={item.hasDetails ? {
+                        y: [0, -8, 0],
+                        rotate: [0, 5, -5, 0],
+                      } : {}}
+                      transition={item.hasDetails ? {
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      } : {}}
+                    >
+                      {item.icon}
+                    </motion.div>
+                    <h4 className="text-lg font-bold text-white mb-1 relative z-10" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                       {item.title}
                     </h4>
-                    <p className="text-sm text-red-400 mb-2 font-semibold">
+                    <p className="text-sm text-red-400 mb-2 font-semibold relative z-10">
                       {item.description}
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-400 relative z-10">
                       {item.detail}
                     </p>
-                  </div>
+
+                    {/* "Hover Me" indicator for Education card */}
+                    {item.hasDetails && hoveredCard !== index && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: [0.5, 1, 0.5], y: [0, -5, 0] }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="absolute bottom-2 right-2 z-10"
+                      >
+                        <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-red-500/20 border border-red-500/50 backdrop-blur-sm">
+                          <span className="text-[10px] text-red-400 font-bold">👆 Hover</span>
+                        </div>
+                      </motion.div>
+                    )}
+                  </motion.div>
                 </SpringCard>
 
                 {/* Education Details Popup - Appears outside the card */}
