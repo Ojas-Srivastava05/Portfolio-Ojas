@@ -23,14 +23,14 @@ export default function About() {
         },
         { 
           label: "12th (CBSE)", 
-          score: "95.2%", 
+          score: "95.80%", 
           year: "2023 - 2024",
           school: "Shiv Jyoti Convent School",
           location: "Kota,Rajasthan"
         },
         { 
           label: "10th (ICSE)", 
-          score: "97.2%", 
+          score: "97.20%", 
           year: "2021 - 2022",
           school: "St. Joseph's College",
           location: "Prayagraj,Uttar Pradesh"
