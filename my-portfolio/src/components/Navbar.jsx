@@ -9,6 +9,7 @@ export const Navbar = () => {
   const navItems = [
     { name: "Home", id: "hero" },
     { name: "About", id: "about" },
+    { name: "Experience", id: "experience" },
     { name: "Projects", id: "projects" },
     { name: "Stats", id: "coding-stats" },
     { name: "Toolkit", id: "toolkit" },
@@ -48,11 +49,10 @@ export const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "bg-black/80 backdrop-blur-md border-b border-red-500/20"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
@@ -97,7 +97,7 @@ export const Navbar = () => {
                     ease: "linear"
                   }}
                 />
-                
+
                 {/* Active state background */}
                 {activeSection === item.id && (
                   <motion.div
@@ -106,7 +106,7 @@ export const Navbar = () => {
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
-                
+
                 {/* Border glow effect */}
                 <motion.div
                   className="absolute inset-0 rounded-lg"
@@ -122,16 +122,15 @@ export const Navbar = () => {
                   } : {}}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
-                
+
                 {/* Text */}
-                <span className={`relative z-10 transition-colors ${
-                  activeSection === item.id
+                <span className={`relative z-10 transition-colors ${activeSection === item.id
                     ? "text-red-400"
                     : "text-gray-300 group-hover:text-white"
-                }`}>
+                  }`}>
                   {item.name}
                 </span>
-                
+
                 {/* Cyber corners */}
                 {activeSection === item.id && (
                   <>
@@ -198,13 +197,12 @@ export const Navbar = () => {
                   >
                     {/* Background */}
                     <motion.div
-                      className={`absolute inset-0 ${
-                        activeSection === item.id
+                      className={`absolute inset-0 ${activeSection === item.id
                           ? "bg-gradient-to-r from-red-500/30 to-red-600/30"
                           : "bg-gradient-to-r from-red-500/10 to-transparent opacity-0 group-hover:opacity-100"
-                      } transition-opacity`}
+                        } transition-opacity`}
                     />
-                    
+
                     {/* Border */}
                     <div
                       className="absolute inset-0 rounded-lg border"
@@ -212,13 +210,12 @@ export const Navbar = () => {
                         borderColor: activeSection === item.id ? 'rgba(239, 68, 68, 0.5)' : 'rgba(255, 255, 255, 0.1)',
                       }}
                     />
-                    
+
                     {/* Text */}
-                    <span className={`relative z-10 ${
-                      activeSection === item.id
+                    <span className={`relative z-10 ${activeSection === item.id
                         ? "text-red-400"
                         : "text-gray-300 group-hover:text-white"
-                    }`}>
+                      }`}>
                       {item.name}
                     </span>
                   </motion.button>
