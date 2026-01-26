@@ -10,7 +10,7 @@ const ExperienceCard = ({ experience, index }) => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            className={`relative flex items-center justify-between md:justify-normal gap-8 w-full ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
+            className={`relative flex items-center justify-between md:justify-between gap-8 w-full ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
                 }`}
         >
             {/* Date for Desktop */}
@@ -24,13 +24,13 @@ const ExperienceCard = ({ experience, index }) => {
                     </div>
                 ) : (
                     <div className="text-right">
-                        <span className="text-4xl font-bold text-gray-800/50">{experience.year}</span>
+                        <span className="text-4xl font-bold text-gray-500/80">{experience.year}</span>
                     </div>
                 )}
             </div>
 
             {/* Timeline Dot */}
-            <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full border-4 border-black z-10">
+            <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-red-500 rounded-full border-4 border-black z-10">
                 <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-20" />
             </div>
 
@@ -38,7 +38,7 @@ const ExperienceCard = ({ experience, index }) => {
             <div className="w-full md:w-5/12 pl-12 md:pl-0">
                 {index % 2 === 0 ? (
                     <div className="text-left md:text-left">
-                        <span className="hidden md:block text-4xl font-bold text-gray-800/50 mb-2">{experience.year}</span>
+                        <span className="hidden md:block text-4xl font-bold text-gray-500/80 mb-2">{experience.year}</span>
                         <span className="md:hidden text-2xl font-bold text-red-500 mb-1 block">{experience.year}</span>
                         <SpringCard>
                             <div className="p-6 bg-black border border-red-500/20 rounded-xl relative overflow-hidden group hover:border-red-500/50 transition-colors duration-500">

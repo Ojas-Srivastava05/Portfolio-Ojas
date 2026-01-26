@@ -1,149 +1,63 @@
 import { motion } from "framer-motion";
-import { EncryptButton } from "../components/ui/EncryptButton";
 import SpringCard from "../components/ui/SpringCard";
+import { EncryptButton } from "../components/ui/EncryptButton";
 
 export default function CodingStats() {
+  // Configuration for Live Widgets
+  // Using reliable "ReadMe Stats" services to generate live SVGs
 
-  // Snapshot Stats Strategy: API wrappers were unreliable/broken (CORS issues, rate limits).
-  // Using hardcoded "Snapshot" values to ensure reliability for the user.
-  // Last Updated: January 2026
-
-  const stats = {
-    github: {
-      repositories: 25,
-      stars: "10+",
-      contributions: "500+"
-    },
-    leetcode: {
-      totalSolved: "150+",
-      rating: "N/A", // Not rated yet or data unavailable
-      acceptanceRate: 60
-    },
-    codechef: {
-      rating: 1600, // Approx for 3 Star
-      maxRating: 1650,
-      stars: 3
-    },
-    codeforces: {
-      rating: 1000,
-      maxRating: 1000,
-      rank: "Newbie"
-    },
-    kaggle: {
-      tier: "Expert", // Preserved from legacy code
-      competitions: "15+",
-      totalMedals: 3
-    }
-  };
-
-  const profiles = [
+  const widgets = [
     {
-      name: "GitHub",
-      username: "@Ojas-Srivastava05",
-      icon: "https://cdn.simpleicons.org/github/white",
-      color: "#ef4444",
-      stats: [
-        { label: "Public Repos", value: stats.github.repositories, icon: "📦", description: "Open source" },
-        { label: "Total Stars", value: stats.github.stars, icon: "⭐", description: "Stargazers" },
-        { label: "Contributions", value: stats.github.contributions, icon: "📊", description: "Past Year" },
-      ],
+      platform: "GitHub Stats",
+      url: "https://github-readme-stats.vercel.app/api?username=Ojas-Srivastava05&show_icons=true&theme=dark&bg_color=00000000&hide_border=true&title_color=ef4444&icon_color=ef4444&text_color=cbd5e1",
       link: "https://github.com/Ojas-Srivastava05",
-      bgGradient: "from-black/50 to-slate-900/50",
-      highlights: ["Active Contributor", "Open Source", "Clean Code"],
+      colSpan: "md:col-span-1"
     },
     {
-      name: "LeetCode",
-      username: "@Oju_Srivastava",
-      icon: "https://cdn.simpleicons.org/leetcode/FFA116",
-      color: "#f87171",
-      stats: [
-        { label: "Total Solved", value: stats.leetcode.totalSolved, icon: "✅", description: "Problems Solved" },
-        { label: "Contest Rating", value: stats.leetcode.rating, icon: "🎯", description: "Competitive" },
-        { label: "Acceptance", value: `${stats.leetcode.acceptanceRate}%`, icon: "📈", description: "Accuracy" },
-      ],
-      link: "https://leetcode.com/Oju_Srivastava", // Updated URL
-      bgGradient: "from-black/50 to-slate-900/50",
-      highlights: ["Problem Solving", "DSA", "Algorithms"],
+      platform: "GitHub Streak",
+      url: "https://github-readme-streak-stats.herokuapp.com/?user=Ojas-Srivastava05&theme=dark&background=00000000&hide_border=true&ring=ef4444&currStreakLabel=ef4444",
+      link: "https://github.com/Ojas-Srivastava05",
+      colSpan: "md:col-span-1"
     },
     {
-      name: "CodeChef",
-      username: "@ojassrivastava",
-      icon: "https://cdn.simpleicons.org/codechef/5B4638",
-      color: "#ef4444",
-      stats: [
-        { label: "Current Rating", value: stats.codechef.rating, icon: "⭐", description: "Live Rating" },
-        { label: "Max Rating", value: stats.codechef.maxRating, icon: "🏆", description: "Peak Rating" },
-        { label: "Stars", value: `${stats.codechef.stars} ⭐`, icon: "✨", description: "Division" },
-      ],
-      link: "https://www.codechef.com/users/ojassrivastava",
-      bgGradient: "from-black/50 to-slate-900/50",
-      highlights: ["3 Star Coder", "Contests", "Competitive"],
+      platform: "Top Languages",
+      url: "https://github-readme-stats.vercel.app/api/top-langs/?username=Ojas-Srivastava05&layout=compact&theme=dark&bg_color=00000000&hide_border=true&title_color=ef4444&text_color=cbd5e1",
+      link: "https://github.com/Ojas-Srivastava05",
+      colSpan: "md:col-span-1"
     },
     {
-      name: "Codeforces",
-      username: "@oju",
-      icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
-      color: "#dc2626",
-      stats: [
-        { label: "Current Rating", value: stats.codeforces.rating, icon: "⭐", description: "Live Rating" },
-        { label: "Max Rating", value: stats.codeforces.maxRating, icon: "🏆", description: "Peak Rating" },
-        { label: "Rank", value: stats.codeforces.rank, icon: "🎖️", description: "Current Rank" },
-      ],
+      platform: "LeetCode",
+      url: "https://leetcard.jacoblin.cool/Oju_Srivastava?theme=dark&font=Space%20Grotesk&ext=heatmap",
+      link: "https://leetcode.com/Oju_Srivastava",
+      colSpan: "md:col-span-2"
+    },
+    {
+      platform: "Codeforces",
+      url: "https://codeforces-readme-stats.vercel.app/api/card?username=oju&theme=dark&bg_color=00000000&hide_border=true&title_color=ef4444&text_color=cbd5e1&icon_color=ef4444",
       link: "https://codeforces.com/profile/oju",
-      bgGradient: "from-black/50 to-slate-900/50",
-      highlights: ["Competitive", "Math", "Algorithms"],
+      colSpan: "md:col-span-1"
     },
+    // Fallbacks/Badges for platforms without complex graphs
     {
-      name: "Kaggle",
-      username: "@ojassrivastava05",
-      icon: "https://cdn.simpleicons.org/kaggle/20BEFF",
-      color: "#f87171",
-      stats: [
-        { label: "Tier", value: stats.kaggle.tier, icon: "🏅", description: "Level" },
-        { label: "Competitions", value: stats.kaggle.competitions, icon: "🎯", description: "Entered" },
-        { label: "Total Medals", value: stats.kaggle.totalMedals, icon: "🥇", description: "Won" },
-      ],
-      link: "https://www.kaggle.com/ojassrivastava05",
-      bgGradient: "from-black/50 to-slate-900/50",
-      highlights: ["Data Science", "ML Models", "Analysis"],
-    },
-    {
-      name: "LinkedIn",
-      username: "@ojas-srivastava05",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-      color: "#dc2626",
-      stats: [
-        { label: "Connections", value: "500+", icon: "👥", description: "Network" },
-        { label: "Post Views", value: "Active", icon: "👁️", description: "Engagement" },
-        { label: "Activity", value: "High", icon: "🔥", description: "Presence" },
-      ],
-      link: "https://www.linkedin.com/in/ojas-srivastava05",
-      bgGradient: "from-black/50 to-slate-900/50",
-      highlights: ["Professional", "Networking", "Updates"],
-    },
-  ];
-
-  const overallStats = [
-    {
-      label: "Total Problems",
-      value: "300+",
-      icon: "💡"
-    },
-    {
-      label: "GitHub Repos",
-      value: stats.github.repositories,
-      icon: "📦"
-    },
-    {
-      label: "Contributions",
-      value: stats.github.contributions,
-      icon: "📅"
-    },
-    {
-      label: "Total Stars",
-      value: stats.github.stars,
-      icon: "⭐"
-    },
+      platform: "CodeChef",
+      // Using a shield/badge style as reliable graph widgets are scarce
+      customContent: (
+        <div className="flex flex-col items-center justify-center h-full gap-4 py-8">
+          <img
+            src="https://cdn.simpleicons.org/codechef/white"
+            alt="CodeChef"
+            className="w-12 h-12"
+          />
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-white mb-1">3 Star</h3>
+            <p className="text-red-400 font-mono">Rating: 1600+</p>
+          </div>
+          <img src="https://img.shields.io/badge/CodeChef-Level%203-brown?style=for-the-badge&logo=codechef&labelColor=black&color=ef4444" alt="CodeChef Badge" className="rounded-md opacity-80" />
+        </div>
+      ),
+      link: "https://www.codechef.com/users/ojassrivastava",
+      colSpan: "md:col-span-1"
+    }
   ];
 
   return (
@@ -177,124 +91,75 @@ export default function CodingStats() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Coding Profiles & Stats
+            Live Coding Stats
           </h2>
           <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Snapshot of my competitive programming journey
+            Dynamic charts from my competitive profiles
           </p>
         </motion.div>
 
-        {/* Overall Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12 max-w-4xl mx-auto">
-          {overallStats.map((stat, index) => (
+        {/* Widgets Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {widgets.map((widget, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-            >
-              <SpringCard>
-                <div
-                  className="p-4 rounded-xl text-center backdrop-blur-sm border border-red-500/20 bg-black"
-                >
-                  <div className="text-2xl mb-1">{stat.icon}</div>
-                  <div className="text-xl font-bold text-white mb-0.5">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-slate-400">{stat.label}</div>
-                </div>
-              </SpringCard>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Enhanced Profile Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {profiles.map((profile, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              transition={{ delay: index * 0.1 }}
+              className={`${widget.colSpan || ''} h-full`}
             >
-              <SpringCard>
-                <div
-                  className="relative h-full rounded-xl overflow-hidden backdrop-blur-sm bg-black"
-                  style={{
-                    border: `1px solid ${profile.color}40`,
-                  }}
+              <SpringCard className="h-full">
+                <a
+                  href={widget.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full p-4 bg-black/80 border border-red-500/20 rounded-xl overflow-hidden hover:border-red-500/50 transition-all duration-300 group"
                 >
-                  {/* Header */}
-                  <div className="relative p-4 bg-black border-b border-white/5">
-                    <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-bold text-gray-400 group-hover:text-red-400 transition-colors">
+                      {widget.platform}
+                    </span>
+                    <span className="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                  </div>
+
+                  <div className="flex items-center justify-center min-h-[160px]">
+                    {widget.customContent ? (
+                      widget.customContent
+                    ) : (
                       <img
-                        src={profile.icon}
-                        alt={profile.name}
-                        className="w-8 h-8 object-contain"
+                        src={widget.url}
+                        alt={`${widget.platform} Stats`}
+                        className="w-full h-auto object-contain max-h-[200px] opacity-90 group-hover:opacity-100 transition-opacity"
+                        loading="lazy"
                       />
-                      <div className="text-white text-lg opacity-50">↗</div>
-                    </div>
-
-                    <h3 className="text-lg font-bold text-white mb-0.5" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                      {profile.name}
-                    </h3>
-                    <p className="text-xs opacity-70 mb-2 truncate" style={{ color: profile.color, fontFamily: "'Space Grotesk', sans-serif" }}>
-                      {profile.username}
-                    </p>
-
-                    {/* Highlights */}
-                    <div className="flex flex-wrap gap-1">
-                      {profile.highlights.map((highlight, i) => (
-                        <span
-                          key={i}
-                          className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-white/80 backdrop-blur-sm"
-                        >
-                          {highlight}
-                        </span>
-                      ))}
-                    </div>
+                    )}
                   </div>
-
-                  {/* Detailed Stats Grid */}
-                  <div className="p-3">
-                    <div className="space-y-2">
-                      {profile.stats.map((stat, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center justify-between p-2 rounded-lg border border-white/5 bg-white/5"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm">{stat.icon}</span>
-                            <span className="text-[10px] text-slate-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                              {stat.label}
-                            </span>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-sm font-bold text-white font-mono block">
-                              {stat.value}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Visit Profile Button */}
-                  <div className="px-3 pb-3">
-                    <EncryptButton
-                      text="Visit Profile"
-                      href={profile.link}
-                      variant="primary"
-                      className="w-full text-xs py-2"
-                    />
-                  </div>
-                </div>
+                </a>
               </SpringCard>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center"
+        >
+          <div className="flex flex-wrap justify-center gap-4">
+            <EncryptButton
+              text="View GitHub"
+              href="https://github.com/Ojas-Srivastava05"
+              variant="primary"
+            />
+            <EncryptButton
+              text="LeetCode Profile"
+              href="https://leetcode.com/Oju_Srivastava"
+              variant="secondary"
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
