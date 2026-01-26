@@ -13,24 +13,24 @@ export default function About() {
       detail: "Building strong foundations in algorithms and systems",
       hasDetails: true,
       educationDetails: [
-        { 
-          label: "B.Tech - Artificial Intelligence", 
-          score: "9.12/10", 
+        {
+          label: "B.Tech - Artificial Intelligence",
+          score: "9.19/10",
           year: "2024 - Present",
           school: "Sardar Vallabhbhai National Institute of Technology",
           location: "Surat,Gujarat",
-          note: "Till Sem-2"
+          note: "Till Sem-3"
         },
-        { 
-          label: "12th (CBSE)", 
-          score: "95.80%", 
+        {
+          label: "12th (CBSE)",
+          score: "95.80%",
           year: "2023 - 2024",
           school: "Shiv Jyoti Convent School",
           location: "Kota,Rajasthan"
         },
-        { 
-          label: "10th (ICSE)", 
-          score: "97.20%", 
+        {
+          label: "10th (ICSE)",
+          score: "97.20%",
           year: "2021 - 2022",
           school: "St. Joseph's College",
           location: "Prayagraj,Uttar Pradesh"
@@ -112,20 +112,20 @@ export default function About() {
                     Engineering digital experiences with precision and creativity
                   </p>
                   <p>
-                    I'm <span className="text-red-500 font-semibold">Ojas Srivastava</span>, a B.Tech AI sophomore at 
-                    <span className="text-red-500 font-semibold"> NIT Surat</span>, building impactful products at the intersection 
-                    of engineering, AI, and user experience. I blend human-centred design, full-stack development, and practical 
+                    I'm <span className="text-red-500 font-semibold">Ojas Srivastava</span>, a B.Tech AI sophomore at
+                    <span className="text-red-500 font-semibold"> NIT Surat</span>, building impactful products at the intersection
+                    of engineering, AI, and user experience. I blend human-centred design, full-stack development, and practical
                     machine learning to create solutions that are both technically strong and intuitively usable.
                   </p>
                   <p>
-                    I'm currently pursuing the <span className="text-red-500 font-semibold">Stanford Online ML Specialization</span> and 
-                    have built a strong foundation in core engineering subjects such as Computer Organization & Architecture, Database 
-                    Management Systems, Operating Systems, and more. I also hold a broad understanding of machine learning concepts and 
+                    I'm currently pursuing the <span className="text-red-500 font-semibold">Stanford Online ML Specialization</span> and
+                    have built a strong foundation in core engineering subjects such as Computer Organization & Architecture, Database
+                    Management Systems, Operating Systems, and more. I also hold a broad understanding of machine learning concepts and
                     algorithms, enabling me to design scalable and efficient AI-driven systems.
                   </p>
                   <p>
-                    Beyond development, I actively sharpen my problem-solving skills and hold a 
-                    <span className="text-red-500 font-semibold"> 3⭐ rating on CodeChef</span>. I aim to build tools that deliver 
+                    Beyond development, I actively sharpen my problem-solving skills and hold a
+                    <span className="text-red-500 font-semibold"> 3⭐ rating on CodeChef</span>. I aim to build tools that deliver
                     real-world value while pushing the boundaries of modern AI and product design.
                   </p>
                   <p className="text-red-400 font-semibold">
@@ -156,12 +156,11 @@ export default function About() {
                 className="relative"
               >
                 <SpringCard>
-                  <motion.div 
-                    className={`p-6 rounded-xl bg-black border h-full relative overflow-hidden ${
-                      item.hasDetails 
-                        ? 'border-red-500/40' 
+                  <motion.div
+                    className={`p-6 rounded-xl bg-black border h-full relative overflow-hidden ${item.hasDetails
+                        ? 'border-red-500/40'
                         : 'border-red-500/20'
-                    }`}
+                      }`}
                     animate={item.hasDetails ? {
                       boxShadow: [
                         '0 0 20px rgba(239, 68, 68, 0.3)',
@@ -191,7 +190,7 @@ export default function About() {
                       />
                     )}
 
-                    <motion.div 
+                    <motion.div
                       className="text-4xl mb-3 relative z-10"
                       animate={item.hasDetails ? {
                         y: [0, -8, 0],
@@ -245,7 +244,7 @@ export default function About() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-black/70 backdrop-blur-md"
-                        style={{ 
+                        style={{
                           position: 'fixed',
                           top: 0,
                           left: 0,
@@ -257,7 +256,7 @@ export default function About() {
                         }}
                         onClick={() => setHoveredCard(null)}
                       />
-                      
+
                       {/* Popup Card - Centered Container */}
                       <div
                         style={{
@@ -278,9 +277,9 @@ export default function About() {
                           initial={{ opacity: 0, scale: 0.5, y: 50 }}
                           animate={{ opacity: 1, scale: 1, y: 0 }}
                           exit={{ opacity: 0, scale: 0.5, y: 50 }}
-                          transition={{ 
-                            type: "spring", 
-                            damping: 20, 
+                          transition={{
+                            type: "spring",
+                            damping: 20,
                             stiffness: 300,
                             duration: 0.4
                           }}
@@ -294,7 +293,7 @@ export default function About() {
                             {/* Header */}
                             <div className="flex items-center justify-between mb-6 pb-4 border-b-2 border-dashed border-red-500/40">
                               <div className="flex items-center gap-3">
-                                <motion.div 
+                                <motion.div
                                   className="text-4xl bg-red-500/20 p-3 rounded-xl border-2 border-red-500/50"
                                   animate={{ rotate: [0, 10, -10, 0] }}
                                   transition={{ duration: 2, repeat: Infinity }}
@@ -350,7 +349,7 @@ export default function About() {
                                         </p>
                                       </div>
                                       <div className="text-right flex-shrink-0">
-                                        <motion.p 
+                                        <motion.p
                                           className="text-3xl font-bold text-red-400 font-mono mb-1"
                                           initial={{ scale: 0 }}
                                           animate={{ scale: 1 }}
@@ -365,7 +364,7 @@ export default function About() {
                                         )}
                                       </div>
                                     </div>
-                                    
+
                                     {/* Corner decorations */}
                                     <div className="absolute -top-1 -left-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                                     <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -377,7 +376,7 @@ export default function About() {
                             </div>
 
                             {/* Footer Badge */}
-                            <motion.div 
+                            <motion.div
                               className="mt-6 pt-4 border-t-2 border-dashed border-red-500/40 text-center"
                               initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
@@ -424,7 +423,7 @@ export default function About() {
               className="group relative"
             >
               <div className="p-6 rounded-xl bg-black border-2 border-dashed border-red-500/30 text-center transition-all duration-300 hover:border-red-500 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
-                <motion.div 
+                <motion.div
                   className="text-3xl font-bold text-red-500 mb-2 font-mono"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
@@ -436,7 +435,7 @@ export default function About() {
                 <div className="text-sm text-gray-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   {stat.label}
                 </div>
-                
+
                 {/* Corner dots */}
                 <div className="absolute -top-1 -left-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />

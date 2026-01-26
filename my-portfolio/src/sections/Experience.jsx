@@ -39,9 +39,9 @@ const ExperienceCard = ({ experience, index }) => {
                 {index % 2 === 0 ? (
                     <div className="text-left md:text-left">
                         <span className="hidden md:block text-4xl font-bold text-gray-800/50 mb-2">{experience.year}</span>
-                        <span className="md:hidden text-4xl font-bold text-gray-800/50 mb-2 block">{experience.year}</span>
+                        <span className="md:hidden text-2xl font-bold text-red-500 mb-1 block">{experience.year}</span>
                         <SpringCard>
-                            <div className="p-6 bg-black border border-red-500/20 rounded-xl relative overflow-hidden group">
+                            <div className="p-6 bg-black border border-red-500/20 rounded-xl relative overflow-hidden group hover:border-red-500/50 transition-colors duration-500">
                                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                                 <div className="md:hidden mb-4">
@@ -51,9 +51,17 @@ const ExperienceCard = ({ experience, index }) => {
                                     <p className="text-red-400 font-medium">{experience.company}</p>
                                 </div>
 
-                                <p className="text-gray-400 text-sm leading-relaxed relative z-10">
+                                <p className="text-gray-400 text-sm leading-relaxed relative z-10 mb-2">
                                     {experience.description}
                                 </p>
+
+                                {experience.cpi && (
+                                    <div className="mb-3">
+                                        <span className="inline-block px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold">
+                                            {experience.cpi}
+                                        </span>
+                                    </div>
+                                )}
 
                                 <div className="flex flex-wrap gap-2 mt-4 relative z-10">
                                     {experience.tags.map((tag, i) => (
@@ -74,10 +82,10 @@ const ExperienceCard = ({ experience, index }) => {
                             <p className="text-red-400 font-medium">{experience.company}</p>
                         </div>
 
-                        <span className="md:hidden text-4xl font-bold text-gray-800/50 mb-2 block">{experience.year}</span>
+                        <span className="md:hidden text-2xl font-bold text-red-500 mb-1 block">{experience.year}</span>
 
                         <SpringCard>
-                            <div className="p-6 bg-black border border-red-500/20 rounded-xl relative overflow-hidden group">
+                            <div className="p-6 bg-black border border-red-500/20 rounded-xl relative overflow-hidden group hover:border-red-500/50 transition-colors duration-500">
                                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                                 <div className="md:hidden mb-4">
@@ -87,9 +95,17 @@ const ExperienceCard = ({ experience, index }) => {
                                     <p className="text-red-400 font-medium">{experience.company}</p>
                                 </div>
 
-                                <p className="text-gray-400 text-sm leading-relaxed relative z-10">
+                                <p className="text-gray-400 text-sm leading-relaxed relative z-10 mb-2">
                                     {experience.description}
                                 </p>
+
+                                {experience.cpi && (
+                                    <div className="mb-3">
+                                        <span className="inline-block px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold">
+                                            {experience.cpi}
+                                        </span>
+                                    </div>
+                                )}
 
                                 <div className="flex flex-wrap gap-2 mt-4 relative z-10">
                                     {experience.tags.map((tag, i) => (
@@ -118,25 +134,42 @@ export default function Experience() {
 
     const experiences = [
         {
-            year: "2023 - Present",
-            role: "B.Tech in CSE",
-            company: "IIIT Allahabad",
-            description: "Pursuing Bachelor of Technology in Computer Science. Focusing on Data Structures, Algorithms, and Web Technologies. Active member of technical societies.",
-            tags: ["DSA", "Web Dev", "OS", "DBMS"]
+            year: "2024 - Present",
+            role: "B.Tech in Artificial Intelligence",
+            company: "SVNIT (NIT Surat)",
+            description: "Pursuing Bachelor of Technology with a focus on AI/ML. Building a strong foundation in Algorithms, Operating Systems, and Deep Learning.",
+            cpi: "CGPA: 9.19 (Sem 3)",
+            tags: ["AI/ML", "DSA", "Web Dev"]
         },
         {
             year: "2024",
             role: "Open Source Contributor",
-            company: "Hacktoberfest & GSSoC",
-            description: "Contributed to various open-source projects including GirlScript Summer of Code. Fixed bugs, improved documentation, and added new features.",
-            tags: ["Git", "React", "Node.js", "Community"]
+            company: "GSSoC & Hacktoberfest",
+            description: "Actively contributing to open source ecosystems. Merged multiple PRs in React and Node.js based projects, improving documentation and fixing critical bugs.",
+            tags: ["Git", "Open Source", "Collaboration"]
         },
         {
-            year: "2022 - 2023",
-            role: "Senior Secondary",
-            company: "Maharishi Vidya Mandir",
-            description: "Completed 12th grade with focus on Physics, Chemistry, and Mathematics. Developed strong analytical and problem-solving skills.",
-            tags: ["PCM", "Mathematics", "Logic"]
+            year: "2023 - Present",
+            role: "Freelance & Projects",
+            company: "Independent",
+            description: "Developing full-stack web applications and AI tools. Built 'RangRiti' (Cultural Platform) and 'ClimaTrack' using modern tech stacks.",
+            tags: ["React", "Node.js", "MongoDB", "Framer Motion"]
+        },
+        {
+            year: "2023 - 2024",
+            role: "Senior Secondary (12th Grade)",
+            company: "Shiv Jyoti Convent School",
+            description: "Specialized in Physics, Chemistry, and Mathematics. Demonstrated academic excellence with high proficiency in problem solving.",
+            cpi: "Score: 95.80%",
+            tags: ["PCM", "CBSE", "Mathematics"]
+        },
+        {
+            year: "2021 - 2022",
+            role: "Secondary (10th Grade)",
+            company: "St. Joseph's College",
+            description: "Completed secondary education with distinction. Built a strong analytical base.",
+            cpi: "Score: 97.20%",
+            tags: ["ICSE", "Science", "Computer App"]
         },
     ];
 
