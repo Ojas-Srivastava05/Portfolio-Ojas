@@ -134,40 +134,54 @@ export default function Experience() {
 
     const experiences = [
         {
+            year: "2025",
+            role: "Software Intern",
+            company: "IFFCO – Phulpur Unit, Prayagraj",
+            description: "Developed and deployed a full-stack internal web application for the System Networking Division using Node.js, Express.js, and MySQL to automate internal workflows. Implemented backend features and RESTful APIs, contributing production-ready code through debugging, testing, and peer code reviews.",
+            tags: ["Node.js", "Express.js", "MySQL", "REST APIs"]
+        },
+        {
             year: "2024 - Present",
             role: "B.Tech in Artificial Intelligence",
             company: "SVNIT (NIT Surat)",
-            description: "Pursuing Bachelor of Technology with a focus on AI/ML. Building a strong foundation in Algorithms, Operating Systems, and Deep Learning.",
-            cpi: "CGPA: 9.19 (Sem 3)",
+            description: "Pursuing Bachelor of Technology with a focus on AI/ML. Building a strong foundation in Data Structures & Algorithms, Operating Systems, DBMS, and Software Engineering.",
+            cpi: "CGPA: 9.19",
             tags: ["AI/ML", "DSA", "Web Dev"]
         },
         {
+            year: "2025",
+            role: "Technical Lead",
+            company: "Inspectonly.devs (Web Wonders 2025)",
+            description: "Led a 4-member development team, overseeing backend integration and feature deployment. Coordinated project milestones and ensured delivery of a competition-ready platform.",
+            tags: ["Leadership", "Backend", "Team Management"]
+        },
+        {
+            year: "2024 - Present",
+            role: "Executive Member",
+            company: "ACM SVNIT Surat",
+            description: "Organizing coding workshops and technical events to promote programming culture across campus.",
+            tags: ["ACM", "Workshops", "Events"]
+        },
+        {
+            year: "2024 - Present",
+            role: "Mentor & Representative",
+            company: "Nexus SVNIT",
+            description: "Mentoring junior students in programming and coordinating student participation in technical initiatives.",
+            tags: ["Mentorship", "Programming", "Community"]
+        },
+        {
             year: "2024",
-            role: "Open Source Contributor",
-            company: "GSSoC & Hacktoberfest",
-            description: "Actively contributing to open source ecosystems. Merged multiple PRs in React and Node.js based projects, improving documentation and fixing critical bugs.",
-            tags: ["Git", "Open Source", "Collaboration"]
-        },
-        {
-            year: "2023 - Present",
-            role: "Freelance & Projects",
-            company: "Independent",
-            description: "Developing full-stack web applications and AI tools. Built 'RangRiti' (Cultural Platform) and 'ClimaTrack' using modern tech stacks.",
-            tags: ["React", "Node.js", "MongoDB", "Framer Motion"]
-        },
-        {
-            year: "2023 - 2024",
             role: "Senior Secondary (12th Grade)",
-            company: "Shiv Jyoti Convent School",
-            description: "Specialized in Physics, Chemistry, and Mathematics. Demonstrated academic excellence with high proficiency in problem solving.",
+            company: "Shiv Jyoti Convent School, Kota",
+            description: "Specialized in Physics, Chemistry, and Mathematics under CBSE Board. Demonstrated academic excellence with high proficiency in problem solving.",
             cpi: "Score: 95.80%",
             tags: ["PCM", "CBSE", "Mathematics"]
         },
         {
-            year: "2021 - 2022",
+            year: "2022",
             role: "Secondary (10th Grade)",
-            company: "St. Joseph's College",
-            description: "Completed secondary education with distinction. Built a strong analytical base.",
+            company: "St. Joseph's College, Prayagraj",
+            description: "Completed secondary education under ICSE Board with distinction. Built a strong analytical base.",
             cpi: "Score: 97.20%",
             tags: ["ICSE", "Science", "Computer App"]
         },

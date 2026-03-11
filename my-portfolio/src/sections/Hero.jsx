@@ -126,8 +126,8 @@ export default function Hero() {
             onClick={() => {
               // Replace with your actual CV file path
               const link = document.createElement('a');
-              link.href = '/Ojas-Srivastava-Resume-Sem2 2.pdf'; // Update this path
-              link.download = 'Ojas_Srivastava_CV.pdf';
+              link.href = '/Ojas-Srivastava-Resume-Sem4.pdf';
+              link.download = 'Ojas_Srivastava_Resume_Sem4.pdf';
               link.click();
             }}
             variant="secondary"
