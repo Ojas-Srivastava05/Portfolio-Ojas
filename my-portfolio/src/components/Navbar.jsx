@@ -12,6 +12,7 @@ export const Navbar = () => {
     { name: "Experience", id: "experience" },
     { name: "Projects", id: "projects" },
     { name: "Stats", id: "coding-stats" },
+    { name: "Achievements", id: "achievements" },
     { name: "Toolkit", id: "toolkit" },
     { name: "Contact", id: "contact" },
   ];
@@ -50,8 +51,8 @@ export const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-black/80 backdrop-blur-md border-b border-red-500/20"
-          : "bg-transparent"
+        ? "bg-black/80 backdrop-blur-md border-b border-red-500/20"
+        : "bg-transparent"
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
@@ -125,8 +126,8 @@ export const Navbar = () => {
 
                 {/* Text */}
                 <span className={`relative z-10 transition-colors ${activeSection === item.id
-                    ? "text-red-400"
-                    : "text-gray-300 group-hover:text-white"
+                  ? "text-red-400"
+                  : "text-gray-300 group-hover:text-white"
                   }`}>
                   {item.name}
                 </span>
@@ -198,8 +199,8 @@ export const Navbar = () => {
                     {/* Background */}
                     <motion.div
                       className={`absolute inset-0 ${activeSection === item.id
-                          ? "bg-gradient-to-r from-red-500/30 to-red-600/30"
-                          : "bg-gradient-to-r from-red-500/10 to-transparent opacity-0 group-hover:opacity-100"
+                        ? "bg-gradient-to-r from-red-500/30 to-red-600/30"
+                        : "bg-gradient-to-r from-red-500/10 to-transparent opacity-0 group-hover:opacity-100"
                         } transition-opacity`}
                     />
 
@@ -213,8 +214,8 @@ export const Navbar = () => {
 
                     {/* Text */}
                     <span className={`relative z-10 ${activeSection === item.id
-                        ? "text-red-400"
-                        : "text-gray-300 group-hover:text-white"
+                      ? "text-red-400"
+                      : "text-gray-300 group-hover:text-white"
                       }`}>
                       {item.name}
                     </span>

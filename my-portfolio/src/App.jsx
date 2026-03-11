@@ -10,6 +10,7 @@ import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 
 import Experience from "./sections/Experience";
+import Achievements from "./sections/Achievements";
 import ScrollProgress from "./components/ScrollProgress";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,6 +47,7 @@ function App() {
           <Experience />
           <Projects />
           <CodingStats />
+          <Achievements />
           <Toolkit />
           <Contact />
         </main>
