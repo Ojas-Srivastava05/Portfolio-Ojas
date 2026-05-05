@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 export function TypingAnimation({
   text,
@@ -28,7 +28,7 @@ export function TypingAnimation({
       {/* Main text with smooth letter appearance and neon glow */}
       <span className="relative">
         {displayedText.split('').map((char, index) => (
-          <motion.span
+          <Motion.span
             key={index}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -42,13 +42,13 @@ export function TypingAnimation({
             }}
           >
             {char === ' ' ? '\u00A0' : char}
-          </motion.span>
+          </Motion.span>
         ))}
       </span>
 
       {/* Sleek modern cursor */}
       {showCursor && (
-        <motion.span
+        <Motion.span
           animate={{ 
             opacity: [1, 0.2, 1],
           }}

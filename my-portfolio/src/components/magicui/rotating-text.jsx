@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 
 export function RotatingText({ 
   items, 
@@ -19,7 +19,7 @@ export function RotatingText({
   return (
     <span className={`${className} relative inline-block`}>
       <AnimatePresence mode="wait">
-        <motion.span
+        <Motion.span
           key={currentIndex}
           initial={{ opacity: 0, y: 30, filter: "blur(10px)", scale: 0.8 }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
@@ -31,7 +31,7 @@ export function RotatingText({
           className="inline-block relative"
         >
           {/* Animated glow behind text */}
-          <motion.span
+          <Motion.span
             className="absolute inset-0 blur-xl"
             animate={{
               opacity: [0.5, 0.8, 0.5],
@@ -49,7 +49,7 @@ export function RotatingText({
           />
           
           {/* Main text with gradient */}
-          <motion.span
+          <Motion.span
             className="relative bg-gradient-to-r from-red-500 via-red-400 to-red-600 bg-clip-text text-transparent font-extrabold"
             animate={{
               backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
@@ -65,10 +65,10 @@ export function RotatingText({
             }}
           >
             {items[currentIndex]}
-          </motion.span>
+          </Motion.span>
           
           {/* Animated underline accent */}
-          <motion.span
+          <Motion.span
             className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-red-600 via-red-500 to-red-600"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -77,7 +77,7 @@ export function RotatingText({
           />
           
           {/* Sparkle effect */}
-          <motion.span
+          <Motion.span
             className="absolute -top-1 -right-1 w-2 h-2 bg-red-400 rounded-full"
             animate={{
               scale: [0, 1, 0],
@@ -90,7 +90,7 @@ export function RotatingText({
             }}
           />
           
-          <motion.span
+          <Motion.span
             className="absolute -bottom-1 -left-1 w-2 h-2 bg-red-500 rounded-full"
             animate={{
               scale: [0, 1, 0],
@@ -103,7 +103,7 @@ export function RotatingText({
               delay: 0.75,
             }}
           />
-        </motion.span>
+        </Motion.span>
       </AnimatePresence>
     </span>
   );

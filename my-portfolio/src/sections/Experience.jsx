@@ -1,238 +1,109 @@
-import { motion } from "framer-motion";
-import { useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import SpringCard from "../components/ui/SpringCard";
-
-const ExperienceCard = ({ experience, index }) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className={`relative flex items-center justify-between md:justify-between gap-8 w-full ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
-                }`}
-        >
-            {/* Date for Desktop */}
-            <div className="hidden md:block w-5/12 text-right">
-                {index % 2 === 0 ? (
-                    <div className="text-right">
-                        <h3 className="text-2xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                            {experience.role}
-                        </h3>
-                        <p className="text-red-400 font-medium">{experience.company}</p>
-                    </div>
-                ) : (
-                    <div className="text-right">
-                        <span className="text-4xl font-bold text-gray-500/80">{experience.year}</span>
-                    </div>
-                )}
-            </div>
-
-            {/* Timeline Dot */}
-            <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-red-500 rounded-full border-4 border-black z-10">
-                <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-20" />
-            </div>
-
-            {/* Content Card */}
-            <div className="w-full md:w-5/12 pl-12 md:pl-0">
-                {index % 2 === 0 ? (
-                    <div className="text-left md:text-left">
-                        <span className="hidden md:block text-4xl font-bold text-gray-500/80 mb-2">{experience.year}</span>
-                        <span className="md:hidden text-2xl font-bold text-red-500 mb-1 block">{experience.year}</span>
-                        <SpringCard>
-                            <div className="p-6 bg-black border border-red-500/20 rounded-xl relative overflow-hidden group hover:border-red-500/50 transition-colors duration-500">
-                                <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                <div className="md:hidden mb-4">
-                                    <h3 className="text-xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                                        {experience.role}
-                                    </h3>
-                                    <p className="text-red-400 font-medium">{experience.company}</p>
-                                </div>
-
-                                <p className="text-gray-400 text-sm leading-relaxed relative z-10 mb-2">
-                                    {experience.description}
-                                </p>
-
-                                {experience.cpi && (
-                                    <div className="mb-3">
-                                        <span className="inline-block px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold">
-                                            {experience.cpi}
-                                        </span>
-                                    </div>
-                                )}
-
-                                <div className="flex flex-wrap gap-2 mt-4 relative z-10">
-                                    {experience.tags.map((tag, i) => (
-                                        <span key={i} className="text-[10px] px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </SpringCard>
-                    </div>
-                ) : (
-                    <div className="text-left">
-                        <div className="hidden md:block mb-4 text-left">
-                            <h3 className="text-2xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                                {experience.role}
-                            </h3>
-                            <p className="text-red-400 font-medium">{experience.company}</p>
-                        </div>
-
-                        <span className="md:hidden text-2xl font-bold text-red-500 mb-1 block">{experience.year}</span>
-
-                        <SpringCard>
-                            <div className="p-6 bg-black border border-red-500/20 rounded-xl relative overflow-hidden group hover:border-red-500/50 transition-colors duration-500">
-                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                <div className="md:hidden mb-4">
-                                    <h3 className="text-xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                                        {experience.role}
-                                    </h3>
-                                    <p className="text-red-400 font-medium">{experience.company}</p>
-                                </div>
-
-                                <p className="text-gray-400 text-sm leading-relaxed relative z-10 mb-2">
-                                    {experience.description}
-                                </p>
-
-                                {experience.cpi && (
-                                    <div className="mb-3">
-                                        <span className="inline-block px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold">
-                                            {experience.cpi}
-                                        </span>
-                                    </div>
-                                )}
-
-                                <div className="flex flex-wrap gap-2 mt-4 relative z-10">
-                                    {experience.tags.map((tag, i) => (
-                                        <span key={i} className="text-[10px] px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </SpringCard>
-                    </div>
-                )}
-            </div>
-        </motion.div>
-    );
-};
+import { motion as Motion } from "framer-motion";
+import { experiences } from "../data/portfolio";
 
 export default function Experience() {
-    const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    });
+  return (
+    <section id="experience" className="relative overflow-hidden">
+      <div className="section-shell">
+        {/* Header */}
+        <div className="grid items-end gap-8 lg:grid-cols-[0.55fr_0.45fr]">
+          <Motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+          >
+            <p className="eyebrow">// 02 — Experience</p>
+            <h2 className="display-h2 mt-6">
+              A practical path through
+              <span className="italic gradient-text-accent"> products</span>,
+              teams, and AI fundamentals.
+            </h2>
+          </Motion.div>
 
-    const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+          <Motion.p
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ delay: 0.1 }}
+            className="text-[15px] leading-[1.75] text-zinc-400"
+          >
+            Industry, leadership, academic, and community roles — the kind of work that
+            sharpens taste and turns ideas into deliverables.
+          </Motion.p>
+        </div>
 
-    const experiences = [
-        {
-            year: "2025",
-            role: "Software Intern",
-            company: "IFFCO – Phulpur Unit, Prayagraj",
-            description: "Developed and deployed a full-stack internal web application for the System Networking Division using Node.js, Express.js, and MySQL to automate internal workflows. Implemented backend features and RESTful APIs, contributing production-ready code through debugging, testing, and peer code reviews.",
-            tags: ["Node.js", "Express.js", "MySQL", "REST APIs"]
-        },
-        {
-            year: "2024 - Present",
-            role: "B.Tech in Artificial Intelligence",
-            company: "SVNIT (NIT Surat)",
-            description: "Pursuing Bachelor of Technology with a focus on AI/ML. Building a strong foundation in Data Structures & Algorithms, Operating Systems, DBMS, and Software Engineering.",
-            cpi: "CGPA: 9.19",
-            tags: ["AI/ML", "DSA", "Web Dev"]
-        },
-        {
-            year: "2025",
-            role: "Technical Lead",
-            company: "Inspectonly.devs (Web Wonders 2025)",
-            description: "Led a 4-member development team, overseeing backend integration and feature deployment. Coordinated project milestones and ensured delivery of a competition-ready platform.",
-            tags: ["Leadership", "Backend", "Team Management"]
-        },
-        {
-            year: "2024 - Present",
-            role: "Executive Member",
-            company: "ACM SVNIT Surat",
-            description: "Organizing coding workshops and technical events to promote programming culture across campus.",
-            tags: ["ACM", "Workshops", "Events"]
-        },
-        {
-            year: "2024 - Present",
-            role: "Mentor & Representative",
-            company: "Nexus SVNIT",
-            description: "Mentoring junior students in programming and coordinating student participation in technical initiatives.",
-            tags: ["Mentorship", "Programming", "Community"]
-        },
-        {
-            year: "2024",
-            role: "Senior Secondary (12th Grade)",
-            company: "Shiv Jyoti Convent School, Kota",
-            description: "Specialized in Physics, Chemistry, and Mathematics under CBSE Board. Demonstrated academic excellence with high proficiency in problem solving.",
-            cpi: "Score: 95.80%",
-            tags: ["PCM", "CBSE", "Mathematics"]
-        },
-        {
-            year: "2022",
-            role: "Secondary (10th Grade)",
-            company: "St. Joseph's College, Prayagraj",
-            description: "Completed secondary education under ICSE Board with distinction. Built a strong analytical base.",
-            cpi: "Score: 97.20%",
-            tags: ["ICSE", "Science", "Computer App"]
-        },
-    ];
+        {/* Timeline */}
+        <div className="mt-20 grid gap-3">
+          {experiences.map((item, i) => (
+            <Motion.article
+              key={`${item.role}-${item.company}`}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.05 }}
+              className="group relative grid gap-6 overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.015] p-6 transition duration-500 hover:border-white/[0.14] hover:bg-white/[0.025] sm:p-7 lg:grid-cols-[200px_1fr_auto] lg:items-start"
+            >
+              {/* Hover edge accent */}
+              <span className="pointer-events-none absolute left-0 top-0 h-full w-[2px] origin-top scale-y-0 bg-gradient-to-b from-emerald-300 via-emerald-300/60 to-transparent transition-transform duration-500 group-hover:scale-y-100" />
 
-    return (
-        <section id="experience" className="min-h-screen py-20 px-6 relative overflow-hidden" ref={containerRef}>
-            {/* Background effects */}
-            <div className="absolute inset-0 -z-10">
-                <motion.div
-                    className="absolute top-1/2 left-1/3 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.5, 0.3],
-                    }}
-                    transition={{ duration: 10, repeat: Infinity }}
-                />
-            </div>
+              {/* Year */}
+              <div>
+                <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-emerald-300/90">
+                  {item.year}
+                </p>
+                {item.metric && (
+                  <span className="mt-3 inline-flex rounded-md border border-amber-300/30 bg-amber-300/[0.08] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-amber-200">
+                    {item.metric}
+                  </span>
+                )}
+                {item.location && (
+                  <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-600">
+                    {item.location}
+                  </p>
+                )}
+              </div>
 
-            <div className="max-w-6xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                        Experience & Education
-                    </h2>
-                    <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                        My Academic and Professional Journey
-                    </p>
-                </motion.div>
+              {/* Body */}
+              <div>
+                <h3 className="font-display text-2xl leading-tight tracking-ultratight text-white sm:text-[1.7rem]">
+                  {item.role}
+                </h3>
+                <p className="mt-1 text-[13.5px] font-medium text-zinc-300">{item.company}</p>
+                <p className="mt-4 max-w-3xl text-[13.5px] leading-[1.75] text-zinc-400">
+                  {item.description}
+                </p>
 
-                <div className="relative">
-                    {/* Central Line */}
-                    <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-red-500/20" />
+                {item.bullets && (
+                  <ul className="mt-4 grid gap-2">
+                    {item.bullets.map((b, j) => (
+                      <li
+                        key={j}
+                        className="flex gap-3 text-[13px] leading-[1.7] text-zinc-400"
+                      >
+                        <span className="mt-2 inline-block h-1 w-1.5 flex-shrink-0 rounded-full bg-emerald-300" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
-                    {/* Animated Line */}
-                    <motion.div
-                        className="absolute left-4 md:left-1/2 transform -translate-x-1/2 top-0 w-0.5 bg-red-500"
-                        style={{ height }}
-                    />
-
-                    <div className="space-y-12">
-                        {experiences.map((exp, index) => (
-                            <ExperienceCard key={index} experience={exp} index={index} />
-                        ))}
-                    </div>
+                <div className="mt-5 flex flex-wrap gap-1.5">
+                  {item.tags.map((tag) => (
+                    <span key={tag} className="chip">{tag}</span>
+                  ))}
                 </div>
-            </div>
-        </section>
-    );
+              </div>
+
+              {/* Index */}
+              <div className="hidden self-start text-right lg:block">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-700">
+                  / {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+            </Motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }

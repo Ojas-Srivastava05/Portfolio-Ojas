@@ -8,6 +8,14 @@ import {
 } from '../utils/codingPlatformAPIs';
 
 export function useCodingStats(usernames) {
+  const {
+    github: githubUsername,
+    leetcode: leetcodeUsername,
+    codechef: codechefUsername,
+    codeforces: codeforcesUsername,
+    kaggle: kaggleUsername,
+  } = usernames || {};
+
   const [stats, setStats] = useState({
     github: null,
     leetcode: null,
@@ -28,11 +36,11 @@ export function useCodingStats(usernames) {
       try {
         // Fetch all stats in parallel
         const [github, leetcode, codechef, codeforces, kaggle] = await Promise.allSettled([
-          fetchGitHubStats(usernames.github),
-          fetchLeetCodeStats(usernames.leetcode),
-          fetchCodeChefStats(usernames.codechef),
-          fetchCodeforcesStats(usernames.codeforces),
-          fetchKaggleStats(usernames.kaggle),
+          fetchGitHubStats(githubUsername),
+          fetchLeetCodeStats(leetcodeUsername),
+          fetchCodeChefStats(codechefUsername),
+          fetchCodeforcesStats(codeforcesUsername),
+          fetchKaggleStats(kaggleUsername),
         ]);
 
         if (github.status === 'fulfilled') newStats.github = github.value;
@@ -62,7 +70,7 @@ export function useCodingStats(usernames) {
     if (usernames) {
       fetchAllStats();
     }
-  }, [usernames.github, usernames.leetcode, usernames.codechef, usernames.codeforces, usernames.kaggle]);
+  }, [githubUsername, leetcodeUsername, codechefUsername, codeforcesUsername, kaggleUsername, usernames]);
 
   return { stats, loading, errors };
 }

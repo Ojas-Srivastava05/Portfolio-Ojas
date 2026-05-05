@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { useState } from "react";
 
 export function NeuButton({ 
@@ -13,7 +13,7 @@ export function NeuButton({
   const [isPressed, setIsPressed] = useState(false);
 
   return (
-    <motion.a
+    <Motion.a
       href={href}
       className="relative inline-block cursor-pointer"
       onHoverStart={() => setIsHovered(true)}
@@ -23,7 +23,7 @@ export function NeuButton({
       onTapCancel={() => setIsPressed(false)}
     >
       {/* Ambient glow background - RED THEME */}
-      <motion.div
+      <Motion.div
         className="absolute -inset-6 blur-3xl"
         animate={{
           opacity: isHovered ? 0.5 : 0.2,
@@ -36,7 +36,7 @@ export function NeuButton({
       />
 
       {/* Main button container */}
-      <motion.div
+      <Motion.div
         className="relative flex items-center gap-3 px-8 py-3.5 rounded-full overflow-hidden backdrop-blur-sm"
         style={{
           background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 100%)',
@@ -54,7 +54,7 @@ export function NeuButton({
         transition={{ duration: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
       >
         {/* Gradient overlay */}
-        <motion.div 
+        <Motion.div 
           className="absolute inset-0 opacity-0"
           animate={{
             opacity: isHovered ? 0.15 : 0,
@@ -65,9 +65,15 @@ export function NeuButton({
           }}
         />
 
+        {showAvatar && (
+          <span className="relative z-10 grid h-9 w-9 place-items-center rounded-full border border-red-500/30 bg-red-500/10 text-sm font-bold text-red-200">
+            {avatarText}
+          </span>
+        )}
+
         {/* Text section */}
         <div className="flex flex-col gap-0 relative z-10">
-          <motion.span
+          <Motion.span
             className="text-[10px] uppercase tracking-widest font-bold"
             animate={{
               color: isHovered ? '#fca5a5' : '#6b7280',
@@ -75,8 +81,8 @@ export function NeuButton({
             transition={{ duration: 0.2 }}
           >
             EXPLORE
-          </motion.span>
-          <motion.span 
+          </Motion.span>
+          <Motion.span 
             className="text-lg font-bold text-white leading-tight"
             animate={{
               textShadow: isHovered 
@@ -86,14 +92,14 @@ export function NeuButton({
             transition={{ duration: 0.3 }}
           >
             {text}
-          </motion.span>
+          </Motion.span>
           <span className="text-[10px] text-gray-500 leading-tight">
             {subtext}
           </span>
         </div>
 
         {/* Arrow icon badge */}
-        <motion.div
+        <Motion.div
           className="relative flex-shrink-0 ml-2"
           animate={{
             x: isHovered ? 4 : 0,
@@ -101,7 +107,7 @@ export function NeuButton({
           }}
           transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
         >
-          <motion.div
+          <Motion.div
             className="w-9 h-9 rounded-full flex items-center justify-center relative"
             style={{
               background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.15) 100%)',
@@ -118,7 +124,7 @@ export function NeuButton({
             transition={{ duration: 0.3 }}
           >
             {/* Pulsing glow */}
-            <motion.div
+            <Motion.div
               className="absolute inset-0 rounded-full"
               animate={{
                 opacity: isHovered ? [0.3, 0.6, 0.3] : 0,
@@ -135,7 +141,7 @@ export function NeuButton({
             />
 
             {/* Icon */}
-            <motion.span
+            <Motion.span
               className="text-xl font-bold relative z-10"
               style={{
                 background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
@@ -151,12 +157,12 @@ export function NeuButton({
               transition={{ duration: 0.3 }}
             >
               {icon}
-            </motion.span>
-          </motion.div>
-        </motion.div>
+            </Motion.span>
+          </Motion.div>
+        </Motion.div>
 
         {/* Shimmer effect on hover */}
-        <motion.div
+        <Motion.div
           className="absolute inset-0 rounded-full pointer-events-none"
           initial={{ x: '-100%', opacity: 0 }}
           animate={{
@@ -168,7 +174,7 @@ export function NeuButton({
             background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
           }}
         />
-      </motion.div>
-    </motion.a>
+      </Motion.div>
+    </Motion.a>
   );
 }

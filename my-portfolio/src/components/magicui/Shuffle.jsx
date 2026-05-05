@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -10,7 +10,7 @@ const Shuffle = ({
   text,
   className = '',
   style = {},
-  shuffleDirection = 'right',
+  _shuffleDirection = 'right',
   duration = 0.35,
   ease = 'power3.out',
   threshold = 0.1,
@@ -23,6 +23,7 @@ const Shuffle = ({
 }) => {
   const ref = useRef(null);
   const [ready, setReady] = useState(false);
+  void _shuffleDirection;
 
   useGSAP(
     () => {
@@ -32,7 +33,7 @@ const Shuffle = ({
       const container = ref.current;
       container.innerHTML = '';
 
-      const charElements = chars.map((char, i) => {
+      const charElements = chars.map((char) => {
         const span = document.createElement('span');
         span.className = 'shuffle-char';
         span.style.display = 'inline-block';

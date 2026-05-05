@@ -1,293 +1,270 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
-import SpringCard from "../components/ui/SpringCard";
-import { EncryptButton } from "../components/ui/EncryptButton";
+import { motion as Motion } from "framer-motion";
+import { socialLinks, profile } from "../data/portfolio";
+
+const formInitial = { name: "", email: "", subject: "", message: "" };
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
+  const [data, setData] = useState(formInitial);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [status, setStatus] = useState(null); // success | error | null
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((d) => ({ ...d, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus(null);
+    setStatus(null);
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/srivastavaojas454@gmail.com', {
-        method: 'POST',
+      const res = await fetch("https://formsubmit.co/ajax/srivastavaojas454@gmail.com", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: `Portfolio Contact from ${formData.name}`,
-          _captcha: 'false',
-          _template: 'table'
-        })
+          name: data.name,
+          email: data.email,
+          subject: data.subject || `Portfolio contact from ${data.name}`,
+          message: data.message,
+          _subject: data.subject || `Portfolio contact from ${data.name}`,
+          _captcha: "false",
+          _template: "table",
+        }),
       });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setSubmitStatus('success');
-        setFormData({ name: "", email: "", message: "" });
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setStatus("success");
+        setData(formInitial);
       } else {
-        setSubmitStatus('error');
+        setStatus("error");
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('error');
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setStatus("error");
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus(null), 5000);
+      window.setTimeout(() => setStatus(null), 6000);
     }
   };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const contactInfo = [
-    {
-      icon: "https://cdn.simpleicons.org/gmail/EA4335",
-      label: "Email",
-      value: "srivastavaojas454@gmail.com",
-      link: "mailto:srivastavaojas454@gmail.com"
-    },
-    {
-      icon: "https://cdn.simpleicons.org/github/FFFFFF",
-      label: "GitHub",
-      value: "@Ojas-Srivastava05",
-      link: "https://github.com/Ojas-Srivastava05"
-    },
-    {
-      icon: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-      label: "LinkedIn",
-      value: "@ojas-srivastava05",
-      link: "https://www.linkedin.com/in/ojas-srivastava05"
-    },
-    {
-      icon: "https://cdn.simpleicons.org/googlemaps/4285F4",
-      label: "Location",
-      value: "Prayagraj, India",
-      link: null
-    }
-  ];
 
   return (
-    <section id="contact" className="min-h-screen py-20 px-6 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 -z-10">
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-[120px]"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-      </div>
-
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Get In Touch
-          </h2>
-          <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Let's Create Something Amazing Together
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+    <section id="contact" className="relative overflow-hidden">
+      <div className="section-shell">
+        {/* Header */}
+        <div className="grid items-end gap-8 lg:grid-cols-[0.55fr_0.45fr]">
+          <Motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
           >
-            <SpringCard>
-              <div className="p-8 rounded-xl bg-black border border-red-500/20">
-                <h3 className="text-2xl font-bold mb-6 text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  Send a Message 📬
-                </h3>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-300 mb-2">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      disabled={isSubmitting}
-                      className="w-full px-4 py-3 bg-black border border-slate-700 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors disabled:opacity-50"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-300 mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      disabled={isSubmitting}
-                      className="w-full px-4 py-3 bg-black border border-slate-700 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors disabled:opacity-50"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-300 mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows="5"
-                      disabled={isSubmitting}
-                      className="w-full px-4 py-3 bg-black border border-slate-700 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors resize-none disabled:opacity-50"
-                      placeholder="Your message..."
-                    />
-                  </div>
-                  
-                  {/* Status Messages */}
-                  {submitStatus === 'success' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="p-3 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-sm"
-                    >
-                      ✅ Message sent successfully! I'll get back to you soon.
-                    </motion.div>
-                  )}
-                  
-                  {submitStatus === 'error' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm"
-                    >
-                      ❌ Failed to send message. Please try again or email directly.
-                    </motion.div>
-                  )}
+            <p className="eyebrow">// 07 — Contact</p>
+            <h2 className="display-h2 mt-6">
+              Let's build something
+              <span className="italic gradient-text-accent"> clear, useful</span>,
+              and ready to ship.
+            </h2>
+          </Motion.div>
 
-                  <EncryptButton
-                    text={isSubmitting ? "Sending..." : "Send Message"}
-                    type="submit"
-                    variant="primary"
-                    className="w-full"
-                    disabled={isSubmitting}
-                  />
-                </form>
+          <Motion.p
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ delay: 0.1 }}
+            className="text-[15px] leading-[1.75] text-zinc-400"
+          >
+            I'm open to software internships, freelance builds, collaborative projects,
+            and conversations around AI product ideas. Reach out — I read every message.
+          </Motion.p>
+        </div>
+
+        <div className="mt-16 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+          {/* Form card */}
+          <Motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            className="panel-strong overflow-hidden rounded-xl"
+          >
+            <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-3">
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-300/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-300/80" />
               </div>
-            </SpringCard>
-          </motion.div>
+              <span className="font-mono text-[11px] text-zinc-500">~/contact</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-700">
+                FORM
+              </span>
+            </div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
+            <form onSubmit={handleSubmit} className="grid gap-5 p-6 sm:p-8">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field
+                  label="01 // Name"
+                  name="name"
+                  value={data.name}
+                  onChange={handleChange}
+                  placeholder="Your full name"
+                  disabled={isSubmitting}
+                />
+                <Field
+                  label="02 // Email"
+                  name="email"
+                  type="email"
+                  value={data.email}
+                  onChange={handleChange}
+                  placeholder="you@domain.com"
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              <Field
+                label="03 // Subject"
+                name="subject"
+                value={data.subject}
+                onChange={handleChange}
+                placeholder="Internship · Freelance · Collaboration"
+                disabled={isSubmitting}
+                required={false}
+              />
+
+              <label className="grid gap-2">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-300/90">
+                  04 // Message
+                </span>
+                <textarea
+                  name="message"
+                  value={data.message}
+                  onChange={handleChange}
+                  required
+                  rows="6"
+                  disabled={isSubmitting}
+                  placeholder="Tell me what you want to build..."
+                  className="resize-none rounded-md border border-white/[0.08] bg-black/40 px-4 py-3 text-[14px] text-white placeholder:text-zinc-600 outline-none transition focus:border-emerald-300/60 focus:bg-black/60 disabled:opacity-60"
+                />
+              </label>
+
+              {status === "success" && (
+                <p className="rounded-md border border-emerald-300/40 bg-emerald-300/[0.08] px-4 py-3 font-mono text-[12px] text-emerald-100">
+                  ▸ Message delivered. I'll reply soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="rounded-md border border-rose-300/40 bg-rose-300/[0.08] px-4 py-3 font-mono text-[12px] text-rose-100">
+                  ⚠ Couldn't send right now. Please email me directly.
+                </p>
+              )}
+
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isSubmitting ? "SENDING..." : "Send Message"}
+                  <span>↗</span>
+                </button>
+                <a href={`mailto:${profile.email}`} className="btn-ghost">
+                  Or email directly
+                </a>
+              </div>
+            </form>
+          </Motion.div>
+
+          {/* Side info */}
+          <Motion.aside
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ delay: 0.1 }}
+            className="grid gap-4"
           >
-            <SpringCard>
-              <div className="p-8 rounded-xl bg-black border border-red-500/20">
-                <h3 className="text-2xl font-bold mb-6 text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  Contact Information
-                </h3>
-                <div className="space-y-4">
-                  {contactInfo.map((info, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-start gap-4 p-4 rounded-lg bg-black border border-red-500/20 hover:border-red-500/50 transition-colors"
-                    >
-                      <div className="w-8 h-8 flex items-center justify-center">
-                        <img 
-                          src={info.icon} 
-                          alt={info.label}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm text-gray-400 mb-1">{info.label}</p>
-                        {info.link ? (
-                          <a
-                            href={info.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-white font-semibold hover:text-red-400 transition-colors break-all"
-                          >
-                            {info.value}
-                          </a>
-                        ) : (
-                          <p className="text-white font-semibold">{info.value}</p>
-                        )}
-                      </div>
-                    </motion.div>
-                  ))}
+            <div className="panel rounded-xl p-6">
+              <p className="label-mono">Direct line</p>
+              <a
+                href={`mailto:${profile.email}`}
+                className="mt-3 block break-all font-display text-[1.5rem] font-normal tracking-ultratight text-white transition hover:text-emerald-200"
+              >
+                {profile.email}
+              </a>
+              <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+                {profile.phone}
+              </p>
+              <div className="mt-5 grid gap-2 text-[13px] text-zinc-400">
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-600">▸</span>
+                  <span>Surat, India · {profile.origin} (origin)</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-600">▸</span>
+                  <span>Replies usually within a day.</span>
                 </div>
               </div>
-            </SpringCard>
+            </div>
 
-            <SpringCard>
-              <div className="p-8 rounded-xl bg-black border border-red-500/20">
-                <h3 className="text-xl font-bold mb-4 text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  Available For
-                </h3>
-                <div className="space-y-3">
-                  {[
-                    "💼 Full-time opportunities",
-                    "🚀 Freelance projects",
-                    "🤝 Collaborations",
-                    "💡 Open source contributions"
-                  ].map((item, index) => (
-                    <motion.p
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="text-gray-300"
-                    >
-                      {item}
-                    </motion.p>
-                  ))}
-                </div>
+            <div className="panel rounded-xl p-6">
+              <p className="label-mono">Channels</p>
+              <div className="mt-4 grid gap-2">
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target={s.href.startsWith("http") ? "_blank" : undefined}
+                    rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="group flex items-center gap-3 rounded-md border border-white/[0.07] bg-white/[0.015] px-3 py-2.5 transition hover:-translate-y-0.5 hover:border-emerald-300/30 hover:bg-emerald-300/[0.04]"
+                  >
+                    <span className="grid h-9 w-9 place-items-center rounded-md bg-black/40">
+                      <img src={s.icon} alt="" className="h-4 w-4 object-contain" />
+                    </span>
+                    <span className="flex-1 text-[13px] font-semibold text-zinc-200 group-hover:text-white">
+                      {s.name}
+                    </span>
+                    <span className="text-zinc-600 transition group-hover:text-emerald-300">
+                      ↗
+                    </span>
+                  </a>
+                ))}
               </div>
-            </SpringCard>
-          </motion.div>
+            </div>
+
+            <div className="rounded-xl border border-emerald-300/25 bg-emerald-300/[0.05] p-6">
+              <p className="label-mono text-emerald-200/80">Status</p>
+              <p className="mt-3 font-display text-2xl tracking-ultratight text-white">
+                Available · Summer 2026
+              </p>
+              <p className="mt-2 text-[13px] leading-[1.7] text-zinc-300">
+                Looking for SDE or AI internships, freelance contracts, or research
+                collaborations. Open to remote and on-site.
+              </p>
+            </div>
+          </Motion.aside>
         </div>
       </div>
     </section>
+  );
+}
+
+function Field({ label, name, value, onChange, placeholder, type = "text", disabled, required = true }) {
+  return (
+    <label className="grid gap-2">
+      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-300/90">
+        {label}
+      </span>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        required={required}
+        className="rounded-md border border-white/[0.08] bg-black/40 px-4 py-3 text-[14px] text-white placeholder:text-zinc-600 outline-none transition focus:border-emerald-300/60 focus:bg-black/60 disabled:opacity-60"
+      />
+    </label>
   );
 }

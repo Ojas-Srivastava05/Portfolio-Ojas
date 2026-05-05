@@ -109,7 +109,7 @@ export async function fetchCodeforcesStats(username) {
 }
 
 // Kaggle (no official API - would need web scraping or manual update)
-export async function fetchKaggleStats(username) {
+export async function fetchKaggleStats() {
   // Kaggle doesn't have a public API
   // You'll need to manually update these values or use web scraping
   console.warn('Kaggle API not available - using placeholder data');

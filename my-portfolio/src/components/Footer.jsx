@@ -1,121 +1,121 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
+import { navItems, socialLinks, profile } from "../data/portfolio";
 
 export default function Footer() {
-  const socialLinks = [
-    {
-      name: "Gmail",
-      icon: "https://cdn.simpleicons.org/gmail/EA4335",
-      url: "mailto:your.email@gmail.com",
-    },
-    {
-      name: "LinkedIn",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-      url: "https://www.linkedin.com/in/ojas-srivastava05",
-    },
-    {
-      name: "GitHub",
-      icon: "https://cdn.simpleicons.org/github/FFFFFF",
-      url: "https://github.com/Ojas-Srivastava05",
-    },
-    {
-      name: "LeetCode",
-      icon: "https://cdn.simpleicons.org/leetcode/FFA116",
-      url: "https://leetcode.com/Oju_Srivastava",
-    },
-    {
-      name: "CodeChef",
-      icon: "https://cdn.simpleicons.org/codechef/5B4638",
-      url: "https://www.codechef.com/users/ojassrivastava",
-    },
-    {
-      name: "Codeforces",
-      icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
-      url: "https://codeforces.com/profile/oju",
-    },
-    {
-      name: "Kaggle",
-      icon: "https://cdn.simpleicons.org/kaggle/20BEFF",
-      url: "https://www.kaggle.com/ojassrivastava05",
-    }
-  ];
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <footer className="relative py-12 px-6 border-t border-red-500/20 bg-black">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-red-500/5 to-transparent pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Social Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+    <footer className="relative border-t border-white/[0.06] bg-black/30">
+      {/* Big signature wordmark */}
+      <div className="mx-auto max-w-[1240px] px-5 pt-16 sm:px-8">
+        <Motion.h2
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mb-8"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-[18vw] leading-[0.85] tracking-ultratight text-white/[0.04] sm:text-[14vw] lg:text-[10rem]"
         >
-          {socialLinks.map((social, index) => (
-            <motion.a
-              key={index}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative"
-            >
-              <div className="w-12 h-12 rounded-xl border-2 border-red-500/30 bg-black flex items-center justify-center transition-all duration-300 group-hover:border-red-500 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] p-2.5">
-                <img 
-                  src={social.icon} 
-                  alt={social.name}
-                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = '<span class="text-xl">💼</span>';
-                  }}
-                />
+          Ojas <span className="italic text-emerald-200/[0.08]">Srivastava.</span>
+        </Motion.h2>
+      </div>
+
+      <div className="mx-auto max-w-[1240px] px-5 pb-12 pt-10 sm:px-8">
+        <div className="hr-soft" />
+
+        <div className="mt-10 grid gap-10 lg:grid-cols-[1.15fr_0.85fr_0.85fr]">
+          {/* Identity column */}
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+              Maintained by
+            </p>
+            <p className="mt-3 text-2xl font-semibold tracking-tight text-white">
+              {profile.name}
+            </p>
+            <p className="mt-2 max-w-md text-sm leading-7 text-zinc-400">
+              {profile.shortBio}
+            </p>
+            <div className="mt-5 inline-flex items-center gap-2 rounded-md border border-emerald-300/25 bg-emerald-300/[0.06] px-3 py-1.5">
+              <span className="live-dot" />
+              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-emerald-200">
+                Available for Summer 2026
+              </span>
+            </div>
+          </div>
+
+          {/* Sitemap */}
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+              Sitemap
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-left text-sm text-zinc-300 transition hover:text-emerald-200"
+                >
+                  → {item.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Channels */}
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+              Channels
+            </p>
+            <div className="mt-4 grid gap-2">
+              <a
+                href={`mailto:${profile.email}`}
+                className="group inline-flex items-center justify-between rounded-md border border-white/[0.08] bg-white/[0.02] px-3 py-2.5 text-sm text-zinc-200 transition hover:border-emerald-300/40 hover:bg-emerald-300/[0.05] hover:text-emerald-100"
+              >
+                <span className="truncate">{profile.email}</span>
+                <span className="text-zinc-500 transition group-hover:text-emerald-200">↗</span>
+              </a>
+              <div className="grid grid-cols-3 gap-2">
+                {socialLinks.slice(1, 7).map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target={social.href.startsWith("http") ? "_blank" : undefined}
+                    rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    aria-label={social.name}
+                    className="group grid h-11 place-items-center rounded-md border border-white/[0.08] bg-white/[0.02] transition hover:border-emerald-300/40 hover:bg-emerald-300/[0.06]"
+                  >
+                    <img
+                      src={social.icon}
+                      alt=""
+                      className="h-4 w-4 object-contain opacity-80 transition group-hover:opacity-100"
+                    />
+                  </a>
+                ))}
               </div>
-              
-              {/* Tooltip */}
-              <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                {social.name}
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-red-500 rotate-45" />
-              </div>
-            </motion.a>
-          ))}
-        </motion.div>
+            </div>
+          </div>
+        </div>
 
-        {/* Divider */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          className="w-full h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent mb-8"
-        />
-
-        {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="text-center"
-        >
-          <p className="text-gray-400 font-hacker text-sm">
-            © 2025{" "}
-            <span className="text-red-500 font-bold">Ojas Srivastava</span>
-            . All rights reserved.
-          </p>
-          <p className="text-gray-600 text-xs mt-2">
-            Built with ❤️ using React & Framer Motion
-          </p>
-        </motion.div>
-
-        {/* Decorative Elements */}
-        <div className="absolute bottom-0 left-0 w-20 h-20 border-l-2 border-b-2 border-red-500/20" />
-        <div className="absolute bottom-0 right-0 w-20 h-20 border-r-2 border-b-2 border-red-500/20" />
+        {/* Bottom strip */}
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/[0.06] pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+            <span>© {new Date().getFullYear()} OJAS SRIVASTAVA</span>
+            <span className="h-1 w-1 rounded-full bg-zinc-700" />
+            <span>BUILT WITH REACT · TAILWIND · FRAMER MOTION</span>
+            <span className="h-1 w-1 rounded-full bg-zinc-700" />
+            <span>{profile.location}</span>
+          </div>
+          <a
+            href="https://github.com/Ojas-Srivastava05/Portfolio-Ojas.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500 transition hover:text-emerald-200"
+          >
+            View source ↗
+          </a>
+        </div>
       </div>
     </footer>
   );

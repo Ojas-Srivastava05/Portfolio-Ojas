@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion as Motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 export default function SpringCard({ children, className = "" }) {
@@ -41,7 +41,7 @@ export default function SpringCard({ children, className = "" }) {
   };
 
   return (
-    <motion.div
+    <Motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -59,7 +59,7 @@ export default function SpringCard({ children, className = "" }) {
       className={`relative ${className}`}
     >
       {/* Ambient glow effect */}
-      <motion.div
+      <Motion.div
         className="absolute -inset-1 rounded-2xl opacity-0 blur-2xl transition-opacity duration-300"
         style={{
           background: "linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(220, 38, 38, 0.2))",
@@ -68,7 +68,7 @@ export default function SpringCard({ children, className = "" }) {
       />
 
       {/* Card content with enhanced shadow */}
-      <motion.div
+      <Motion.div
         className="relative rounded-xl"
         style={{
           transformStyle: "preserve-3d",
@@ -81,7 +81,7 @@ export default function SpringCard({ children, className = "" }) {
         }}
       >
         {children}
-      </motion.div>
-    </motion.div>
+      </Motion.div>
+    </Motion.div>
   );
 }

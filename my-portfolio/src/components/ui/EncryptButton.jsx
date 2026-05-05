@@ -1,40 +1,49 @@
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion as Motion } from "framer-motion";
 
-const CYCLES_PER_LETTER = 2;
-const SHUFFLE_TIME = 50;
-const CHARS = "!@#$%^&*():{};|,.<>/?";
+const CYCLES_PER_LETTER = 1.5;
+const SHUFFLE_TIME = 36;
+const CHARS = "01{}[]<>/#";
 
-export function EncryptButton({ 
+export function EncryptButton({
   text = "Button",
   icon = null,
-  onClick = () => {},
+  onClick,
   href = null,
   className = "",
-  variant = "default" // "default", "primary", "outline"
+  variant = "primary",
+  disabled = false,
+  type = "button",
+  ...props
 }) {
   const intervalRef = useRef(null);
-  const [displayText, setDisplayText] = useState(text);
+  const [displayText, setDisplayText] = useState(null);
+
+  useEffect(() => {
+    return () => clearInterval(intervalRef.current || undefined);
+  }, []);
+
+  const stopScramble = () => {
+    clearInterval(intervalRef.current || undefined);
+    setDisplayText(null);
+  };
 
   const scramble = () => {
+    if (disabled) return;
     let pos = 0;
+    clearInterval(intervalRef.current || undefined);
 
     intervalRef.current = setInterval(() => {
-      const scrambled = text.split("")
+      const scrambled = text
+        .split("")
         .map((char, index) => {
-          if (pos / CYCLES_PER_LETTER > index) {
-            return char;
-          }
-
-          const randomCharIndex = Math.floor(Math.random() * CHARS.length);
-          const randomChar = CHARS[randomCharIndex];
-
-          return randomChar;
+          if (char === " " || pos / CYCLES_PER_LETTER > index) return char;
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
         })
         .join("");
 
       setDisplayText(scrambled);
-      pos++;
+      pos += 1;
 
       if (pos >= text.length * CYCLES_PER_LETTER) {
         stopScramble();
@@ -42,53 +51,49 @@ export function EncryptButton({
     }, SHUFFLE_TIME);
   };
 
-  const stopScramble = () => {
-    clearInterval(intervalRef.current || undefined);
-    setDisplayText(text);
+  const variants = {
+    primary:
+      "border-teal-300/60 bg-teal-300 text-slate-950 shadow-teal-950/30 hover:bg-teal-200",
+    secondary:
+      "border-white/10 bg-white/[0.06] text-white hover:border-teal-300/40 hover:bg-white/[0.09] hover:text-teal-100",
+    outline:
+      "border-white/20 bg-transparent text-slate-200 hover:border-amber-300/60 hover:text-amber-100",
   };
 
-  const variantStyles = {
-    default: "bg-neutral-900/50 border-neutral-500 text-neutral-300 hover:text-red-400",
-    primary: "bg-neutral-900/50 border-red-500/40 text-red-400 hover:text-red-300",
-    outline: "bg-neutral-900/30 border-red-500/30 text-red-400 hover:text-red-300",
+  const labelStyles = {
+    primary: "text-slate-950",
+    secondary: "text-white group-hover:text-teal-100",
+    outline: "text-slate-200 group-hover:text-amber-100",
   };
 
-  const gradientStyles = {
-    default: "from-indigo-400/0 via-indigo-400/90 to-indigo-400/0",
-    primary: "from-red-500/0 via-red-500/90 to-red-500/0",
-    outline: "from-red-600/0 via-red-600/90 to-red-600/0",
-  };
-
-  const Component = href ? motion.a : motion.button;
+  const Component = href ? Motion.a : Motion.button;
+  const externalProps =
+    href && href.startsWith("http")
+      ? { target: "_blank", rel: "noopener noreferrer" }
+      : {};
 
   return (
     <Component
       href={href}
-      onClick={onClick}
-      whileHover={{ scale: 1.025 }}
-      whileTap={{ scale: 0.975 }}
+      onClick={disabled ? undefined : onClick}
+      type={href ? undefined : type}
+      disabled={href ? undefined : disabled}
+      aria-disabled={href && disabled ? "true" : undefined}
+      tabIndex={href && disabled ? -1 : undefined}
+      whileHover={disabled ? undefined : { y: -2 }}
+      whileTap={disabled ? undefined : { scale: 0.98 }}
       onMouseEnter={scramble}
       onMouseLeave={stopScramble}
-      className={`group relative overflow-hidden rounded-lg border-[1px] px-6 py-3 font-mono font-medium uppercase transition-colors inline-block ${variantStyles[variant]} ${className}`}
+      className={`group inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-bold uppercase tracking-[0.14em] shadow-xl transition duration-300 disabled:pointer-events-none disabled:opacity-60 ${variants[variant]} ${className}`}
+      {...externalProps}
+      {...props}
     >
-      {/* Animated laser scan effect */}
-      <motion.div
-        className={`absolute inset-0 bg-gradient-to-b ${gradientStyles[variant]} opacity-0 group-hover:opacity-100 pointer-events-none`}
-        initial={{ y: '100%' }}
-        whileHover={{
-          y: '-100%',
-          transition: {
-            repeat: Infinity,
-            duration: 1.5,
-            ease: "linear",
-          }
-        }}
-      />
-      
-      {/* Text content */}
-      <span className="relative z-10 flex items-center justify-center gap-2">
-        {icon && <span className="text-lg">{icon}</span>}
-        <span>{displayText}</span>
+      {icon && <span className="relative z-10 text-base leading-none">{icon}</span>}
+      <span
+        className={`relative z-10 font-mono ${labelStyles[variant]}`}
+        style={{ color: variant === "primary" ? "#020617" : undefined }}
+      >
+        {displayText ?? text}
       </span>
     </Component>
   );

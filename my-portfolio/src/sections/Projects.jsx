@@ -1,264 +1,323 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
-import { EncryptButton } from "../components/ui/EncryptButton";
-import SpringCard from "../components/ui/SpringCard";
+import { motion as Motion } from "framer-motion";
+import { projects } from "../data/portfolio";
+
+const categories = ["All", "AI Systems", "Full Stack", "AI Tools", "Product", "Machine Learning", "Frontend"];
 
 export default function Projects() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [filter, setFilter] = useState("All");
 
-  const projects = [
-    {
-      title: "RangRiti – Cultural Tech Platform",
-      description: "Full-stack web platform bridging traditional Indian art and modern digital audience with AI-powered tools, VR rooms, and artisan marketplace",
-      tech: ["Node.js", "Express", "MongoDB", "Cloudinary", "Hugging Face", "EJS"],
-      image: "/rangriti-preview.png?v=1",
-      github: "https://github.com/Ojas-Srivastava05/RangRiti",
-      live: "https://rangriti.onrender.com",
-      category: "Web Dev",
-      featured: true,
-      details: {
-        tagline: "Bridging Tradition and Technology to Celebrate Indian Art",
-        highlights: [
-          "40+ Indian artforms with educational context",
-          "AI-powered art preview generation",
-          "Immersive VR cultural rooms",
-          "Global artisan marketplace",
-          "Text-to-speech mythology narrations"
-        ]
-      }
-    },
-    {
-      title: "ClimaTrack – Temperature Predictor",
-      description: "Machine Learning temperature prediction system using Linear Regression with Gradient Descent trained from scratch in Python",
-      tech: ["Python", "Flask", "Linear Regression", "React", "OpenWeather API"],
-      image: "/climatracker-preview.png?v=1",
-      github: "https://github.com/Ojas-Srivastava05/TempPredictor",
-      live: "https://climatrack-2o3u.onrender.com",
-      category: "ML",
-      details: {
-        highlights: [
-          "Custom gradient descent implementation",
-          "Real-time weather data integration",
-          "Tomorrow's temperature prediction",
-          "Full-stack ML deployment",
-          "First ML project milestone"
-        ]
-      }
-    },
-    {
-      title: "Clubify – Campus Community Platform",
-      description: "Modern platform streamlining how students discover, join, and engage with campus clubs and events through unified communication and management",
-      tech: ["React", "Node.js", "Express", "MongoDB", "JWT Auth", "Cloudinary"],
-      image: "/clubify-preview.png?v=1",
-      github: "https://github.com/Ojas-Srivastava05/WPP-Project.git",
-      live: "https://github.com/Ojas-Srivastava05/WPP-Project.git",
-      category: "Web Dev",
-      featured: true,
-      details: {
-        highlights: [
-          "Personalized club discovery feed",
-          "Event management & registration tracking",
-          "Seamless membership onboarding workflow",
-          "Role-based admin dashboard",
-          "Real-time updates and analytics"
-        ]
-      }
-    },
-    {
-      title: "INK'D – Digital Diary Terminal",
-      description: "Futuristic AI-powered diary app with PDF generation, QR code linking, and intelligent AI summaries using Cohere API",
-      tech: ["Node.js", "Express", "Cohere API", "PDF Generation", "QR Code"],
-      image: "/inkd-preview.png?v=1",
-      github: "https://github.com/Ojas-Srivastava05/inkd-diary",
-      live: "https://inkd-diary.onrender.com",
-      category: "Web Dev",
-      details: {
-        highlights: [
-          "Auto-generated PDF for each entry",
-          "QR code links to generated PDFs",
-          "AI-powered entry summaries",
-          "Animated, responsive UI",
-          "Secure diary management"
-        ]
-      }
-    },
-    {
-      title: "DSA Problem Solutions",
-      description: "Comprehensive collection of Data Structures & Algorithms solutions across multiple competitive programming platforms",
-      tech: ["C++", "Python", "Java", "Algorithms", "Problem Solving"],
-      image: "https://cdn.simpleicons.org/leetcode/FFA116",
-      github: "https://github.com/Ojas-Srivastava05",
-      live: "https://github.com/Ojas-Srivastava05",
-      category: "DSA",
-      details: {
-        platforms: ["LeetCode", "CodeChef", "Codeforces", "TLE Eliminators"],
-        highlights: [
-          "300+ problems solved",
-          "Organized by topic and difficulty",
-          "Optimized solutions with explanations",
-          "Regular updates with new problems"
-        ]
-      }
-    },
-    {
-      title: "Portfolio Website",
-      description: "Modern portfolio with smooth animations and interactive UI components built in just 16 hours",
-      tech: ["React", "Framer Motion", "Tailwind"],
-      image: "/portfolio-preview.png?v=1",
-      github: "https://github.com/Ojas-Srivastava05/Portfolio-Ojas.git",
-      live: "https://portfolio-ojas-teal.vercel.app/",
-      category: "Web Dev",
-      buildTime: "16 hours"
-    }
-  ];
+  const flagship = projects.find((p) => p.flagship);
+  const rest = projects.filter((p) => !p.flagship);
+  const visible = filter === "All" ? rest : rest.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="min-h-screen py-20 px-6 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 -z-10">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-[120px]"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.5, 0.3, 0.5],
-          }}
-          transition={{ duration: 10, repeat: Infinity }}
-        />
-      </div>
+    <section id="projects" className="relative overflow-hidden">
+      <div className="section-shell">
+        {/* Header */}
+        <div className="grid items-end gap-8 lg:grid-cols-[0.55fr_0.45fr]">
+          <Motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+          >
+            <p className="eyebrow">// 03 — Selected Work</p>
+            <h2 className="display-h2 mt-6">
+              Products with
+              <span className="italic gradient-text-accent"> real surfaces</span>,
+              not just slide decks.
+            </h2>
+          </Motion.div>
 
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Featured Projects
-          </h2>
-          <p className="text-gray-400 text-lg font-light tracking-wide uppercase" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Showcasing my recent work
-          </p>
-        </motion.div>
+          <Motion.p
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ delay: 0.1 }}
+            className="text-[15px] leading-[1.75] text-zinc-400"
+          >
+            A mix of full-stack products, machine-learning experiments, and AI systems —
+            each one shipped, deployed, and accessible behind a real URL.
+          </Motion.p>
+        </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <SpringCard>
-                <div className="group relative h-full rounded-xl overflow-hidden bg-black border border-red-500/20 hover:border-red-500/50 transition-all duration-300">
-                  {/* Project Image */}
-                  <div className="relative h-40 overflow-hidden bg-black">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-                    
-                    {/* Build Time Badge */}
-                    {project.buildTime && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="absolute top-3 right-3 z-10"
-                      >
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/90 backdrop-blur-sm border border-red-400 shadow-lg shadow-red-500/50">
-                          <span className="text-lg">⚡</span>
-                          <span className="text-xs font-bold text-white">
-                            {project.buildTime}
+        {/* Flagship — LogiFlow */}
+        {flagship && (
+          <Motion.article
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mt-16 overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-emerald-300/[0.05] via-white/[0.015] to-indigo-400/[0.04]"
+          >
+            {/* Top status bar */}
+            <div className="flex items-center justify-between border-b border-white/[0.08] px-6 py-3">
+              <div className="flex items-center gap-3">
+                <span className="live-dot" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-200">
+                  Flagship · In Progress
+                </span>
+              </div>
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+                {flagship.period}
+              </span>
+            </div>
+
+            <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+              {/* Visual */}
+              <div className="relative overflow-hidden border-b border-white/[0.06] bg-black/40 lg:border-b-0 lg:border-r">
+                <div className="aspect-[16/11] w-full bg-[radial-gradient(circle_at_30%_30%,rgba(52,211,153,0.18),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(99,102,241,0.18),transparent_60%)] lg:aspect-auto lg:h-full">
+                  {/* Simulated dashboard graphic */}
+                  <div className="absolute inset-0 grid-bg-fine opacity-50" />
+                  <div className="relative flex h-full items-center justify-center p-10">
+                    <div className="w-full max-w-md">
+                      <div className="mb-4 grid grid-cols-4 gap-2">
+                        {["Rail", "Air", "Road", "Water"].map((m, i) => (
+                          <div
+                            key={m}
+                            className="rounded-md border border-white/[0.08] bg-black/50 px-2.5 py-2 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400 backdrop-blur"
+                            style={{
+                              borderColor:
+                                i === 0
+                                  ? "rgba(52,211,153,0.4)"
+                                  : "rgba(255,255,255,0.08)",
+                              color: i === 0 ? "#34d399" : undefined,
+                            }}
+                          >
+                            {m}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="rounded-lg border border-white/[0.08] bg-black/60 p-4 backdrop-blur">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
+                            Optimal Route
+                          </span>
+                          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-300">
+                            ETA -18%
                           </span>
                         </div>
-                      </motion.div>
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-5 bg-black">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                        {project.title}
-                      </h3>
-                      <span className="text-2xl">{project.icon}</span>
+                        <div className="mt-3 flex items-center gap-2 font-mono text-[11px] text-zinc-300">
+                          <span className="rounded border border-emerald-300/30 bg-emerald-300/[0.08] px-2 py-1 text-emerald-200">
+                            DEL
+                          </span>
+                          <span className="text-zinc-600">→</span>
+                          <span className="rounded border border-white/[0.10] bg-white/[0.04] px-2 py-1">
+                            JBP
+                          </span>
+                          <span className="text-zinc-600">→</span>
+                          <span className="rounded border border-white/[0.10] bg-white/[0.04] px-2 py-1">
+                            MUM
+                          </span>
+                          <span className="text-zinc-600">→</span>
+                          <span className="rounded border border-emerald-300/30 bg-emerald-300/[0.08] px-2 py-1 text-emerald-200">
+                            PNQ
+                          </span>
+                        </div>
+                        <div className="mt-3 grid grid-cols-3 gap-2 font-mono text-[10px]">
+                          <div className="rounded border border-white/[0.08] bg-white/[0.02] p-2">
+                            <p className="text-zinc-500">TIME</p>
+                            <p className="mt-1 text-white">42h</p>
+                          </div>
+                          <div className="rounded border border-white/[0.08] bg-white/[0.02] p-2">
+                            <p className="text-zinc-500">COST</p>
+                            <p className="mt-1 text-white">₹12.4K</p>
+                          </div>
+                          <div className="rounded border border-white/[0.08] bg-white/[0.02] p-2">
+                            <p className="text-zinc-500">RISK</p>
+                            <p className="mt-1 text-emerald-300">LOW</p>
+                          </div>
+                        </div>
+                        <div className="mt-3 rounded border border-white/[0.08] bg-white/[0.02] p-2 font-mono text-[10px] text-zinc-400">
+                          <span className="text-amber-200">↳ AI:</span> Switching to rail leg cuts cost without breaching SLA window.
+                        </div>
+                      </div>
                     </div>
-
-                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {project.tech.map((tech, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-1 text-[10px] font-semibold rounded-md bg-red-500/10 text-red-400 border border-red-500/30"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-2">
-                      <EncryptButton
-                        text="View Demo"
-                        href={project.live}
-                        variant="primary"
-                        className="flex-1 text-xs py-2"
-                      />
-                      <EncryptButton
-                        text="Code"
-                        href={project.github}
-                        variant="secondary"
-                        className="flex-1 text-xs py-2"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Hover Effect Border */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-red-500" />
-                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-red-500" />
-                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-red-500" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-red-500" />
                   </div>
                 </div>
-              </SpringCard>
-            </motion.div>
+              </div>
+
+              {/* Detail */}
+              <div className="p-7 lg:p-9">
+                <span className="chip-accent">{flagship.category}</span>
+                <h3 className="mt-5 font-display text-[2.25rem] leading-[1.05] tracking-ultratight text-white sm:text-5xl">
+                  {flagship.title}
+                </h3>
+                <p className="mt-2 text-[15px] font-medium text-emerald-200/90">
+                  {flagship.subtitle}
+                </p>
+                <p className="mt-5 max-w-xl text-[14px] leading-[1.75] text-zinc-400">
+                  {flagship.description}
+                </p>
+
+                <ul className="mt-6 grid gap-2.5">
+                  {flagship.bullets?.map((b, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-3 text-[13px] leading-[1.7] text-zinc-300"
+                    >
+                      <span className="mt-1.5 inline-block h-1 w-1.5 flex-shrink-0 rounded-full bg-emerald-300" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-6 flex flex-wrap gap-1.5">
+                  {flagship.tech.map((t) => (
+                    <span key={t} className="chip">{t}</span>
+                  ))}
+                </div>
+
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <a
+                    href={flagship.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary"
+                  >
+                    Visit Project <span>↗</span>
+                  </a>
+                  <a
+                    href={flagship.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ghost"
+                  >
+                    Source <span>↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Motion.article>
+        )}
+
+        {/* Filters */}
+        <div className="mt-20 flex flex-wrap items-center gap-2">
+          <span className="label-mono mr-2">Filter:</span>
+          {categories.map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setFilter(c)}
+              className={`rounded-md border px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.16em] transition ${
+                filter === c
+                  ? "border-emerald-300/40 bg-emerald-300/[0.08] text-emerald-200"
+                  : "border-white/[0.07] bg-white/[0.015] text-zinc-400 hover:border-white/[0.18] hover:text-white"
+              }`}
+            >
+              {c}
+            </button>
           ))}
         </div>
 
-        {/* View More Button */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-        >
-          <EncryptButton
-            text="View All Projects"
-            icon="→"
-            href="#"
-            variant="primary"
-            className="text-base"
-          />
-        </motion.div>
+        {/* Grid */}
+        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {visible.map((p, i) => (
+            <Motion.article
+              key={p.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.05 }}
+              onMouseMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--spot-x", `${e.clientX - r.left}px`);
+                e.currentTarget.style.setProperty("--spot-y", `${e.clientY - r.top}px`);
+                e.currentTarget.style.setProperty("--spot-opacity", "1");
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.setProperty("--spot-opacity", "0");
+              }}
+              style={{
+                "--spot-x": "50%",
+                "--spot-y": "50%",
+                "--spot-opacity": "0",
+                "--spot-size": "320px",
+                "--spot-color": "rgba(52, 211, 153, 0.10)",
+              }}
+              className="spotlight-card group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.015] transition duration-500 hover:border-white/[0.14] hover:bg-white/[0.025]"
+            >
+              <a
+                href={p.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden border-b border-white/[0.06] bg-ink-100">
+                  <img
+                    src={p.image}
+                    alt={`${p.title} preview`}
+                    className="h-full w-full object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
+                    loading={i > 1 ? "lazy" : "eager"}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
+                  <div className="absolute left-3 top-3 flex items-center gap-2">
+                    <span className="rounded-md border border-white/15 bg-black/55 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-emerald-200 backdrop-blur">
+                      {p.category}
+                    </span>
+                  </div>
+                  <div className="absolute right-3 top-3">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-400">
+                      {p.period}
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              <div className="flex flex-1 flex-col p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="font-display text-[1.5rem] leading-tight tracking-ultratight text-white">
+                      {p.title}
+                    </h3>
+                    <p className="mt-0.5 text-[12.5px] font-medium text-emerald-200/90">
+                      {p.subtitle}
+                    </p>
+                  </div>
+                  <span className="text-zinc-600 transition group-hover:text-emerald-300">↗</span>
+                </div>
+
+                <p className="mt-3 line-clamp-3 text-[13px] leading-[1.7] text-zinc-400">
+                  {p.description}
+                </p>
+
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {p.tech.slice(0, 4).map((t) => (
+                    <span key={t} className="chip !text-[10px]">{t}</span>
+                  ))}
+                  {p.tech.length > 4 && (
+                    <span className="chip !text-[10px]">+{p.tech.length - 4}</span>
+                  )}
+                </div>
+
+                <div className="mt-5 flex items-center justify-between border-t border-white/[0.05] pt-4 text-[11px]">
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono uppercase tracking-[0.18em] text-emerald-200 transition hover:text-emerald-100"
+                  >
+                    Live →
+                  </a>
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono uppercase tracking-[0.18em] text-zinc-400 transition hover:text-white"
+                  >
+                    Source ↗
+                  </a>
+                </div>
+              </div>
+            </Motion.article>
+          ))}
+        </div>
+
+        {visible.length === 0 && (
+          <p className="mt-10 text-center font-mono text-[13px] uppercase tracking-[0.18em] text-zinc-600">
+            No projects in this category yet.
+          </p>
+        )}
       </div>
     </section>
   );
