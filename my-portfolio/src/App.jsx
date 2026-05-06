@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import Background from "./components/Background";
 import CommandPalette from "./components/CommandPalette";
+import ConsoleEgg from "./components/ConsoleEgg";
+import CursorTrail from "./components/CursorTrail";
 import Footer from "./components/Footer";
+import InteractionLab from "./components/InteractionLab";
+import MagneticDock from "./components/MagneticDock";
+import AvailabilityOrb from "./components/AvailabilityOrb";
 import Navbar from "./components/Navbar";
 import ScrollProgress from "./components/ScrollProgress";
 import SectionRail from "./components/SectionRail";
@@ -15,18 +20,95 @@ import Hero from "./sections/Hero";
 import Projects from "./sections/Projects";
 import Toolkit from "./sections/Toolkit";
 
-function App() {
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const [booted, setBooted] = useState(false);
+const CIRCUMFERENCE = 2 * Math.PI * 20; // r=20 on 48px button
+
+function ScrollRingButton() {
+  const [show, setShow] = useState(false);
+  const [pct, setPct] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 720);
+    const onScroll = () => {
+      const scrolled = window.scrollY;
+      const total = document.body.scrollHeight - window.innerHeight;
+      const p = total > 0 ? Math.min(1, scrolled / total) : 0;
+      setPct(p);
+      setShow(scrolled > 720);
     };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <Motion.button
+          aria-label="Back to top"
+          type="button"
+          initial={{ opacity: 0, scale: 0.88 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.88 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          data-ui-chrome="true"
+          className="group fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center text-emerald-200"
+        >
+          {/* Circular progress ring */}
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 -rotate-90"
+            viewBox="0 0 48 48"
+            width="48"
+            height="48"
+          >
+            {/* Track */}
+            <circle
+              cx="24" cy="24" r="20"
+              fill="none"
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth="2"
+            />
+            {/* Progress */}
+            <circle
+              cx="24" cy="24" r="20"
+              fill="none"
+              stroke="url(#ring-grad)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeDasharray={CIRCUMFERENCE}
+              strokeDashoffset={CIRCUMFERENCE * (1 - pct)}
+              style={{ transition: "stroke-dashoffset 0.15s linear" }}
+            />
+            <defs>
+              <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#34d399" />
+                <stop offset="100%" stopColor="#fbbf24" />
+              </linearGradient>
+            </defs>
+          </svg>
+          {/* Glass background */}
+          <span className="absolute inset-[4px] rounded-full border border-white/[0.08] bg-[rgba(8,9,12,0.85)] backdrop-blur-xl transition group-hover:border-emerald-300/40 group-hover:bg-emerald-300/[0.08]" />
+          {/* Arrow */}
+          <svg
+            aria-hidden="true"
+            className="relative z-10 h-3.5 w-3.5 transition group-hover:-translate-y-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+          <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-500 opacity-0 transition group-hover:opacity-100">
+            top ↑
+          </span>
+        </Motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function App() {
+  const [booted, setBooted] = useState(false);
 
   useEffect(() => {
     const t = window.setTimeout(() => setBooted(true), 900);
@@ -35,14 +117,27 @@ function App() {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-ink text-white">
-      <ScrollProgress />
+      {/* Global features */}
+      <ConsoleEgg />
+      <CursorTrail />
+      <MagneticDock />
+      <AvailabilityOrb />
+
+      <div data-ui-chrome="true">
+        <ScrollProgress />
+      </div>
       <Background />
 
       <CommandPalette />
-      <SectionRail />
+      <InteractionLab />
+      <div data-ui-chrome="true">
+        <SectionRail />
+      </div>
 
       <div className="relative z-10">
-        <Navbar />
+        <div data-ui-chrome="true">
+          <Navbar />
+        </div>
         <main>
           <Hero />
           <About />
@@ -61,34 +156,8 @@ function App() {
         {!booted && <BootScreen />}
       </AnimatePresence>
 
-      {/* Back to top */}
-      <AnimatePresence>
-        {showBackToTop && (
-          <Motion.button
-            aria-label="Back to top"
-            type="button"
-            initial={{ opacity: 0, y: 16, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.94 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="group fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center rounded-full border border-emerald-300/30 bg-[rgba(8,9,12,0.85)] text-emerald-200 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.5)] backdrop-blur-xl transition hover:-translate-y-1 hover:border-emerald-200 hover:bg-emerald-300/[0.10]"
-          >
-            <svg
-              aria-hidden="true"
-              className="h-4 w-4 transition group-hover:-translate-y-0.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
-            <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-500 opacity-0 transition group-hover:opacity-100">
-              top ↑
-            </span>
-          </Motion.button>
-        )}
-      </AnimatePresence>
+      {/* Scroll ring back-to-top */}
+      <ScrollRingButton />
     </div>
   );
 }

@@ -42,7 +42,7 @@ export const profileLinks = [
     name: "LinkedIn",
     handle: "ojas-srivastava05",
     href: "https://www.linkedin.com/in/ojas-srivastava05",
-    icon: "https://cdn.simpleicons.org/linkedin/0A66C2",
+    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.784 1.764-1.75 1.764zm13.5 11.268h-3v-5.604c0-1.337-.026-3.058-1.865-3.058-1.865 0-2.151 1.455-2.151 2.963v5.699h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.562 2.839-1.562 3.036 0 3.6 2 3.6 4.59v5.605z'/%3E%3C/svg%3E",
   },
   {
     name: "LeetCode",
@@ -72,7 +72,7 @@ export const socialLinks = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/ojas-srivastava05",
-    icon: "https://cdn.simpleicons.org/linkedin/0A66C2",
+    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.784 1.764-1.75 1.764zm13.5 11.268h-3v-5.604c0-1.337-.026-3.058-1.865-3.058-1.865 0-2.151 1.455-2.151 2.963v5.699h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.562 2.839-1.562 3.036 0 3.6 2 3.6 4.59v5.605z'/%3E%3C/svg%3E",
   },
   {
     name: "LeetCode",

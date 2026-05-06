@@ -299,6 +299,28 @@ kbd {
   font-size: inherit;
 }
 
+/* Ink cursor trail drop animation */
+@keyframes ink-drop {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1) translate(0px, 0px); }
+  60%  { opacity: 0.4; transform: translate(-50%, -50%) scale(0.85) translate(var(--dx), var(--dy)); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) translate(calc(var(--dx) * 1.6), calc(var(--dy) * 2.2)); }
+}
+
+/* Out-of-the-box interaction modes */
+.screenshot-mode [data-ui-chrome="true"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.turbo-mode .aurora {
+  filter: blur(48px) saturate(1.2);
+  animation-duration: 10s;
+}
+
+.turbo-mode .spotlight-card::before {
+  --spot-color: rgba(217, 70, 239, 0.16);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
