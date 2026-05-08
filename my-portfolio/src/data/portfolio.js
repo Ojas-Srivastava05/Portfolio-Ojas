@@ -11,7 +11,7 @@ export const profile = {
   resume: "/Ojas-Srivastava-Resume.pdf",
   available: "Open to internships, freelance, and collaborative builds.",
   shortBio:
-    "B.Tech AI at SVNIT Surat. I design backend systems, ship full-stack products, and grind algorithms with the scoreboard watching.",
+    "B.Tech AI at SVNIT Surat. I design backend systems, ship full-stack products, and grind algorithms — 531+ problems, LeetCode Knight, top 3.67% globally.",
 };
 
 export const navItems = [
@@ -25,10 +25,10 @@ export const navItems = [
 ];
 
 export const heroMetrics = [
-  { value: "1952", label: "LeetCode peak", sub: "Knight" },
+  { value: "1952", label: "LeetCode peak", sub: "Knight · Top 3.67%" },
   { value: "9.19", label: "CGPA", sub: "/ 10.0" },
-  { value: "300+", label: "Problems", sub: "across CP" },
-  { value: "5+", label: "Shipped", sub: "products" },
+  { value: "531+", label: "Problems", sub: "across CP" },
+  { value: "7+", label: "Shipped", sub: "products" },
 ];
 
 export const profileLinks = [
@@ -46,13 +46,13 @@ export const profileLinks = [
   },
   {
     name: "LeetCode",
-    handle: "Knight · 1952",
+    handle: "Knight · 1952 peak · Top 3.67%",
     href: "https://leetcode.com/Oju_Srivastava",
     icon: "https://cdn.simpleicons.org/leetcode/FFA116",
   },
   {
     name: "Codeforces",
-    handle: "oju",
+    handle: "oju · 1179",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
   },
@@ -99,7 +99,7 @@ export const projects = [
       "An end-to-end multi-modal logistics platform that unifies rail, air, road, and water pipelines, predicts disruptions with ML, and explains routing decisions with LLMs.",
     image: "/portfolio-preview.png?v=2",
     tech: ["FastAPI", "Next.js", "Python", "ML", "Gemini", "Groq"],
-    github: "https://github.com/Ojas-Srivastava05",
+    github: "https://github.com/Ojas-Srivastava05/LogiFlow-Solution-Challenge-2026",
     live: "https://logi-flow-solution-challenge-2026.vercel.app/",
     category: "AI Systems",
     period: "2026 — Present",
@@ -116,6 +116,26 @@ export const projects = [
     ],
     featured: true,
     flagship: true,
+  },
+  {
+    title: "AirHelp",
+    subtitle: "AI airport companion — PowerMind Hackathon 2026",
+    description:
+      "An intelligent, privacy-first airport assistant built at PowerMind Hackathon 2026. Conversational AI with offline LLM, A* graph-based navigation, RAG-powered facility discovery, voice interaction (Whisper STT + Piper TTS), and boarding-pass OCR — all running locally with zero cloud dependencies.",
+    image: "/portfolio-preview.png?v=2",
+    tech: ["FastAPI", "Python", "React", "Ollama", "ChromaDB", "NetworkX", "Whisper", "Piper TTS"],
+    github: "https://github.com/Ojas-Srivastava05/AirHelp-AI-Airport-Assistant",
+    live: "https://github.com/Ojas-Srivastava05/AirHelp-AI-Airport-Assistant",
+    category: "AI Systems",
+    period: "2026 · Hackathon",
+    highlights: ["A* navigation engine", "Offline-first LLM", "RAG + voice pipeline"],
+    bullets: [
+      "Built the UI/UX and graph-based navigation engine using A* pathfinding with turn-by-turn directions and time estimation.",
+      "Integrated RAG pipeline (ChromaDB + Sentence Transformers) for semantic facility discovery with metadata filtering.",
+      "Implemented offline voice pipeline: Whisper STT + Piper TTS — no cloud, full privacy.",
+      "Contributed to the multi-layer memory architecture (persistent, ephemeral, turn-based) for context-aware conversations.",
+    ],
+    featured: true,
   },
   {
     title: "RangRiti",
@@ -301,7 +321,7 @@ export const principles = [
     n: "04",
     title: "Algorithms are reps.",
     body:
-      "LeetCode Knight at 1952. The reps make me faster at debugging, calmer in code review, and better at modelling problems.",
+      "LeetCode Knight, peak 1952, 531+ problems across platforms. The reps make me faster at debugging, calmer in code review, and sharper at problem modelling.",
   },
 ];
 
@@ -316,73 +336,81 @@ export const codingProfiles = [
   {
     platform: "LeetCode",
     handle: "Oju_Srivastava",
-    rating: "1952",
+    rating: "1931",
     rank: "Knight",
-    detail: "Top tier rating with 300+ problems solved.",
+    detail: "531 problems solved · Peak 1952 · Top 3.67% globally.",
     color: "#FFA116",
     href: "https://leetcode.com/Oju_Srivastava",
     icon: "https://cdn.simpleicons.org/leetcode/FFA116",
     stats: [
-      { label: "Max rating", value: "1952" },
+      { label: "Peak rating", value: "1952" },
+      { label: "Current", value: "1931" },
       { label: "Rank", value: "Knight" },
-      { label: "Problems", value: "300+" },
+      { label: "Problems", value: "531" },
+      { label: "Contests", value: "26" },
+      { label: "Global rank", value: "Top 3.67%" },
     ],
   },
   {
     platform: "Codeforces",
     handle: "oju",
-    rating: "Active",
-    rank: "Pupil track",
-    detail: "Regular competitive contests and round practice.",
+    rating: "1179",
+    rank: "Newbie",
+    detail: "142 problems solved across rated rounds and practice.",
     color: "#1F8ACB",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
     stats: [
-      { label: "Status", value: "Active" },
-      { label: "Focus", value: "Rounds" },
-      { label: "Style", value: "Implementation" },
+      { label: "Rating", value: "1179" },
+      { label: "Rank", value: "Newbie" },
+      { label: "Problems", value: "142" },
     ],
   },
   {
     platform: "CodeChef",
     handle: "ojassrivastava",
-    rating: "3★",
-    rank: "Active",
-    detail: "Long and short challenges plus practice ladders.",
+    rating: "1572",
+    rank: "2★",
+    detail: "10 rated contests · 116 problems solved.",
     color: "#FFFFFF",
     href: "https://www.codechef.com/users/ojassrivastava",
     icon: "https://cdn.simpleicons.org/codechef/FFFFFF",
     stats: [
-      { label: "Rank", value: "3★" },
-      { label: "Mode", value: "Contests" },
-      { label: "Focus", value: "Ad-hoc" },
+      { label: "Rating", value: "1572" },
+      { label: "Rank", value: "2★" },
+      { label: "Problems", value: "116" },
     ],
   },
   {
     platform: "GitHub",
     handle: "Ojas-Srivastava05",
-    rating: "Public",
-    rank: "Open source",
-    detail: "Public source for every shipped project listed here.",
+    rating: "31",
+    rank: "Public repos",
+    detail: "31 public repos · 20 followers · Active since 2021.",
     color: "#FFFFFF",
     href: "https://github.com/Ojas-Srivastava05",
     icon: "https://cdn.simpleicons.org/github/FFFFFF",
     stats: [
-      { label: "Repos", value: "10+" },
-      { label: "Lang", value: "JS/Py" },
-      { label: "Status", value: "Active" },
+      { label: "Repos", value: "31" },
+      { label: "Followers", value: "20" },
+      { label: "Lang", value: "Py/JS/C++" },
     ],
   },
 ];
 
 export const achievementStats = [
-  { value: "1952", label: "LeetCode max", detail: "Knight rating peak" },
+  { value: "1952", label: "LeetCode peak", detail: "Knight · Top 3.67% globally" },
   { value: "9.19", label: "CGPA", detail: "B.Tech AI · SVNIT Surat" },
-  { value: "300+", label: "Problems solved", detail: "LeetCode + CF + CC" },
-  { value: "5+", label: "Products shipped", detail: "Web · AI · Systems" },
+  { value: "531+", label: "Problems solved", detail: "LeetCode · CF · CodeChef" },
+  { value: "7+", label: "Products shipped", detail: "Web · AI · Systems" },
 ];
 
 export const achievements = [
+  {
+    title: "PowerMind Hackathon 2026",
+    detail: "Built AirHelp — AI airport companion with offline LLM, voice, and A* navigation.",
+    tag: "Hackathon",
+  },
   {
     title: "LeetCode Knight",
     detail: "Reached a 1952 max rating with consistent algorithm practice.",
@@ -464,6 +492,7 @@ export const toolkit = [
 
 export const nowFeed = [
   { tag: "BUILDING", text: "LogiFlow · multi-modal logistics decision engine" },
+  { tag: "SHIPPED", text: "AirHelp · AI airport assistant · PowerMind Hackathon 2026" },
   { tag: "GRINDING", text: "LeetCode contests · pushing past 2000" },
   { tag: "STUDYING", text: "Stanford ML Specialization + DBMS internals" },
   { tag: "READING", text: "Designing Data-Intensive Applications" },
@@ -472,9 +501,12 @@ export const nowFeed = [
 
 export const tickerLines = [
   "leetcode.knight",
-  "rating::1952",
+  "peak::1952 · current::1931",
+  "531 problems solved · top 3.67%",
   "svnit.ai · cgpa 9.19",
-  "stack::node + python + react",
+  "stack::node + python + react + c++",
   "currently::shipping logiflow",
+  "hackathon::airhelp · powermind 2026",
+  "github::31 public repos",
   "areas::backend · distributed · ai",
 ];
