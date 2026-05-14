@@ -87,6 +87,19 @@ function buildCommands({ closePalette, setToast, refetchStats, syncingStats }) {
       action: () => copy(profile.phone, "phone"),
     },
     {
+      id: "copy-recruiter-pitch",
+      group: "Quick actions",
+      title: "Copy recruiter pitch",
+      hint: "One-line profile summary",
+      keywords: "copy recruiter pitch intro summary hiring",
+      icon: "★",
+      action: () =>
+        copy(
+          `${profile.name} - B.Tech AI at SVNIT Surat, ${profile.role}. LeetCode Knight (1952 peak), CGPA 9.19, 8+ shipped builds across backend, full-stack, and AI systems. Strong fit for Summer 2026 SDE / AI engineering internships.`,
+          "pitch",
+        ),
+    },
+    {
       id: "download-resume",
       group: "Quick actions",
       title: "Download resume",
@@ -239,10 +252,6 @@ export default function CommandPalette() {
   }, [open]);
 
   useEffect(() => {
-    setActive(0);
-  }, [query]);
-
-  useEffect(() => {
     if (!toast) return;
     const t = window.setTimeout(() => setToast(null), 1800);
     return () => window.clearTimeout(t);
@@ -287,7 +296,10 @@ export default function CommandPalette() {
                 <input
                   ref={inputRef}
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    setActive(0);
+                  }}
                   placeholder="Search anywhere — projects, profiles, copy email…"
                   className="flex-1 bg-transparent font-mono text-[14px] text-white placeholder:text-zinc-600 outline-none"
                 />

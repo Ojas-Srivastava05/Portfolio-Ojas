@@ -1,15 +1,29 @@
-import { useState } from "react";
-import { motion as Motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import { projects } from "../data/portfolio";
 
 const categories = ["All", "AI Systems", "Full Stack", "AI Tools", "Product", "Machine Learning", "Frontend"];
 
 export default function Projects() {
   const [filter, setFilter] = useState("All");
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const flagship = projects.find((p) => p.flagship);
   const rest = projects.filter((p) => !p.flagship);
   const visible = filter === "All" ? rest : rest.filter((p) => p.category === filter);
+
+  useEffect(() => {
+    if (!selectedProject) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [selectedProject]);
 
   return (
     <section id="projects" className="relative overflow-hidden">
@@ -146,9 +160,27 @@ export default function Projects() {
                 <p className="mt-2 text-[15px] font-medium text-emerald-200/90">
                   {flagship.subtitle}
                 </p>
+                {flagship.role && (
+                  <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+                    Role · <span className="text-zinc-300">{flagship.role}</span>
+                  </p>
+                )}
                 <p className="mt-5 max-w-xl text-[14px] leading-[1.75] text-zinc-400">
                   {flagship.description}
                 </p>
+
+                {flagship.impact && (
+                  <div className="mt-5 grid gap-2 sm:grid-cols-3">
+                    {flagship.impact.map((item) => (
+                      <div
+                        key={item}
+                        className="rounded-md border border-emerald-300/18 bg-emerald-300/[0.045] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-emerald-100"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <ul className="mt-6 grid gap-2.5">
                   {flagship.bullets?.map((b, i) => (
@@ -185,6 +217,13 @@ export default function Projects() {
                   >
                     Source <span>↗</span>
                   </a>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(flagship)}
+                    className="btn-ghost"
+                  >
+                    Case Study <span>⌁</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -294,6 +333,20 @@ export default function Projects() {
                   {p.description}
                 </p>
 
+                {p.impact && (
+                  <div className="mt-4 grid gap-1.5">
+                    {p.impact.slice(0, 3).map((item) => (
+                      <p
+                        key={item}
+                        className="flex items-start gap-2 text-[12px] leading-[1.5] text-zinc-300"
+                      >
+                        <span className="mt-1.5 h-1 w-1.5 shrink-0 rounded-full bg-emerald-300" />
+                        <span>{item}</span>
+                      </p>
+                    ))}
+                  </div>
+                )}
+
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {p.tech.slice(0, 4).map((t) => (
                     <span key={t} className="chip !text-[10px]">{t}</span>
@@ -303,22 +356,29 @@ export default function Projects() {
                   )}
                 </div>
 
-                <div className="mt-5 flex items-center justify-between border-t border-white/[0.05] pt-4 text-[11px]">
+                <div className="mt-auto grid grid-cols-3 gap-2 border-t border-white/[0.05] pt-4 text-[11px]">
                   <a
                     href={p.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono uppercase tracking-[0.18em] text-emerald-200 transition hover:text-emerald-100"
+                    className="rounded-md px-2 py-2 text-center font-mono uppercase tracking-[0.18em] text-emerald-200 transition hover:bg-emerald-300/[0.08] hover:text-emerald-100"
                   >
-                    Live →
+                    Live
                   </a>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(p)}
+                    className="rounded-md px-2 py-2 text-center font-mono uppercase tracking-[0.18em] text-zinc-300 transition hover:bg-white/[0.04] hover:text-white"
+                  >
+                    Brief
+                  </button>
                   <a
                     href={p.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono uppercase tracking-[0.18em] text-zinc-400 transition hover:text-white"
+                    className="rounded-md px-2 py-2 text-center font-mono uppercase tracking-[0.18em] text-zinc-400 transition hover:bg-white/[0.04] hover:text-white"
                   >
-                    Source ↗
+                    Source
                   </a>
                 </div>
               </div>
@@ -333,6 +393,145 @@ export default function Projects() {
           </p>
         )}
       </div>
+
+      <ProjectBriefModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
+  );
+}
+
+function ProjectBriefModal({ project, onClose }) {
+  return (
+    <AnimatePresence>
+      {project && (
+        <Motion.div
+          key={project.title}
+          className="fixed inset-0 z-[180] grid place-items-center overflow-y-auto px-4 py-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <button
+            type="button"
+            aria-label="Close project brief"
+            className="absolute inset-0 bg-ink/82 backdrop-blur-md"
+            onClick={onClose}
+          />
+
+          <Motion.article
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-brief-title"
+            initial={{ opacity: 0, y: 18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 18, scale: 0.98 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-white/[0.10] bg-[rgba(14,15,20,0.96)] shadow-[0_30px_90px_rgba(0,0,0,0.7)]"
+          >
+            <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+              <div className="relative min-h-[280px] overflow-hidden border-b border-white/[0.07] bg-black/35 lg:border-b-0 lg:border-r">
+                <img
+                  src={project.image}
+                  alt={`${project.title} preview`}
+                  className="absolute inset-0 h-full w-full object-cover opacity-75"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <span className="chip-accent">{project.category}</span>
+                  <h3
+                    id="project-brief-title"
+                    className="mt-4 font-display text-[2.6rem] leading-none tracking-ultratight text-white sm:text-6xl"
+                  >
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] font-medium text-emerald-200">
+                    {project.subtitle}
+                  </p>
+                </div>
+              </div>
+
+              <div className="max-h-[86vh] overflow-y-auto p-6 sm:p-8">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="label-mono">Case study brief</p>
+                    {project.role && (
+                      <p className="mt-2 text-[13px] leading-[1.65] text-zinc-400">
+                        <span className="text-zinc-200">Role:</span> {project.role}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-white/[0.10] text-zinc-400 transition hover:border-emerald-300/35 hover:text-white"
+                    aria-label="Close project brief"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                <div className="mt-6 grid gap-4">
+                  <BriefBlock label="Problem" text={project.problem || project.description} />
+                  <BriefBlock label="Solution" text={project.solution || project.description} />
+                  {project.proof && <BriefBlock label="Proof" text={project.proof} />}
+                </div>
+
+                {project.outcomes && (
+                  <div className="mt-6 rounded-xl border border-emerald-300/20 bg-emerald-300/[0.04] p-5">
+                    <p className="label-mono text-emerald-200/80">Outcomes</p>
+                    <ul className="mt-4 grid gap-3">
+                      {project.outcomes.map((item) => (
+                        <li key={item} className="flex gap-3 text-[13px] leading-[1.7] text-zinc-300">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div className="mt-6 flex flex-wrap gap-1.5">
+                  {project.tech.map((t) => (
+                    <span key={t} className="chip">{t}</span>
+                  ))}
+                </div>
+
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary"
+                  >
+                    Open Live
+                    <span>↗</span>
+                  </a>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ghost"
+                  >
+                    View Source
+                    <span>↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Motion.article>
+        </Motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function BriefBlock({ label, text }) {
+  return (
+    <div className="rounded-xl border border-white/[0.07] bg-white/[0.018] p-5">
+      <p className="label-mono">{label}</p>
+      <p className="mt-3 text-[13.5px] leading-[1.75] text-zinc-300">{text}</p>
+    </div>
   );
 }

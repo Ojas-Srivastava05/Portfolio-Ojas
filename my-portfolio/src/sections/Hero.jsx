@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion as Motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import {
   STATS_CP_PLATFORM_FALLBACK,
   heroMetrics,
@@ -147,26 +147,20 @@ export default function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-display text-[12vw] font-normal leading-[0.92] tracking-ultratight text-white sm:text-[5.4rem] lg:text-[6.8rem]">
-              <span className="block">I don't just code.</span>
+            <h1 className="font-display text-[2.85rem] font-normal leading-[0.94] tracking-ultratight text-white min-[390px]:text-[3.55rem] sm:text-[5.4rem] lg:text-[6.8rem]">
+              <span className="block">
+                <span className="block sm:inline">I don't just</span>
+                <span className="block sm:inline"> code.</span>
+              </span>
               <span className="mt-1 flex flex-wrap items-baseline gap-x-3 sm:gap-x-4">
                 <span>I</span>
                 <span
                   className="relative inline-block align-baseline"
-                  style={{ minWidth: "5.5ch", lineHeight: 1.12 }}
+                  style={{ lineHeight: 1.12 }}
                 >
-                  <AnimatePresence mode="wait" initial={false}>
-                    <Motion.span
-                      key={headlineVerbs[verbIndex]}
-                      initial={{ opacity: 0, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, filter: "blur(4px)" }}
-                      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                      className="inline-block whitespace-nowrap italic gradient-text-accent"
-                    >
-                      {headlineVerbs[verbIndex]}
-                    </Motion.span>
-                  </AnimatePresence>
+                  <span className="inline-block whitespace-nowrap italic gradient-text-accent">
+                    {headlineVerbs[verbIndex]}
+                  </span>
                 </span>
               </span>
             </h1>
@@ -180,7 +174,7 @@ export default function Hero() {
             </p>
 
             {/* CTAs */}
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-10 grid gap-3 sm:flex sm:flex-wrap">
               <button
                 type="button"
                 onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}

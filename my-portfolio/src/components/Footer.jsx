@@ -15,7 +15,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[18vw] leading-[0.85] tracking-ultratight text-white/[0.04] sm:text-[14vw] lg:text-[10rem]"
+          className="font-display text-6xl leading-[0.9] tracking-ultratight text-white/[0.04] sm:text-8xl md:text-[8rem] lg:text-[10rem]"
         >
           Ojas <span className="italic text-emerald-200/[0.08]">Srivastava.</span>
         </Motion.h2>
@@ -30,7 +30,7 @@ export default function Footer() {
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
               Maintained by
             </p>
-            <p className="mt-3 text-2xl font-semibold tracking-tight text-white">
+            <p className="mt-3 text-2xl font-semibold text-white">
               {profile.name}
             </p>
             <p className="mt-2 max-w-md text-sm leading-7 text-zinc-400">

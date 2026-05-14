@@ -23,6 +23,7 @@ import Contact from "./sections/Contact";
 import Experience from "./sections/Experience";
 import Hero from "./sections/Hero";
 import Projects from "./sections/Projects";
+import RecruiterBrief from "./sections/RecruiterBrief";
 import Toolkit from "./sections/Toolkit";
 
 const CIRCUMFERENCE = 2 * Math.PI * 20; // r=20 on 48px button
@@ -121,6 +122,20 @@ function App() {
     return () => window.clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!id) return;
+      window.requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "auto", block: "start" });
+      });
+    };
+
+    if (booted) scrollToHash();
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, [booted]);
+
   return (
     <div className={`relative min-h-screen overflow-x-hidden bg-ink text-white ${chaosMode ? "chaos-mode" : ""}`}>
       {/* Global features */}
@@ -150,6 +165,7 @@ function App() {
         </div>
         <main>
           <Hero />
+          <RecruiterBrief />
           <About />
           <Experience />
           <Projects />

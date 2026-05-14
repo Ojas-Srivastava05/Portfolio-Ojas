@@ -32,7 +32,7 @@ export default {
           "radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)",
       },
       letterSpacing: {
-        ultratight: "-0.04em",
+        ultratight: "0em",
       },
       boxShadow: {
         glow: "0 0 0 1px rgba(52,211,153,0.18), 0 8px 40px -12px rgba(52,211,153,0.18)",

@@ -65,7 +65,7 @@ export const Navbar = () => {
         </button>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-0.5 lg:flex">
+        <div className="hidden items-center gap-0.5 xl:flex">
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -90,7 +90,7 @@ export const Navbar = () => {
         </div>
 
         {/* Right cluster */}
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden items-center gap-2 xl:flex">
           <button
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
@@ -138,7 +138,7 @@ export const Navbar = () => {
         <button
           type="button"
           onClick={() => setIsMobileOpen((open) => !open)}
-          className="grid h-10 w-10 place-items-center rounded-md border border-white/[0.10] text-zinc-200 transition hover:border-emerald-300/50 hover:text-emerald-100 lg:hidden"
+          className="grid h-10 w-10 place-items-center rounded-md border border-white/[0.10] text-zinc-200 transition hover:border-emerald-300/50 hover:text-emerald-100 xl:hidden"
           aria-label="Toggle navigation"
           aria-expanded={isMobileOpen}
         >
@@ -170,7 +170,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="mx-auto mt-2 max-w-[1240px] rounded-xl border border-white/[0.08] bg-[rgba(8,9,12,0.96)] p-2 shadow-2xl backdrop-blur-xl lg:hidden"
+            className="mx-auto mt-2 max-w-[1240px] rounded-xl border border-white/[0.08] bg-[rgba(8,9,12,0.96)] p-2 shadow-2xl backdrop-blur-xl xl:hidden"
           >
             <div className="grid gap-1">
               {navItems.map((item) => (
@@ -197,6 +197,14 @@ export const Navbar = () => {
                 <span>Resume.pdf</span>
                 <span>↓</span>
               </a>
+              <button
+                type="button"
+                onClick={() => scrollToSection("contact")}
+                className="flex items-center justify-between rounded-md bg-emerald-300 px-3 py-3 font-mono text-[12px] font-bold uppercase tracking-[0.14em] text-ink"
+              >
+                <span>Hire Me</span>
+                <span>↗</span>
+              </button>
             </div>
           </Motion.div>
         )}

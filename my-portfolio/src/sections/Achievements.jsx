@@ -2,6 +2,7 @@ import { motion as Motion } from "framer-motion";
 import { achievements, nowFeed } from "../data/portfolio";
 
 const tagAccent = {
+  Hackathon: "border-orange-300/30 bg-orange-300/[0.06] text-orange-200",
   Competitive: "border-amber-300/30 bg-amber-300/[0.06] text-amber-200",
   Industry: "border-emerald-300/30 bg-emerald-300/[0.06] text-emerald-200",
   Leadership: "border-violet-300/30 bg-violet-300/[0.06] text-violet-200",

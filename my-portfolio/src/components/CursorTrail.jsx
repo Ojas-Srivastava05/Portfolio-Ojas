@@ -5,18 +5,22 @@
 import { useEffect, useRef, useState } from "react";
 
 let uid = 0;
+const TRAIL_MEDIA_QUERY =
+  "(min-width: 1024px) and (pointer: fine) and (hover: hover) and (prefers-reduced-motion: no-preference)";
 
 export default function CursorTrail() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia(TRAIL_MEDIA_QUERY).matches : false,
+  );
   const [drops, setDrops] = useState([]);
   const lastPos = useRef(null);
   const throttle = useRef(null);
 
   useEffect(() => {
-    const ok =
-      window.matchMedia("(pointer: fine)").matches &&
-      !window.matchMedia("(hover: none)").matches;
-    setEnabled(ok);
+    const media = window.matchMedia(TRAIL_MEDIA_QUERY);
+    const onChange = (event) => setEnabled(event.matches);
+    media.addEventListener?.("change", onChange);
+    return () => media.removeEventListener?.("change", onChange);
   }, []);
 
   useEffect(() => {

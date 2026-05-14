@@ -4,6 +4,27 @@ import { socialLinks, profile } from "../data/portfolio";
 
 const formInitial = { name: "", email: "", subject: "", message: "" };
 
+const messageStarters = [
+  {
+    label: "Internship",
+    subject: "Summer 2026 internship opportunity",
+    message:
+      "Hi Ojas, I saw your portfolio and would like to discuss a Summer 2026 internship opportunity on our engineering team.",
+  },
+  {
+    label: "AI build",
+    subject: "AI product collaboration",
+    message:
+      "Hi Ojas, I am exploring an AI product idea and would like to talk about building a prototype together.",
+  },
+  {
+    label: "Backend",
+    subject: "Backend / full-stack project",
+    message:
+      "Hi Ojas, I am looking for help with a backend or full-stack project and your work seems relevant.",
+  },
+];
+
 export default function Contact() {
   const [data, setData] = useState(formInitial);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,6 +71,14 @@ export default function Contact() {
       setIsSubmitting(false);
       window.setTimeout(() => setStatus(null), 6000);
     }
+  };
+
+  const applyStarter = (starter) => {
+    setData((d) => ({
+      ...d,
+      subject: starter.subject,
+      message: starter.message,
+    }));
   };
 
   return (
@@ -121,6 +150,25 @@ export default function Contact() {
                   placeholder="you@domain.com"
                   disabled={isSubmitting}
                 />
+              </div>
+
+              <div className="grid gap-2">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-300/90">
+                  Quick start
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {messageStarters.map((starter) => (
+                    <button
+                      key={starter.label}
+                      type="button"
+                      onClick={() => applyStarter(starter)}
+                      disabled={isSubmitting}
+                      className="rounded-md border border-white/[0.08] bg-white/[0.02] px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-300 transition hover:border-emerald-300/35 hover:bg-emerald-300/[0.06] hover:text-emerald-100 disabled:opacity-60"
+                    >
+                      {starter.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <Field

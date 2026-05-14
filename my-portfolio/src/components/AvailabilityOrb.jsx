@@ -8,7 +8,9 @@ import { AnimatePresence, motion as Motion } from "framer-motion";
 
 export default function AvailabilityOrb() {
   const [visible, setVisible] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(() =>
+    typeof window !== "undefined" ? window.localStorage.getItem("availability-orb-dismissed") === "true" : false,
+  );
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -34,6 +36,11 @@ export default function AvailabilityOrb() {
     setExpanded(false);
   };
 
+  const dismiss = () => {
+    setDismissed(true);
+    window.localStorage.setItem("availability-orb-dismissed", "true");
+  };
+
   return (
     <AnimatePresence>
       {visible && !dismissed && (
@@ -42,14 +49,22 @@ export default function AvailabilityOrb() {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -80, opacity: 0 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          className="fixed bottom-24 left-5 z-[105] sm:bottom-8"
+          data-ui-chrome="true"
+          className="fixed bottom-8 left-5 z-[105] hidden md:block"
         >
           <div
             className={`group relative flex cursor-pointer items-center gap-3 overflow-hidden rounded-2xl border border-emerald-300/30 bg-[rgba(8,9,12,0.90)] px-4 py-3 shadow-[0_12px_40px_rgba(52,211,153,0.18)] backdrop-blur-xl transition-all duration-500 hover:border-emerald-300/60 ${
               expanded ? "pr-5" : ""
             }`}
             onClick={() => setExpanded((v) => !v)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setExpanded((v) => !v);
+              }
+            }}
             role="button"
+            tabIndex={0}
             aria-label="Availability status"
           >
             {/* Pulse orb */}
@@ -90,7 +105,7 @@ export default function AvailabilityOrb() {
               aria-label="Dismiss"
               onClick={(e) => {
                 e.stopPropagation();
-                setDismissed(true);
+                dismiss();
               }}
               className="ml-1 grid h-5 w-5 shrink-0 place-items-center rounded-full text-zinc-500 transition hover:text-zinc-200"
             >

@@ -39,12 +39,55 @@ export const profile = {
 
 export const navItems = [
   { name: "Home", id: "hero" },
+  { name: "Proof", id: "brief" },
   { name: "About", id: "about" },
   { name: "Work", id: "experience" },
   { name: "Projects", id: "projects" },
   { name: "Stats", id: "coding-stats" },
   { name: "Stack", id: "toolkit" },
   { name: "Contact", id: "contact" },
+];
+
+export const recruiterBrief = [
+  {
+    label: "Best fit",
+    value: "Backend + AI product internships",
+    detail:
+      "Useful when a team needs someone who can wire APIs, model data, and still care about the product surface.",
+  },
+  {
+    label: "Proof",
+    value: "8+ shipped builds",
+    detail:
+      "LogiFlow, AirHelp, RangRiti, Ink'd, Clubify, ClimaTrack, and this portfolio are all concrete builds with source or live links.",
+  },
+  {
+    label: "Signal",
+    value: "LeetCode Knight · CGPA 9.19",
+    detail:
+      "A blend of algorithmic consistency, strong academics, and practical deployment work.",
+  },
+  {
+    label: "Availability",
+    value: "Summer 2026",
+    detail:
+      "Open to SDE, AI engineering, full-stack, research engineering, and product-minded backend roles.",
+  },
+];
+
+export const proofStack = [
+  {
+    title: "Can ship production-ish systems",
+    evidence: "IFFCO internship, deployed full-stack apps, REST APIs, auth, databases, Cloudinary, Render/Vercel.",
+  },
+  {
+    title: "Can reason through algorithms",
+    evidence: "LeetCode Knight, 1952 peak, 810+ aggregate practice across LC / CF / CC.",
+  },
+  {
+    title: "Can build AI beyond wrappers",
+    evidence: "RAG, graph search, OCR, offline voice, route explainability, ML delay prediction, summarisation.",
+  },
 ];
 
 export const heroMetrics = [
@@ -126,6 +169,18 @@ export const projects = [
     live: "https://logi-flow-solution-challenge-2026.vercel.app/",
     category: "AI Systems",
     period: "2026 — Present",
+    role: "Backend, decision orchestration, ML pipeline, AI explanation layer",
+    impact: ["Normalizes 4 transport modes", "Optimizes time/cost/risk", "Explains route choices"],
+    problem:
+      "Logistics decisions break down when rail, road, air, and water options live in separate formats with unclear delay risk.",
+    solution:
+      "Built a routing layer that normalizes heterogeneous data, predicts disruption risk, and lets LLMs explain why a path wins.",
+    outcomes: [
+      "Unified four modal pipelines behind a single decision surface.",
+      "Added ML-based delay prediction to make route choices risk-aware.",
+      "Created interpretable routing explanations for web and mobile users.",
+    ],
+    proof: "Flagship 2026 build with live deployment and public source repository.",
     highlights: [
       "Hybrid decision orchestrator",
       "ML-based delay prediction",
@@ -151,6 +206,18 @@ export const projects = [
     live: "https://github.com/Ojas-Srivastava05/AirHelp-AI-Airport-Assistant",
     category: "AI Systems",
     period: "2026 · Hackathon",
+    role: "UI/UX, graph navigation engine, RAG + voice integration",
+    impact: ["Offline-first LLM", "A* pathfinding", "Privacy-preserving voice"],
+    problem:
+      "Airport help desks are overloaded, and travelers need navigation, facility lookup, and document help without sending sensitive data to cloud services.",
+    solution:
+      "Built a local-first assistant with graph routing, RAG facility search, Whisper STT, Piper TTS, and boarding-pass OCR.",
+    outcomes: [
+      "Generated turn-by-turn airport directions with estimated walk time.",
+      "Kept conversation, speech, and retrieval flows local for privacy.",
+      "Combined persistent, ephemeral, and turn-based memory for contextual help.",
+    ],
+    proof: "PowerMind Hackathon 2026 project with public repository and implementation notes.",
     highlights: ["A* navigation engine", "Offline-first LLM", "RAG + voice pipeline"],
     bullets: [
       "Built the UI/UX and graph-based navigation engine using A* pathfinding with turn-by-turn directions and time estimation.",
@@ -171,6 +238,18 @@ export const projects = [
     live: "https://rangriti.onrender.com",
     category: "Full Stack",
     period: "Jun 2025 — Aug 2025",
+    role: "Technical lead, backend integration, feature delivery",
+    impact: ["40+ pages shipped", "Marketplace flow", "AI storytelling"],
+    problem:
+      "Traditional art discovery often lacks interactive context, creator visibility, and a commerce path for artisans.",
+    solution:
+      "Led a team build for a cultural-tech platform combining art-form pages, creator profiles, AI storytelling, and marketplace flows.",
+    outcomes: [
+      "Delivered a 40+ page competition-ready product.",
+      "Integrated creator discovery, workshops, and artisan commerce surfaces.",
+      "Added AI storytelling to make cultural exploration more interactive.",
+    ],
+    proof: "Web Wonders 2025 team build with live deployment.",
     highlights: ["40+ art forms", "AI storytelling", "Artisan marketplace"],
     bullets: [
       "Built a full-stack platform with artist profiles, workshops, and marketplace flows.",
@@ -189,6 +268,18 @@ export const projects = [
     live: "https://inkd-diary.onrender.com",
     category: "AI Tools",
     period: "Jun 2025 — Jul 2025",
+    role: "Backend APIs, AI summarisation flow, export support",
+    impact: ["Cohere-powered summaries", "Export flow", "Clean backend API"],
+    problem:
+      "Long-form notes and text are hard to convert into quick, reusable summaries without losing the core idea.",
+    solution:
+      "Built an Express API around Cohere summarisation with a focused interface and local export support.",
+    outcomes: [
+      "Converted pasted text into concise AI summaries.",
+      "Added export functionality for saved outputs.",
+      "Handled backend errors cleanly for a smoother user experience.",
+    ],
+    proof: "Public source and deployed Render app.",
     highlights: ["NLP summaries", "Local export", "Clean API"],
     bullets: [
       "Developed an AI summarisation platform using Node.js, Express.js, and the Cohere API.",
@@ -207,6 +298,18 @@ export const projects = [
     live: "https://github.com/Ojas-Srivastava05/WPP-Project.git",
     category: "Product",
     period: "Academic Project",
+    role: "Full-stack developer, auth, media, admin workflow",
+    impact: ["Role-based admin", "JWT auth", "Cloudinary media"],
+    problem:
+      "Campus clubs need a single place for discovery, membership, events, and admin controls.",
+    solution:
+      "Built a MERN-style platform with JWT authentication, role-based admin surfaces, membership flows, and media uploads.",
+    outcomes: [
+      "Implemented club discovery and event-management workflows.",
+      "Added secure role separation for admins and members.",
+      "Used Cloudinary for practical media handling.",
+    ],
+    proof: "Academic project with public source repository.",
     highlights: ["Role-based admin", "Event workflows", "Auth + Media"],
   },
   {
@@ -220,6 +323,18 @@ export const projects = [
     live: "https://climatrack-2o3u.onrender.com",
     category: "Machine Learning",
     period: "Academic Project",
+    role: "ML model, Flask API, React interface",
+    impact: ["From-scratch gradient descent", "Weather API ingestion", "Deployed forecast UI"],
+    problem:
+      "Weather prediction is a useful sandbox for understanding data ingestion, model training, and API-backed inference.",
+    solution:
+      "Implemented linear regression with custom gradient descent, exposed predictions through Flask, and built a React UI.",
+    outcomes: [
+      "Built the model pipeline from scratch instead of relying only on library defaults.",
+      "Served next-day temperature predictions from an API.",
+      "Connected weather data ingestion to a deployed frontend.",
+    ],
+    proof: "Academic ML build with public repository and live deployment.",
     highlights: ["From-scratch ML", "Weather API", "Deployed model"],
   },
   {
@@ -233,6 +348,18 @@ export const projects = [
     live: "https://portfolio-ojas-teal.vercel.app/",
     category: "Frontend",
     period: "2025 — Present",
+    role: "Design, React architecture, motion system, live stats integrations",
+    impact: ["Command palette", "Live coding stats", "Motion-rich UI"],
+    problem:
+      "Most student portfolios either look generic or hide the actual proof a recruiter needs to scan.",
+    solution:
+      "Built a custom React/Vite portfolio with live profile data, command navigation, motion, and project proof surfaces.",
+    outcomes: [
+      "Created a distinctive personal brand without using a template.",
+      "Added live coding stats and profile shortcuts.",
+      "Organized work into scannable, recruiter-friendly sections.",
+    ],
+    proof: "This site is the artifact: public source, live deployment, and active iteration.",
     highlights: ["Custom design system", "Crafted motion", "Built from scratch"],
   },
 ];

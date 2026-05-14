@@ -13,6 +13,9 @@ const DOCK_ITEMS = socialLinks.slice(0, 5).map((s) => ({
   icon: s.icon.replace(/\/[0-9A-Fa-f]{6}$/, "/FFFFFF"),
 }));
 
+const DOCK_MEDIA_QUERY =
+  "(min-width: 1024px) and (pointer: fine) and (hover: hover) and (prefers-reduced-motion: no-preference)";
+
 function DockItem({ item, mouseX }) {
   const ref = useRef(null);
   const [tooltip, setTooltip] = useState(false);
@@ -63,15 +66,17 @@ function DockItem({ item, mouseX }) {
 }
 
 export default function MagneticDock() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia(DOCK_MEDIA_QUERY).matches : false,
+  );
   const dockRef = useRef(null);
   const mouseX = useMotionValue(Infinity);
 
   useEffect(() => {
-    const ok =
-      window.matchMedia("(pointer: fine)").matches &&
-      !window.matchMedia("(hover: none)").matches;
-    setEnabled(ok);
+    const media = window.matchMedia(DOCK_MEDIA_QUERY);
+    const onChange = (event) => setEnabled(event.matches);
+    media.addEventListener?.("change", onChange);
+    return () => media.removeEventListener?.("change", onChange);
   }, []);
 
   if (!enabled) return null;

@@ -17,7 +17,7 @@ export default function MatrixToggle() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.95, duration: 0.4 }}
       onClick={() => toggleMatrixRain()}
-      className={`fixed right-4 top-[8rem] z-[56] flex max-w-[10.5rem] items-center gap-2 rounded-full border px-3 py-2 shadow-[0_14px_40px_-14px_rgba(0,0,0,0.72)] backdrop-blur-xl transition-colors sm:right-7 sm:top-[7.5rem] lg:right-[6.75rem] ${
+      className={`fixed right-4 top-[8rem] z-[56] hidden max-w-[10.5rem] items-center gap-2 rounded-full border px-3 py-2 shadow-[0_14px_40px_-14px_rgba(0,0,0,0.72)] backdrop-blur-xl transition-colors sm:right-7 sm:top-[7.5rem] md:flex lg:right-[6.75rem] ${
         matrixRain
           ? "border-emerald-400/42 bg-emerald-400/[0.11] text-emerald-50"
           : "border-white/[0.12] bg-[rgba(8,9,12,0.78)] text-zinc-400 hover:border-emerald-300/32 hover:bg-emerald-300/[0.06] hover:text-emerald-100"
