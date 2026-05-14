@@ -221,11 +221,19 @@ export default function Projects() {
               transition={{ delay: i * 0.05 }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
+                const shell = e.currentTarget.querySelector("[data-tilt-shell]");
+                if (shell) {
+                  const px = ((e.clientX - r.left) / r.width - 0.5) * -12;
+                  const py = ((e.clientY - r.top) / r.height - 0.5) * 11;
+                  shell.style.transform = `perspective(880px) rotateX(${py}deg) rotateY(${px}deg) scale3d(1.01,1.01,1)`;
+                }
                 e.currentTarget.style.setProperty("--spot-x", `${e.clientX - r.left}px`);
                 e.currentTarget.style.setProperty("--spot-y", `${e.clientY - r.top}px`);
                 e.currentTarget.style.setProperty("--spot-opacity", "1");
               }}
               onMouseLeave={(e) => {
+                const shell = e.currentTarget.querySelector("[data-tilt-shell]");
+                if (shell) shell.style.transform = "";
                 e.currentTarget.style.setProperty("--spot-opacity", "0");
               }}
               style={{
@@ -237,6 +245,11 @@ export default function Projects() {
               }}
               className="spotlight-card group relative flex flex-col overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.015] transition duration-500 hover:border-white/[0.14] hover:bg-white/[0.025]"
             >
+              <div
+                data-tilt-shell
+                className="flex h-full transform-gpu flex-col transition-transform duration-200 ease-out will-change-transform"
+                style={{ transformStyle: "preserve-3d" }}
+              >
               <a
                 href={p.live}
                 target="_blank"
@@ -308,6 +321,7 @@ export default function Projects() {
                     Source ↗
                   </a>
                 </div>
+              </div>
               </div>
             </Motion.article>
           ))}

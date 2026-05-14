@@ -1,4 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#000000"/>
-  <text x="50" y="55" font-size="50" text-anchor="middle" fill="#ef4444">★</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="ring" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="55%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="#08090c"/>
+  <rect x="5" y="5" width="22" height="22" rx="5" fill="none" stroke="rgba(52,211,153,0.14)" stroke-width="1"/>
+  <circle cx="16" cy="16" r="7.5" fill="none" stroke="url(#ring)" stroke-width="2.1"/>
+  <circle cx="16" cy="16" r="2.75" fill="#fbbf24"/>
 </svg>

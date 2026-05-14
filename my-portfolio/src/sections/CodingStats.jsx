@@ -1,8 +1,15 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion as Motion } from "framer-motion";
-import { codingProfiles, achievementStats } from "../data/portfolio";
+import {
+  STATS_CP_PLATFORM_FALLBACK,
+  achievementStats,
+  codingProfiles,
+} from "../data/portfolio";
+import LeetContestVisualization from "../components/LeetContestVisualization";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
+import { formatSyncedAge } from "../utils/statsTime";
 
-// Generate a deterministic but realistic-looking activity heat-map (52w × 7d)
+// Fallback heat-map when GitHub contributions API fails
 function generateActivity(seed = 1) {
   const cells = [];
   let x = seed;
@@ -27,12 +34,141 @@ const heatColors = [
   "rgba(52,211,153,0.95)",
 ];
 
+function formatTopPct(raw) {
+  if (typeof raw !== "number" || Number.isNaN(raw)) return null;
+  const s = Number.isInteger(raw) ? String(raw) : raw.toFixed(2).replace(/\.?0+$/, "");
+  return `Top ${s}%`;
+}
+
 export default function CodingStats() {
-  const activity = useMemo(() => generateActivity(7), []);
-  const totalContributions = useMemo(
-    () => activity.reduce((sum, l) => sum + (l > 0 ? Math.max(1, l * 2) : 0), 0),
-    [activity],
-  );
+  const {
+    stats,
+    loading,
+    syncing,
+    errors,
+    heatmap,
+    heatmapLoading,
+    lastSyncedAt,
+    heatmapLastSyncedAt,
+  } = useLiveCodingStats();
+
+  const [syncClock, setSyncClock] = useState(0);
+
+  useEffect(() => {
+    const id = window.setInterval(() => setSyncClock((x) => x + 1), 12_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const syncLabelParts = useMemo(() => {
+    void syncClock;
+    const a = formatSyncedAge(lastSyncedAt);
+    const b = formatSyncedAge(heatmapLastSyncedAt);
+    if (!a && !b) return null;
+    if (a && b) return `${a} · chart ${b}`;
+    return a || `chart ${b}`;
+  }, [lastSyncedAt, heatmapLastSyncedAt, syncClock]);
+
+  const fallbackHeat = useMemo(() => generateActivity(7), []);
+  const levels = heatmap?.levels ?? fallbackHeat;
+  const contribTotalLive = heatmap?.periodTotal;
+  const totalContributions = useMemo(() => {
+    if (contribTotalLive != null) return contribTotalLive;
+    return levels.reduce((sum, l) => sum + (l > 0 ? Math.max(1, l * 2) : 0), 0);
+  }, [levels, contribTotalLive]);
+
+  const mergedProfiles = useMemo(() => {
+    return codingProfiles.map((p) => {
+      if (p.platform === "LeetCode" && stats.leetcode?.totalSolved) {
+        const lc = stats.leetcode;
+        const topPct = formatTopPct(lc.topPercentage) ?? "Knight tier";
+        return {
+          ...p,
+          rating: lc.contestRating != null ? String(lc.contestRating) : p.rating,
+          detail: `${lc.totalSolved} solved · Peak 1952 · ${topPct}`,
+          stats: [
+            { label: "Peak rating", value: "1952" },
+            { label: "Current", value: lc.contestRating != null ? String(lc.contestRating) : "—" },
+            { label: "Rank", value: "Knight" },
+            { label: "Problems", value: String(lc.totalSolved) },
+            { label: "Contests", value: String(lc.contestsAttended ?? "—") },
+            { label: "Global rank", value: formatTopPct(lc.topPercentage) ?? "—" },
+          ],
+        };
+      }
+      if (p.platform === "Codeforces" && stats.codeforces?.rating != null) {
+        const cf = stats.codeforces;
+        return {
+          ...p,
+          rating: String(cf.rating),
+          rank: cf.rank ?? p.rank,
+          detail:
+            `${cf.rating} rated · ${cf.rank ?? "rank"} · ${STATS_CP_PLATFORM_FALLBACK.codeforcesProblems} problems uniquely solved (API snapshot).`,
+          stats: [
+            { label: "Rating", value: String(cf.rating) },
+            { label: "Rank", value: cf.rank ?? "—" },
+            { label: "Problems", value: String(STATS_CP_PLATFORM_FALLBACK.codeforcesProblems) },
+          ],
+        };
+      }
+      if (p.platform === "GitHub" && stats.github?.repositories != null) {
+        const gh = stats.github;
+        return {
+          ...p,
+          rating: String(gh.repositories),
+          rank: "Public repos",
+          detail: `${gh.repositories} public repos · ${gh.followers ?? "—"} followers · ${typeof gh.stars === "number" ? gh.stars : 0}★ across them.`,
+          stats: [
+            { label: "Repos", value: String(gh.repositories) },
+            { label: "Followers", value: gh.followers != null ? String(gh.followers) : "—" },
+            { label: "Stars", value: typeof gh.stars === "number" ? String(gh.stars) : "—" },
+          ],
+        };
+      }
+      if (p.platform === "CodeChef" && stats.codechef?.rating) {
+        const cc = stats.codechef;
+        return {
+          ...p,
+          rating: String(cc.rating),
+          detail:
+            `${cc.globalRank ?? "—"} global · ${cc.countryRank ?? "—"} India rank — live mirror`,
+          stats: [
+            { label: "Rating", value: String(cc.rating) },
+            { label: "Stars", value: String(cc.stars ?? "—") },
+            { label: "Peak", value: String(cc.maxRating ?? "—") },
+          ],
+        };
+      }
+      return p;
+    });
+  }, [stats]);
+
+  const lcTop = stats.leetcode?.topPercentage;
+  const heroStatsMerged = useMemo(() => {
+    return achievementStats.map((s, idx) => {
+      if (!stats.leetcode) return s;
+      if (
+        s.label === "LeetCode peak" &&
+        typeof lcTop === "number" &&
+        !Number.isNaN(lcTop)
+      ) {
+        return {
+          ...s,
+          detail: `Knight · ${formatTopPct(lcTop)} (contests)`,
+        };
+      }
+      if (idx === 2 && stats.leetcode.totalSolved) {
+        const lc = stats.leetcode.totalSolved;
+        const cf = STATS_CP_PLATFORM_FALLBACK.codeforcesProblems;
+        const cc = STATS_CP_PLATFORM_FALLBACK.codechefProblems;
+        return {
+          ...s,
+          value: `${lc + cf + cc}+`,
+          detail: `${lc}+ LC · ${cf} CF · ${cc} CC`,
+        };
+      }
+      return s;
+    });
+  }, [stats, lcTop]);
 
   return (
     <section id="coding-stats" className="relative overflow-hidden">
@@ -50,6 +186,29 @@ export default function CodingStats() {
               <span className="italic gradient-text-accent"> consistency</span>,
               not decoration.
             </h2>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span
+                className={`rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] ${
+                  loading
+                    ? "border-amber-300/35 text-amber-200/85"
+                    : syncing
+                      ? "border-sky-400/35 text-sky-100"
+                      : "border-emerald-400/35 text-emerald-200"
+                }`}
+              >
+                {loading ? "Pulling APIs…" : syncing ? "Background sync…" : "Live LC · GH · CF"}
+              </span>
+              {!loading && syncLabelParts != null ? (
+                <span className="rounded-full border border-white/[0.08] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
+                  <span className="text-emerald-200/95">Synced</span> {syncLabelParts}
+                </span>
+              ) : null}
+              {loading === false && !stats?.leetcode && errors?.leetcode != null && (
+                <span className="rounded-full border border-rose-400/35 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-rose-200/95">
+                  LeetCode fetch blocked — showing snapshot
+                </span>
+              )}
+            </div>
           </Motion.div>
 
           <Motion.p
@@ -66,7 +225,7 @@ export default function CodingStats() {
 
         {/* Hero stats row */}
         <div className="mt-16 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {achievementStats.map((s, i) => (
+          {heroStatsMerged.map((s, i) => (
             <Motion.div
               key={s.label}
               initial={{ opacity: 0, y: 20 }}
@@ -91,7 +250,7 @@ export default function CodingStats() {
 
         {/* Profiles grid */}
         <div className="mt-12 grid gap-4 md:grid-cols-2">
-          {codingProfiles.map((p, i) => (
+          {mergedProfiles.map((p, i) => (
             <Motion.a
               key={p.platform}
               href={p.href}
@@ -129,7 +288,7 @@ export default function CodingStats() {
                   <span className="grid h-12 w-12 place-items-center rounded-md border border-white/[0.08] bg-black/40">
                     <img
                       src={p.icon}
-                      alt={`${p.platform} icon`}
+                      alt=""
                       className="h-6 w-6 object-contain"
                     />
                   </span>
@@ -143,11 +302,13 @@ export default function CodingStats() {
                 </span>
               </div>
 
-              <p className="relative mt-5 text-[13px] leading-[1.7] text-zinc-400">
-                {p.detail}
-              </p>
+              <p className="relative mt-5 text-[13px] leading-[1.7] text-zinc-400">{p.detail}</p>
 
-              <div className="relative mt-5 grid grid-cols-3 gap-2">
+              <div
+                className={`relative mt-5 grid gap-2 ${
+                  (p.stats?.length ?? 0) >= 6 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-3"
+                }`}
+              >
                 {p.stats.map((stat) => (
                   <div
                     key={stat.label}
@@ -166,6 +327,9 @@ export default function CodingStats() {
           ))}
         </div>
 
+        {/* LeetCode contest rating trajectory + contest solve heat */}
+        <LeetContestVisualization contestHistory={stats.leetcode?.contestHistory} />
+
         {/* Activity Grid */}
         <Motion.div
           initial={{ opacity: 0, y: 22 }}
@@ -175,38 +339,41 @@ export default function CodingStats() {
         >
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.06] px-6 py-4">
             <div>
-              <p className="label-mono">// Activity · Last 12 months</p>
+              <p className="label-mono">// Activity · GitHub contributions</p>
               <h3 className="mt-1 font-display text-2xl tracking-ultratight text-white">
-                The grind, visualised.
+                Real commits, not garnish.
               </h3>
             </div>
             <div className="flex items-center gap-3">
               <span className="font-mono text-[11px] text-zinc-500">
-                <span className="text-white">{totalContributions}</span> contributions
+                <span className="text-white">{totalContributions}</span>{" "}
+                {contribTotalLive != null ? "events · last ~12 mo" : "visual units"}
               </span>
-              <span className="chip-accent">consistent</span>
+              <span className="chip-accent">
+                {heatmapLoading ? "loading…" : heatmap ? "github api" : "fallback"}
+              </span>
             </div>
           </div>
 
           <div className="overflow-x-auto p-6">
             <div className="inline-grid min-w-full grid-flow-col grid-rows-7 gap-[3px]">
-              {activity.map((level, i) => (
+              {levels.map((level, i) => (
                 <div
                   key={i}
                   className="heat-cell h-3 w-3 rounded-[2px] sm:h-3.5 sm:w-3.5"
-                  style={{ background: heatColors[level] }}
+                  style={{ background: heatColors[Math.min(4, level)] }}
                   title={`Level ${level}`}
                 />
               ))}
             </div>
 
             <div className="mt-5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-              <span>52 weeks</span>
+              <span>{heatmap ? `${heatmap.daysLoaded} days` : "52 weeks · synthetic"}</span>
               <div className="flex items-center gap-2">
                 <span>Less</span>
-                {heatColors.map((c, i) => (
+                {heatColors.map((c, j) => (
                   <span
-                    key={i}
+                    key={`${c}-${j}`}
                     className="h-3 w-3 rounded-[2px]"
                     style={{ background: c }}
                   />

@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import { navItems, profile, socialLinks } from "../data/portfolio";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
-function buildCommands({ closePalette, setToast }) {
+function buildCommands({ closePalette, setToast, refetchStats, syncingStats }) {
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -49,6 +50,22 @@ function buildCommands({ closePalette, setToast }) {
       }
     },
   }));
+
+  const livePoll = [
+    {
+      id: "poll-remote-stats",
+      group: "Live data",
+      title: syncingStats ? "Refreshing remote stats…" : "Ping LC · GitHub · CF (+ heat-map)",
+      hint: "HTTP poll — optional manual refresh between timers",
+      keywords: "sync refresh websocket poll stats github leetcode codeforces scrape",
+      icon: "↻",
+      action: () => {
+        refetchStats();
+        setToast(syncingStats ? "Sync already running" : "Refreshing remote counters…");
+        closePalette();
+      },
+    },
+  ];
 
   const utility = [
     {
@@ -107,7 +124,7 @@ function buildCommands({ closePalette, setToast }) {
     },
   ];
 
-  return [...navCommands, ...socialCommands, ...utility];
+  return [...navCommands, ...socialCommands, ...livePoll, ...utility];
 }
 
 function fuzzyScore(query, target) {
@@ -129,6 +146,7 @@ export default function CommandPalette() {
   const [toast, setToast] = useState(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
+  const { refetchStats, syncing } = useLiveCodingStats();
 
   const closePalette = () => {
     setOpen(false);
@@ -137,8 +155,14 @@ export default function CommandPalette() {
   };
 
   const commands = useMemo(
-    () => buildCommands({ closePalette, setToast }),
-    [],
+    () =>
+      buildCommands({
+        closePalette,
+        setToast,
+        refetchStats,
+        syncingStats: syncing,
+      }),
+    [syncing, refetchStats],
   );
 
   const filtered = useMemo(() => {

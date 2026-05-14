@@ -5,12 +5,17 @@ import CommandPalette from "./components/CommandPalette";
 import ConsoleEgg from "./components/ConsoleEgg";
 import CursorTrail from "./components/CursorTrail";
 import Footer from "./components/Footer";
+import FxToast from "./components/FxToast";
 import InteractionLab from "./components/InteractionLab";
+import KonamiEgg from "./components/KonamiEgg";
 import MagneticDock from "./components/MagneticDock";
 import AvailabilityOrb from "./components/AvailabilityOrb";
+import MatrixRain from "./components/MatrixRain";
+import MatrixToggle from "./components/MatrixToggle";
 import Navbar from "./components/Navbar";
 import ScrollProgress from "./components/ScrollProgress";
 import SectionRail from "./components/SectionRail";
+import { useSiteFx } from "./context/SiteFxContext";
 import About from "./sections/About";
 import Achievements from "./sections/Achievements";
 import CodingStats from "./sections/CodingStats";
@@ -109,6 +114,7 @@ function ScrollRingButton() {
 
 function App() {
   const [booted, setBooted] = useState(false);
+  const { chaosMode, matrixRain } = useSiteFx();
 
   useEffect(() => {
     const t = window.setTimeout(() => setBooted(true), 900);
@@ -116,8 +122,12 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-ink text-white">
+    <div className={`relative min-h-screen overflow-x-hidden bg-ink text-white ${chaosMode ? "chaos-mode" : ""}`}>
       {/* Global features */}
+      <MatrixRain active={matrixRain} intensity={chaosMode ? 1.65 : 1.05} />
+      <MatrixToggle />
+      <KonamiEgg />
+      <FxToast />
       <ConsoleEgg />
       <CursorTrail />
       <MagneticDock />
@@ -152,9 +162,7 @@ function App() {
       </div>
 
       {/* Boot screen */}
-      <AnimatePresence>
-        {!booted && <BootScreen />}
-      </AnimatePresence>
+      <AnimatePresence>{!booted && <BootScreen />}</AnimatePresence>
 
       {/* Scroll ring back-to-top */}
       <ScrollRingButton />

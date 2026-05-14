@@ -4,7 +4,7 @@ export async function fetchGitHubStats(username) {
   try {
     const [userRes, reposRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`),
-      fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+      fetch(`https://api.github.com/users/${username}/repos?per_page=100`),
     ]);
 
     if (!userRes.ok || !reposRes.ok) throw new Error('Failed to fetch GitHub data');
@@ -18,7 +18,7 @@ export async function fetchGitHubStats(username) {
       repositories: user.public_repos,
       followers: user.followers,
       stars: totalStars,
-      contributions: await fetchGitHubContributions(username),
+      contributions: await fetchGitHubContributionSummary(username),
     };
   } catch (error) {
     console.error('GitHub API Error:', error);
@@ -26,35 +26,145 @@ export async function fetchGitHubStats(username) {
   }
 }
 
-async function fetchGitHubContributions(username) {
+async function fetchGitHubContributionSummary(username) {
   try {
-    // Using GitHub's contribution graph API (unofficial)
-    const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`);
-    if (!response.ok) return '1.2K+';
-    
+    const response = await fetch(
+      `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}`,
+    );
+    if (!response.ok) return '1K+';
+
     const data = await response.json();
-    const total = data.total[new Date().getFullYear()] || 0;
+    const total =
+      typeof data.total === 'object'
+        ? data.total[String(new Date().getFullYear())] || 0
+        : null;
+    if (total === null || total === undefined || Number.isNaN(total)) return '1K+';
     return total > 1000 ? `${(total / 1000).toFixed(1)}K+` : `${total}+`;
   } catch {
-    return '1.2K+';
+    return '1K+';
   }
 }
 
-// LeetCode API (using unofficial proxy)
-export async function fetchLeetCodeStats(username) {
+/** Last ~year of commits for the heat-map (levels 0–4 per day). */
+export async function fetchGitHubContributionHeatmap(username) {
   try {
-    const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`);
-    if (!response.ok) throw new Error('Failed to fetch LeetCode data');
+    const url = `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('heatmap fetch failed');
 
     const data = await response.json();
+    const contributions = Array.isArray(data.contributions) ? data.contributions : [];
+    const periodTotal = contributions.reduce((sum, c) => sum + (c.count || 0), 0);
+    let levels = contributions.map((c) =>
+      Math.min(4, Math.max(0, Number(c.level) || 0)),
+    );
+    const rem = levels.length % 7;
+    if (rem !== 0) {
+      levels = [...Array(7 - rem).fill(0), ...levels];
+    }
+
+    return { levels, periodTotal, daysLoaded: contributions.length };
+  } catch (error) {
+    console.warn('GitHub heatmap:', error);
+    return null;
+  }
+}
+
+function parseLeetDifficultyRows(rows) {
+  const out = { All: 0, Easy: 0, Medium: 0, Hard: 0 };
+  for (const row of rows || []) {
+    const d = row.difficulty;
+    if (Object.prototype.hasOwnProperty.call(out, d)) out[d] = row.count ?? 0;
+  }
+  return out;
+}
+
+/**
+ * Same-origin POST avoids browser CORS preflight to `leetcode.com` (OPTIONS → 405 in client).
+ * Dev: proxied via `vite.config.js`. Prod: `/api/leetcode/graphql` must be rewritten (see `vercel.json`)
+ * or set `VITE_LEETCODE_GQL_URL` to your own reachable GraphQL relay.
+ */
+const LEETCODE_GQL_ENDPOINT =
+  (typeof import.meta !== 'undefined' && String(import.meta.env?.VITE_LEETCODE_GQL_URL || '').trim()) ||
+  '/api/leetcode/graphql';
+
+// LeetCode — official GraphQL (same-origin relay; server forwards to leetcode.com)
+export async function fetchLeetCodeStats(username) {
+  if (!username) return null;
+  try {
+    const query = `
+      query lcStats($username: String!) {
+        matchedUser(username: $username) {
+          submitStats: submitStatsGlobal {
+            acSubmissionNum { difficulty count }
+          }
+        }
+        userContestRanking(username: $username) {
+          attendedContestsCount
+          rating
+          globalRanking
+          totalParticipants
+          topPercentage
+        }
+        userContestRankingHistory(username: $username) {
+          rating ranking attended trendDirection problemsSolved totalProblems
+          contest { title titleSlug startTime }
+        }
+      }
+    `;
+
+    const response = await fetch(LEETCODE_GQL_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables: { username } }),
+    });
+
+    if (!response.ok) throw new Error('LeetCode HTTP');
+
+    const body = await response.json();
+    if (body.errors?.length) {
+      console.warn('LeetCode GraphQL:', body.errors);
+    }
+
+    const matched = body.data?.matchedUser;
+    const contest = body.data?.userContestRanking;
+    const difficulties = parseLeetDifficultyRows(matched?.submitStats?.acSubmissionNum);
+
+    const totalSolved = difficulties.All || 0;
+    const contestRating =
+      typeof contest?.rating === 'number' ? Math.round(contest.rating) : null;
+
+    const rawHist = body.data?.userContestRankingHistory;
+    let contestHistory = [];
+    if (Array.isArray(rawHist)) {
+      contestHistory = rawHist
+        .filter((h) => h?.contest?.startTime != null)
+        .map((h) => ({
+          rating: typeof h.rating === 'number' ? h.rating : 0,
+          ranking: typeof h.ranking === 'number' ? h.ranking : 0,
+          attended: h.attended,
+          trendDirection: h.trendDirection,
+          problemsSolved: typeof h.problemsSolved === 'number' ? h.problemsSolved : 0,
+          totalProblems: typeof h.totalProblems === 'number' ? h.totalProblems : 4,
+          title: h.contest.title,
+          slug: h.contest.titleSlug || null,
+          startTimeSec: h.contest.startTime,
+        }))
+        .sort((a, b) => a.startTimeSec - b.startTimeSec);
+    }
 
     return {
-      totalSolved: data.totalSolved || 0,
-      easySolved: data.easySolved || 0,
-      mediumSolved: data.mediumSolved || 0,
-      hardSolved: data.hardSolved || 0,
-      ranking: data.ranking || 'N/A',
-      contributionPoints: data.contributionPoints || 0,
+      totalSolved,
+      easySolved: difficulties.Easy,
+      mediumSolved: difficulties.Medium,
+      hardSolved: difficulties.Hard,
+      contestRating,
+      contestsAttended: contest?.attendedContestsCount ?? 0,
+      globalRanking: contest?.globalRanking,
+      contestTotalParticipants: contest?.totalParticipants,
+      topPercentage: contest?.topPercentage,
+      ranking: matched ? null : 'N/A',
+      contestHistory,
     };
   } catch (error) {
     console.error('LeetCode API Error:', error);
@@ -62,7 +172,7 @@ export async function fetchLeetCodeStats(username) {
   }
 }
 
-// CodeChef API (public profile scraping)
+// CodeChef public API mirrors are unstable — optional fetch
 export async function fetchCodeChefStats(username) {
   try {
     const response = await fetch(`https://codechef-api.vercel.app/${username}`);
@@ -77,8 +187,8 @@ export async function fetchCodeChefStats(username) {
       globalRank: data.globalRank || 'N/A',
       countryRank: data.countryRank || 'N/A',
     };
-  } catch (error) {
-    console.error('CodeChef API Error:', error);
+  } catch {
+    console.warn('CodeChef API unavailable');
     return null;
   }
 }
@@ -90,17 +200,26 @@ export async function fetchCodeforcesStats(username) {
     if (!response.ok) throw new Error('Failed to fetch Codeforces data');
 
     const data = await response.json();
-    
+
     if (data.status !== 'OK') throw new Error('Invalid response');
 
     const user = data.result[0];
 
+    const rank =
+      typeof user.rank === 'string'
+        ? user.rank.charAt(0).toUpperCase() + user.rank.slice(1)
+        : 'Unrated';
+
     return {
       rating: user.rating || 0,
       maxRating: user.maxRating || 0,
-      rank: user.rank || 'unrated',
-      maxRank: user.maxRank || 'unrated',
+      rank,
+      maxRank:
+        typeof user.maxRank === 'string'
+          ? user.maxRank.charAt(0).toUpperCase() + user.maxRank.slice(1)
+          : 'Unrated',
       contribution: user.contribution || 0,
+      handleDisplay: user.handle || username,
     };
   } catch (error) {
     console.error('Codeforces API Error:', error);
@@ -108,10 +227,7 @@ export async function fetchCodeforcesStats(username) {
   }
 }
 
-// Kaggle (no official API - would need web scraping or manual update)
-export async function fetchKaggleStats() {
-  // Kaggle doesn't have a public API
-  // You'll need to manually update these values or use web scraping
+export function fetchKaggleStats() {
   console.warn('Kaggle API not available - using placeholder data');
   return {
     tier: 'Expert',

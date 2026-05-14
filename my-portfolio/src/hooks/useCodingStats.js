@@ -1,13 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { STATS_POLL_INTERVAL_MS } from "../data/portfolio";
 import {
   fetchGitHubStats,
   fetchLeetCodeStats,
   fetchCodeChefStats,
   fetchCodeforcesStats,
   fetchKaggleStats,
-} from '../utils/codingPlatformAPIs';
+} from "../utils/codingPlatformAPIs";
 
-export function useCodingStats(usernames) {
+/**
+ * Fetches coding-platform stats from public HTTP APIs and **polls on an interval**.
+ * Same outcome as push/WebSocket refreshes without hosting a realtime server — fine for leaderboard-style data that changes slowly.
+ *
+ * @param {object} usernames
+ * @param {object} [options]
+ * @param {number} [options.pollIntervalMs] — clamped ≥ 60_000 ms
+ */
+export function useCodingStats(usernames, options = {}) {
   const {
     github: githubUsername,
     leetcode: leetcodeUsername,
@@ -15,6 +24,11 @@ export function useCodingStats(usernames) {
     codeforces: codeforcesUsername,
     kaggle: kaggleUsername,
   } = usernames || {};
+
+  const pollIntervalMs = Math.max(
+    typeof options.pollIntervalMs === "number" ? options.pollIntervalMs : STATS_POLL_INTERVAL_MS,
+    60_000,
+  );
 
   const [stats, setStats] = useState({
     github: null,
@@ -25,16 +39,29 @@ export function useCodingStats(usernames) {
   });
 
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
   const [errors, setErrors] = useState({});
+  const [lastSyncedAt, setLastSyncedAt] = useState(null);
+
+  const manualRefetchRef = useRef(() => {});
 
   useEffect(() => {
-    const fetchAllStats = async () => {
-      setLoading(true);
+    let cancelled = false;
+
+    async function fetchAll(kind) {
+      if (!usernames) return;
+
+      const isPoll = kind === "poll";
+      const showInitialSpinner = kind === "initial";
+      const showManualSpinner = kind === "manual";
+
+      if (!isPoll && showInitialSpinner) setLoading(true);
+      if (showManualSpinner) setSyncing(true);
+
       const newStats = {};
       const newErrors = {};
 
       try {
-        // Fetch all stats in parallel
         const [github, leetcode, codechef, codeforces, kaggle] = await Promise.allSettled([
           fetchGitHubStats(githubUsername),
           fetchLeetCodeStats(leetcodeUsername),
@@ -43,34 +70,59 @@ export function useCodingStats(usernames) {
           fetchKaggleStats(kaggleUsername),
         ]);
 
-        if (github.status === 'fulfilled') newStats.github = github.value;
+        if (cancelled) return;
+
+        if (github.status === "fulfilled") newStats.github = github.value;
         else newErrors.github = github.reason;
 
-        if (leetcode.status === 'fulfilled') newStats.leetcode = leetcode.value;
+        if (leetcode.status === "fulfilled") newStats.leetcode = leetcode.value;
         else newErrors.leetcode = leetcode.reason;
 
-        if (codechef.status === 'fulfilled') newStats.codechef = codechef.value;
+        if (codechef.status === "fulfilled") newStats.codechef = codechef.value;
         else newErrors.codechef = codechef.reason;
 
-        if (codeforces.status === 'fulfilled') newStats.codeforces = codeforces.value;
+        if (codeforces.status === "fulfilled") newStats.codeforces = codeforces.value;
         else newErrors.codeforces = codeforces.reason;
 
-        if (kaggle.status === 'fulfilled') newStats.kaggle = kaggle.value;
+        if (kaggle.status === "fulfilled") newStats.kaggle = kaggle.value;
         else newErrors.kaggle = kaggle.reason;
-
       } catch (error) {
-        console.error('Error fetching stats:', error);
+        console.error("Error fetching stats:", error);
       }
+
+      if (cancelled) return;
 
       setStats(newStats);
       setErrors(newErrors);
+      setLastSyncedAt(Date.now());
       setLoading(false);
-    };
-
-    if (usernames) {
-      fetchAllStats();
+      setSyncing(false);
     }
-  }, [githubUsername, leetcodeUsername, codechefUsername, codeforcesUsername, kaggleUsername, usernames]);
 
-  return { stats, loading, errors };
+    manualRefetchRef.current = () => fetchAll("manual");
+
+    fetchAll("initial");
+
+    const intervalId = window.setInterval(() => fetchAll("poll"), pollIntervalMs);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+      manualRefetchRef.current = () => {};
+    };
+  }, [
+    githubUsername,
+    leetcodeUsername,
+    codechefUsername,
+    codeforcesUsername,
+    kaggleUsername,
+    usernames,
+    pollIntervalMs,
+  ]);
+
+  const refetchStats = useCallback(() => {
+    manualRefetchRef.current?.();
+  }, []);
+
+  return { stats, loading, syncing, errors, lastSyncedAt, refetchStats };
 }

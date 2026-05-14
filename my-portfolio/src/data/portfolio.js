@@ -1,5 +1,28 @@
 // Single source of truth for portfolio content.
-// Updated to match the 24 April 2026 resume.
+// Competitive numbers verified May 2026 (GitHub · LeetCode · Codeforces · CodeChef).
+
+export const platformUsernames = {
+  github: "Ojas-Srivastava05",
+  leetcode: "Oju_Srivastava",
+  codechef: "ojassrivastava",
+  codeforces: "oju",
+};
+
+/** Env override (ms): `VITE_STATS_POLL_INTERVAL_MS`. Default 10m; min 60s to ease API rate limits. */
+const POLL_MS_ENV =
+  typeof import.meta !== "undefined" && import.meta.env?.VITE_STATS_POLL_INTERVAL_MS != null
+    ? Number(import.meta.env.VITE_STATS_POLL_INTERVAL_MS)
+    : NaN;
+
+/** Browser-side polling for platform APIs — same freshness goal as push/WebSocket without a custom server. */
+export const STATS_POLL_INTERVAL_MS =
+  Number.isFinite(POLL_MS_ENV) && POLL_MS_ENV >= 60_000 ? POLL_MS_ENV : 10 * 60 * 1000;
+
+/** When APIs omit solve totals, use for hero/aggregate tiles only (CodeChef mirror often offline). */
+export const STATS_CP_PLATFORM_FALLBACK = {
+  codeforcesProblems: 144,
+  codechefProblems: 118,
+};
 
 export const profile = {
   name: "Ojas Srivastava",
@@ -11,7 +34,7 @@ export const profile = {
   resume: "/Ojas-Srivastava-Resume.pdf",
   available: "Open to internships, freelance, and collaborative builds.",
   shortBio:
-    "B.Tech AI at SVNIT Surat. I design backend systems, ship full-stack products, and grind algorithms — 531+ problems, LeetCode Knight, top 3.67% globally.",
+    "B.Tech AI at SVNIT Surat. I design backend systems, ship full-stack products, and grind algorithms — 548 on LeetCode, 810+ across CP, Knight, top ~3.7% contests.",
 };
 
 export const navItems = [
@@ -25,10 +48,10 @@ export const navItems = [
 ];
 
 export const heroMetrics = [
-  { value: "1952", label: "LeetCode peak", sub: "Knight · Top 3.67%" },
+  { value: "1952", label: "LeetCode peak", sub: "Knight · Top ~3.7% contests" },
   { value: "9.19", label: "CGPA", sub: "/ 10.0" },
-  { value: "531+", label: "Problems", sub: "across CP" },
-  { value: "7+", label: "Shipped", sub: "products" },
+  { value: "810+", label: "Problems", sub: "548 LC · CF · CC" },
+  { value: "8+", label: "Shipped", sub: "deployed builds" },
 ];
 
 export const profileLinks = [
@@ -46,13 +69,13 @@ export const profileLinks = [
   },
   {
     name: "LeetCode",
-    handle: "Knight · 1952 peak · Top 3.67%",
+    handle: "Knight · peak 1952 · 548 solved",
     href: "https://leetcode.com/Oju_Srivastava",
     icon: "https://cdn.simpleicons.org/leetcode/FFA116",
   },
   {
     name: "Codeforces",
-    handle: "oju · 1179",
+    handle: "Oju · 1179 rated",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
   },
@@ -321,7 +344,7 @@ export const principles = [
     n: "04",
     title: "Algorithms are reps.",
     body:
-      "LeetCode Knight, peak 1952, 531+ problems across platforms. The reps make me faster at debugging, calmer in code review, and sharper at problem modelling.",
+      "LeetCode Knight, peak 1952, 810+ aggregated practice across LC / CF / CC. The reps make me faster at debugging, calmer in code review, and sharper at problem modelling.",
   },
 ];
 
@@ -338,7 +361,7 @@ export const codingProfiles = [
     handle: "Oju_Srivastava",
     rating: "1931",
     rank: "Knight",
-    detail: "531 problems solved · Peak 1952 · Top 3.67% globally.",
+    detail: "548 solved · Peak 1952 · Top 3.67% contest percentile.",
     color: "#FFA116",
     href: "https://leetcode.com/Oju_Srivastava",
     icon: "https://cdn.simpleicons.org/leetcode/FFA116",
@@ -346,7 +369,7 @@ export const codingProfiles = [
       { label: "Peak rating", value: "1952" },
       { label: "Current", value: "1931" },
       { label: "Rank", value: "Knight" },
-      { label: "Problems", value: "531" },
+      { label: "Problems", value: "548" },
       { label: "Contests", value: "26" },
       { label: "Global rank", value: "Top 3.67%" },
     ],
@@ -356,29 +379,29 @@ export const codingProfiles = [
     handle: "oju",
     rating: "1179",
     rank: "Newbie",
-    detail: "142 problems solved across rated rounds and practice.",
+    detail: "144 problems uniquely solved — rated rounds and practice grind.",
     color: "#1F8ACB",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
     stats: [
       { label: "Rating", value: "1179" },
       { label: "Rank", value: "Newbie" },
-      { label: "Problems", value: "142" },
+      { label: "Problems", value: "144" },
     ],
   },
   {
     platform: "CodeChef",
     handle: "ojassrivastava",
-    rating: "1572",
+    rating: "1536",
     rank: "2★",
-    detail: "10 rated contests · 116 problems solved.",
+    detail: "11 rated contests · 118 problems solved (provisional Elo active).",
     color: "#FFFFFF",
     href: "https://www.codechef.com/users/ojassrivastava",
     icon: "https://cdn.simpleicons.org/codechef/FFFFFF",
     stats: [
-      { label: "Rating", value: "1572" },
+      { label: "Rating", value: "1536*" },
       { label: "Rank", value: "2★" },
-      { label: "Problems", value: "116" },
+      { label: "Problems", value: "118" },
     ],
   },
   {
@@ -399,10 +422,10 @@ export const codingProfiles = [
 ];
 
 export const achievementStats = [
-  { value: "1952", label: "LeetCode peak", detail: "Knight · Top 3.67% globally" },
+  { value: "1952", label: "LeetCode peak", detail: "Knight · Top 3.67% contests" },
   { value: "9.19", label: "CGPA", detail: "B.Tech AI · SVNIT Surat" },
-  { value: "531+", label: "Problems solved", detail: "LeetCode · CF · CodeChef" },
-  { value: "7+", label: "Products shipped", detail: "Web · AI · Systems" },
+  { value: "810+", label: "Problems solved", detail: "548 LC · 144 CF · 118 CC" },
+  { value: "8+", label: "Products shipped", detail: "Web · AI · Systems" },
 ];
 
 export const achievements = [
@@ -493,7 +516,7 @@ export const toolkit = [
 export const nowFeed = [
   { tag: "BUILDING", text: "LogiFlow · multi-modal logistics decision engine" },
   { tag: "SHIPPED", text: "AirHelp · AI airport assistant · PowerMind Hackathon 2026" },
-  { tag: "GRINDING", text: "LeetCode contests · pushing past 2000" },
+  { tag: "GRINDING", text: "LeetCode 548+/810+ CP · probing past peak 1952 again" },
   { tag: "STUDYING", text: "Stanford ML Specialization + DBMS internals" },
   { tag: "READING", text: "Designing Data-Intensive Applications" },
   { tag: "OPEN TO", text: "SDE / AI internships · Summer 2026" },
@@ -501,8 +524,10 @@ export const nowFeed = [
 
 export const tickerLines = [
   "leetcode.knight",
-  "peak::1952 · current::1931",
-  "531 problems solved · top 3.67%",
+  "peak::1952 · solved::548",
+  "aggregate::810+ across lc/cf/cc",
+  "cf::144 unique solves · 1179 rating",
+  "codechef::2★ provisional 1536",
   "svnit.ai · cgpa 9.19",
   "stack::node + python + react + c++",
   "currently::shipping logiflow",

@@ -1,10 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
-import { heroMetrics, profileLinks, profile, tickerLines } from "../data/portfolio";
+import {
+  STATS_CP_PLATFORM_FALLBACK,
+  heroMetrics,
+  profileLinks,
+  profile,
+  tickerLines,
+} from "../data/portfolio";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 const headlineVerbs = ["ship.", "engineer.", "model.", "deploy.", "solve."];
 
-const codeLines = [
+const editorCodeLinesSeed = [
   { kind: "muted", text: "// ojas.srivastava — builder.config.ts" },
   { kind: "keyword", token: "export const", name: "engineer", value: "{" },
   {
@@ -14,7 +21,7 @@ const codeLines = [
   },
   { kind: "field", label: "role", value: '"AI Engineer · Full-stack"' },
   { kind: "field", label: "school", value: '"SVNIT Surat · CGPA 9.19"' },
-  { kind: "field", label: "leetcode", value: '{ rank: "Knight", peak: 1952 }' },
+  { kind: "field", label: "leetcode", value: '{ rank: "Knight", peak: 1952, solved: 548 }' },
   { kind: "field", label: "stack", value: '["React", "Node", "Python", "FastAPI"]' },
   { kind: "field", label: "focus", value: '"Backend · Distributed · AI"' },
   { kind: "field", label: "available", value: 'true', accent: true },
@@ -22,9 +29,58 @@ const codeLines = [
   { kind: "muted", text: "// ⏎ Run \"npm run hire\"" },
 ];
 
+function formatContestPctSub(pct) {
+  if (typeof pct !== "number" || Number.isNaN(pct)) return null;
+  const t = Number.isInteger(pct) ? String(pct) : pct.toFixed(2).replace(/\.?0+$/, "");
+  return `Knight · Top ~${t}% contests`;
+}
+
 export default function Hero() {
   const [verbIndex, setVerbIndex] = useState(0);
   const [time, setTime] = useState(() => new Date());
+  const { stats } = useLiveCodingStats();
+
+  const displayMetrics = useMemo(() => {
+    const lc = stats.leetcode;
+    return heroMetrics.map((m, i) => {
+      const pctSub = lc?.topPercentage != null ? formatContestPctSub(lc.topPercentage) : null;
+      if (i === 0 && pctSub) {
+        return { ...m, sub: pctSub };
+      }
+      if (i === 0 && !pctSub && lc?.contestRating != null) {
+        return { ...m, sub: `Knight · rating ${lc.contestRating}` };
+      }
+      if (i === 2 && typeof lc?.totalSolved === "number") {
+        const agg =
+          lc.totalSolved +
+          STATS_CP_PLATFORM_FALLBACK.codeforcesProblems +
+          STATS_CP_PLATFORM_FALLBACK.codechefProblems;
+        return {
+          ...m,
+          value: `${agg}+`,
+          sub: `${lc.totalSolved}+ LC · ${STATS_CP_PLATFORM_FALLBACK.codeforcesProblems} CF · ${STATS_CP_PLATFORM_FALLBACK.codechefProblems} CC`,
+        };
+      }
+      return m;
+    });
+  }, [stats.leetcode]);
+
+  const editorLines = useMemo(() => {
+    const n = stats.leetcode?.totalSolved;
+    if (typeof n !== "number") return editorCodeLinesSeed;
+    return editorCodeLinesSeed.map((line) =>
+      line.kind === "field" && line.label === "leetcode"
+        ? {
+            ...line,
+            value: `{ rank: "Knight", peak: 1952, solved: ${n} }`,
+          }
+        : line,
+    );
+  }, [stats.leetcode]);
+
+  const leetSubtitle = stats.leetcode?.totalSolved
+    ? `LeetCode Knight — ${stats.leetcode.totalSolved} solves, 1952 peak.`
+    : "LeetCode Knight — scores refresh automatically from LC · GH · CF APIs.";
 
   useEffect(() => {
     const verbTimer = window.setInterval(() => {
@@ -119,7 +175,8 @@ export default function Hero() {
             <p className="mt-8 max-w-2xl text-balance text-[17px] leading-[1.7] text-zinc-300 sm:text-[19px]">
               <span className="text-white">B.Tech in Artificial Intelligence at SVNIT Surat.</span>{" "}
               I design backends that behave, ship full-stack products that survive deployment, and
-              grind algorithms like the scoreboard is watching. <span className="text-emerald-200">LeetCode Knight (1952).</span>
+              grind algorithms like the scoreboard is watching.{" "}
+              <span className="text-emerald-200">{leetSubtitle}</span>
             </p>
 
             {/* CTAs */}
@@ -149,7 +206,7 @@ export default function Hero() {
 
             {/* Metrics row */}
             <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {heroMetrics.map((m, i) => (
+              {displayMetrics.map((m, i) => (
                 <Motion.div
                   key={m.label}
                   initial={{ opacity: 0, y: 16 }}
@@ -240,7 +297,7 @@ export default function Hero() {
               <div className="grid grid-cols-[36px_1fr] font-mono text-[12.5px] leading-[1.85] sm:text-[13px]">
                 {/* Line numbers */}
                 <div className="border-r border-white/[0.05] bg-white/[0.01] py-4 text-right text-zinc-700">
-                  {codeLines.map((_, i) => (
+                  {editorLines.map((_, i) => (
                     <div key={i} className="px-2">
                       {String(i + 1).padStart(2, "0")}
                     </div>
@@ -249,7 +306,7 @@ export default function Hero() {
 
                 {/* Content */}
                 <div className="overflow-hidden py-4 pl-4 pr-3">
-                  {codeLines.map((line, i) => {
+                  {editorLines.map((line, i) => {
                     if (line.kind === "muted") {
                       return (
                         <div key={i} className="text-zinc-600">

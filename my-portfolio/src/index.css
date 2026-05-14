@@ -45,6 +45,16 @@ a { color: inherit; text-decoration: none; }
 
 [id] { scroll-margin-top: 96px; }
 
+.chaos-mode {
+  animation: chaos-hue-shift 7s linear infinite alternate;
+}
+
+@keyframes chaos-hue-shift {
+  0% { filter: hue-rotate(-18deg) contrast(1.05) saturate(1.08); }
+  50% { filter: hue-rotate(142deg) contrast(1.12) saturate(1.38); }
+  100% { filter: hue-rotate(296deg) contrast(1.08) saturate(1.45); }
+}
+
 ::selection { background: rgba(52, 211, 153, 0.32); color: white; }
 
 /* Scrollbar */
