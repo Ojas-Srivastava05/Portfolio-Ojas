@@ -1,7 +1,23 @@
+import { useMemo } from "react";
 import { motion as Motion } from "framer-motion";
 import { experiences } from "../data/portfolio";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function Experience() {
+  const { derived } = useLiveCodingStats();
+
+  const items = useMemo(
+    () =>
+      experiences.map((item) =>
+        item.metric?.startsWith("CGPA")
+          ? {
+              ...item,
+              metric: derived.cgpa != null ? `CGPA ${derived.cgpa}` : item.metric,
+            }
+          : item,
+      ),
+    [derived.cgpa],
+  );
   return (
     <section id="experience" className="relative overflow-hidden">
       <div className="section-shell">
@@ -34,7 +50,7 @@ export default function Experience() {
 
         {/* Timeline */}
         <div className="mt-20 grid gap-3">
-          {experiences.map((item, i) => (
+          {items.map((item, i) => (
             <Motion.article
               key={`${item.role}-${item.company}`}
               initial={{ opacity: 0, y: 22 }}

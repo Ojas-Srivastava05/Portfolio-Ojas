@@ -1,5 +1,5 @@
 // Single source of truth for portfolio content.
-// Competitive numbers verified May 2026 (GitHub · LeetCode · Codeforces · CodeChef).
+// Competitive stats (LC/GH/CF/CC counts, peaks, shipped projects) are derived at runtime — see derivePortfolioStats.js.
 
 export const platformUsernames = {
   github: "Ojas-Srivastava05",
@@ -18,12 +18,6 @@ const POLL_MS_ENV =
 export const STATS_POLL_INTERVAL_MS =
   Number.isFinite(POLL_MS_ENV) && POLL_MS_ENV >= 60_000 ? POLL_MS_ENV : 10 * 60 * 1000;
 
-/** When APIs omit solve totals, use for hero/aggregate tiles only (CodeChef mirror often offline). */
-export const STATS_CP_PLATFORM_FALLBACK = {
-  codeforcesProblems: 144,
-  codechefProblems: 118,
-};
-
 export const profile = {
   name: "Ojas Srivastava",
   role: "AI Engineer & Full-Stack Developer",
@@ -33,8 +27,6 @@ export const profile = {
   phone: "+91-7424978046",
   resume: "/Ojas-Srivastava-Resume.pdf",
   available: "Open to internships, freelance, and collaborative builds.",
-  shortBio:
-    "B.Tech AI at SVNIT Surat. I design backend systems, ship full-stack products, and grind algorithms — 548 on LeetCode, 810+ across CP, Knight, top ~3.7% contests.",
 };
 
 export const navItems = [
@@ -57,13 +49,13 @@ export const recruiterBrief = [
   },
   {
     label: "Proof",
-    value: "8+ shipped builds",
+    value: "Shipped builds",
     detail:
       "LogiFlow, AirHelp, RangRiti, Ink'd, Clubify, ClimaTrack, and this portfolio are all concrete builds with source or live links.",
   },
   {
     label: "Signal",
-    value: "LeetCode Knight · CGPA 9.19",
+    value: "Algorithms + academics",
     detail:
       "A blend of algorithmic consistency, strong academics, and practical deployment work.",
   },
@@ -73,28 +65,6 @@ export const recruiterBrief = [
     detail:
       "Open to SDE, AI engineering, full-stack, research engineering, and product-minded backend roles.",
   },
-];
-
-export const proofStack = [
-  {
-    title: "Can ship production-ish systems",
-    evidence: "IFFCO internship, deployed full-stack apps, REST APIs, auth, databases, Cloudinary, Render/Vercel.",
-  },
-  {
-    title: "Can reason through algorithms",
-    evidence: "LeetCode Knight, 1952 peak, 810+ aggregate practice across LC / CF / CC.",
-  },
-  {
-    title: "Can build AI beyond wrappers",
-    evidence: "RAG, graph search, OCR, offline voice, route explainability, ML delay prediction, summarisation.",
-  },
-];
-
-export const heroMetrics = [
-  { value: "1952", label: "LeetCode peak", sub: "Knight · Top ~3.7% contests" },
-  { value: "9.19", label: "CGPA", sub: "/ 10.0" },
-  { value: "810+", label: "Problems", sub: "548 LC · CF · CC" },
-  { value: "8+", label: "Shipped", sub: "deployed builds" },
 ];
 
 export const profileLinks = [
@@ -112,13 +82,13 @@ export const profileLinks = [
   },
   {
     name: "LeetCode",
-    handle: "Knight · peak 1952 · 548 solved",
+    handle: "@Oju_Srivastava",
     href: "https://leetcode.com/Oju_Srivastava",
     icon: "https://cdn.simpleicons.org/leetcode/FFA116",
   },
   {
     name: "Codeforces",
-    handle: "Oju · 1179 rated",
+    handle: "@oju",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
   },
@@ -471,7 +441,7 @@ export const principles = [
     n: "04",
     title: "Algorithms are reps.",
     body:
-      "LeetCode Knight, peak 1952, 810+ aggregated practice across LC / CF / CC. The reps make me faster at debugging, calmer in code review, and sharper at problem modelling.",
+      "Contest ratings and solve counts refresh from LeetCode, Codeforces, and CodeChef APIs — the reps make me faster at debugging, calmer in code review, and sharper at problem modelling.",
   },
 ];
 
@@ -548,13 +518,6 @@ export const codingProfiles = [
   },
 ];
 
-export const achievementStats = [
-  { value: "1952", label: "LeetCode peak", detail: "Knight · Top 3.67% contests" },
-  { value: "9.19", label: "CGPA", detail: "B.Tech AI · SVNIT Surat" },
-  { value: "810+", label: "Problems solved", detail: "548 LC · 144 CF · 118 CC" },
-  { value: "8+", label: "Products shipped", detail: "Web · AI · Systems" },
-];
-
 export const achievements = [
   {
     title: "PowerMind Hackathon 2026",
@@ -563,7 +526,7 @@ export const achievements = [
   },
   {
     title: "LeetCode Knight",
-    detail: "Reached a 1952 max rating with consistent algorithm practice.",
+    detail: "Contest peak and solve counts sync from LeetCode automatically.",
     tag: "Competitive",
   },
   {
@@ -640,25 +603,3 @@ export const toolkit = [
   },
 ];
 
-export const nowFeed = [
-  { tag: "BUILDING", text: "LogiFlow · multi-modal logistics decision engine" },
-  { tag: "SHIPPED", text: "AirHelp · AI airport assistant · PowerMind Hackathon 2026" },
-  { tag: "GRINDING", text: "LeetCode 548+/810+ CP · probing past peak 1952 again" },
-  { tag: "STUDYING", text: "Stanford ML Specialization + DBMS internals" },
-  { tag: "READING", text: "Designing Data-Intensive Applications" },
-  { tag: "OPEN TO", text: "SDE / AI internships · Summer 2026" },
-];
-
-export const tickerLines = [
-  "leetcode.knight",
-  "peak::1952 · solved::548",
-  "aggregate::810+ across lc/cf/cc",
-  "cf::144 unique solves · 1179 rating",
-  "codechef::2★ provisional 1536",
-  "svnit.ai · cgpa 9.19",
-  "stack::node + python + react + c++",
-  "currently::shipping logiflow",
-  "hackathon::airhelp · powermind 2026",
-  "github::31 public repos",
-  "areas::backend · distributed · ai",
-];

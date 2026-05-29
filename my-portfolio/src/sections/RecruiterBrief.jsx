@@ -1,18 +1,54 @@
 import { useMemo, useState } from "react";
 import { motion as Motion } from "framer-motion";
-import { profile, proofStack, projects, recruiterBrief } from "../data/portfolio";
-
-function makePitch() {
-  return `${profile.name} - B.Tech AI at SVNIT Surat, ${profile.role}. LeetCode Knight (1952 peak), CGPA 9.19, 8+ shipped builds across backend, full-stack, and AI systems. Strong fit for Summer 2026 SDE / AI engineering internships.`;
-}
+import { profile, projects, recruiterBrief } from "../data/portfolio";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function RecruiterBrief() {
+  const { derived } = useLiveCodingStats();
   const [copied, setCopied] = useState(false);
   const featured = useMemo(() => projects.filter((p) => p.featured).slice(0, 3), []);
 
+  const briefItems = useMemo(() => {
+    const { rank, peak, cgpa, shipped } = derived;
+    return recruiterBrief.map((item) => {
+      if (item.label === "Proof") {
+        return {
+          ...item,
+          value: shipped > 0 ? `${shipped}+ shipped builds` : item.value,
+        };
+      }
+      if (item.label === "Signal") {
+        const lcBit = rank && peak != null ? `LeetCode ${rank} (${peak} peak)` : "LeetCode (live)";
+        const cgpaBit = cgpa != null ? `CGPA ${cgpa}` : "SVNIT AI";
+        return { ...item, value: `${lcBit} · ${cgpaBit}` };
+      }
+      return item;
+    });
+  }, [derived]);
+
+  const proofItems = useMemo(
+    () => [
+      {
+        title: "Can ship production-ish systems",
+        evidence:
+          "IFFCO internship, deployed full-stack apps, REST APIs, auth, databases, Cloudinary, Render/Vercel.",
+      },
+      {
+        title: "Can reason through algorithms",
+        evidence: derived.proofAlgorithms,
+      },
+      {
+        title: "Can build AI beyond wrappers",
+        evidence:
+          "RAG, graph search, OCR, offline voice, route explainability, ML delay prediction, summarisation.",
+      },
+    ],
+    [derived.proofAlgorithms],
+  );
+
   const copyPitch = async () => {
     try {
-      await navigator.clipboard.writeText(makePitch());
+      await navigator.clipboard.writeText(derived.recruiterPitch);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
@@ -37,21 +73,19 @@ export default function RecruiterBrief() {
                 <span className="italic gradient-text-accent"> proof layer</span>.
               </h2>
               <p className="mt-4 max-w-xl text-[14px] leading-[1.75] text-zinc-400">
-                A compact read for recruiters and hiring managers: what I build, why I am
-                credible, and where to click first.
+                A compact read for recruiters and hiring managers: what I build, why I am credible,
+                and where to click first.
               </p>
             </div>
 
             <div className="grid gap-px bg-white/[0.05] sm:grid-cols-2">
-              {recruiterBrief.map((item) => (
+              {briefItems.map((item) => (
                 <div key={item.label} className="bg-ink-100 p-5">
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-300/80">
                     {item.label}
                   </p>
                   <p className="mt-2 text-[15px] font-semibold text-white">{item.value}</p>
-                  <p className="mt-2 text-[12.5px] leading-[1.65] text-zinc-500">
-                    {item.detail}
-                  </p>
+                  <p className="mt-2 text-[12.5px] leading-[1.65] text-zinc-500">{item.detail}</p>
                 </div>
               ))}
             </div>
@@ -80,7 +114,7 @@ export default function RecruiterBrief() {
             className="grid gap-4"
           >
             <div className="grid gap-4 md:grid-cols-3">
-              {proofStack.map((item, i) => (
+              {proofItems.map((item, i) => (
                 <div
                   key={item.title}
                   className="rounded-xl border border-white/[0.07] bg-white/[0.015] p-5"
@@ -91,9 +125,7 @@ export default function RecruiterBrief() {
                   <h3 className="mt-4 text-[15px] font-semibold leading-snug text-white">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-[12.5px] leading-[1.7] text-zinc-500">
-                    {item.evidence}
-                  </p>
+                  <p className="mt-3 text-[12.5px] leading-[1.7] text-zinc-500">{item.evidence}</p>
                 </div>
               ))}
             </div>
@@ -108,7 +140,9 @@ export default function RecruiterBrief() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() =>
+                    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+                  }
                   className="btn-ghost"
                 >
                   View Work

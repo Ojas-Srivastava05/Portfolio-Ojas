@@ -3,7 +3,7 @@ import { AnimatePresence, motion as Motion } from "framer-motion";
 import { navItems, profile, socialLinks } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
-function buildCommands({ closePalette, setToast, refetchStats, syncingStats }) {
+function buildCommands({ closePalette, setToast, refetchStats, syncingStats, recruiterPitch }) {
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -93,11 +93,7 @@ function buildCommands({ closePalette, setToast, refetchStats, syncingStats }) {
       hint: "One-line profile summary",
       keywords: "copy recruiter pitch intro summary hiring",
       icon: "★",
-      action: () =>
-        copy(
-          `${profile.name} - B.Tech AI at SVNIT Surat, ${profile.role}. LeetCode Knight (1952 peak), CGPA 9.19, 8+ shipped builds across backend, full-stack, and AI systems. Strong fit for Summer 2026 SDE / AI engineering internships.`,
-          "pitch",
-        ),
+      action: () => copy(recruiterPitch, "pitch"),
     },
     {
       id: "download-resume",
@@ -159,7 +155,7 @@ export default function CommandPalette() {
   const [toast, setToast] = useState(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
-  const { refetchStats, syncing } = useLiveCodingStats();
+  const { refetchStats, syncing, derived } = useLiveCodingStats();
 
   const closePalette = () => {
     setOpen(false);
@@ -174,8 +170,9 @@ export default function CommandPalette() {
         setToast,
         refetchStats,
         syncingStats: syncing,
+        recruiterPitch: derived.recruiterPitch,
       }),
-    [syncing, refetchStats],
+    [syncing, refetchStats, derived.recruiterPitch],
   );
 
   const filtered = useMemo(() => {

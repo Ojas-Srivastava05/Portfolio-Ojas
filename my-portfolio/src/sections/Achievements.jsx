@@ -1,5 +1,7 @@
+import { useMemo } from "react";
 import { motion as Motion } from "framer-motion";
-import { achievements, nowFeed } from "../data/portfolio";
+import { achievements } from "../data/portfolio";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 const tagAccent = {
   Hackathon: "border-orange-300/30 bg-orange-300/[0.06] text-orange-200",
@@ -12,6 +14,16 @@ const tagAccent = {
 };
 
 export default function Achievements() {
+  const { derived } = useLiveCodingStats();
+
+  const achievementCards = useMemo(
+    () =>
+      achievements.map((a) =>
+        a.title === "LeetCode Knight" ? { ...a, detail: derived.leetAchievementDetail } : a,
+      ),
+    [derived.leetAchievementDetail],
+  );
+
   return (
     <section id="achievements" className="relative overflow-hidden">
       <div className="section-shell">
@@ -36,14 +48,12 @@ export default function Achievements() {
             transition={{ delay: 0.1 }}
             className="text-[15px] leading-[1.75] text-zinc-400"
           >
-            A concise snapshot of the work, leadership, and learning threads behind the
-            projects.
+            A concise snapshot of the work, leadership, and learning threads behind the projects.
           </Motion.p>
         </div>
 
-        {/* Achievements grid */}
         <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {achievements.map((a, i) => (
+          {achievementCards.map((a, i) => (
             <Motion.div
               key={a.title}
               initial={{ opacity: 0, y: 18 }}
@@ -75,7 +85,6 @@ export default function Achievements() {
           ))}
         </div>
 
-        {/* Now feed */}
         <Motion.div
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,12 +100,12 @@ export default function Achievements() {
               </h3>
             </div>
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-              updated · this week
+              live stats · auto-refresh
             </span>
           </div>
 
           <div className="divide-y divide-white/[0.05]">
-            {nowFeed.map((n) => (
+            {derived.nowFeed.map((n) => (
               <div
                 key={n.tag + n.text}
                 className="flex flex-col gap-2 p-5 sm:flex-row sm:items-center sm:gap-4"

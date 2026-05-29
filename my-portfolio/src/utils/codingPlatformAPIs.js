@@ -153,12 +153,17 @@ export async function fetchLeetCodeStats(username) {
         .sort((a, b) => a.startTimeSec - b.startTimeSec);
     }
 
+    const peakFromHistory = contestHistory.length
+      ? Math.max(...contestHistory.map((h) => h.rating).filter((n) => n > 0))
+      : null;
+
     return {
       totalSolved,
       easySolved: difficulties.Easy,
       mediumSolved: difficulties.Medium,
       hardSolved: difficulties.Hard,
       contestRating,
+      maxContestRating: peakFromHistory,
       contestsAttended: contest?.attendedContestsCount ?? 0,
       globalRanking: contest?.globalRanking,
       contestTotalParticipants: contest?.totalParticipants,
@@ -180,12 +185,20 @@ export async function fetchCodeChefStats(username) {
 
     const data = await response.json();
 
+    const problemsSolved =
+      data.problemsFullySolved ??
+      data.fullySolved ??
+      data.problemsSolved ??
+      data.totalProblemsSolved ??
+      null;
+
     return {
       rating: data.currentRating || 0,
       maxRating: data.highestRating || 0,
       stars: data.stars || 'N/A',
       globalRank: data.globalRank || 'N/A',
       countryRank: data.countryRank || 'N/A',
+      problemsSolved: typeof problemsSolved === 'number' ? problemsSolved : null,
     };
   } catch {
     console.warn('CodeChef API unavailable');
@@ -193,13 +206,37 @@ export async function fetchCodeChefStats(username) {
   }
 }
 
+async function fetchCodeforcesProblemsSolved(username) {
+  try {
+    const response = await fetch(
+      `https://codeforces.com/api/user.status?handle=${encodeURIComponent(username)}&from=1&count=10000`,
+    );
+    if (!response.ok) return null;
+    const data = await response.json();
+    if (data.status !== 'OK' || !Array.isArray(data.result)) return null;
+
+    const unique = new Set();
+    for (const sub of data.result) {
+      if (sub.verdict !== 'OK' || !sub.problem) continue;
+      const key = `${sub.problem.contestId ?? 'x'}-${sub.problem.index}`;
+      unique.add(key);
+    }
+    return unique.size;
+  } catch {
+    return null;
+  }
+}
+
 // Codeforces API
 export async function fetchCodeforcesStats(username) {
   try {
-    const response = await fetch(`https://codeforces.com/api/user.info?handles=${username}`);
-    if (!response.ok) throw new Error('Failed to fetch Codeforces data');
+    const [infoRes, problemsSolved] = await Promise.all([
+      fetch(`https://codeforces.com/api/user.info?handles=${username}`),
+      fetchCodeforcesProblemsSolved(username),
+    ]);
+    if (!infoRes.ok) throw new Error('Failed to fetch Codeforces data');
 
-    const data = await response.json();
+    const data = await infoRes.json();
 
     if (data.status !== 'OK') throw new Error('Invalid response');
 
@@ -220,6 +257,7 @@ export async function fetchCodeforcesStats(username) {
           : 'Unrated',
       contribution: user.contribution || 0,
       handleDisplay: user.handle || username,
+      problemsSolved: typeof problemsSolved === 'number' ? problemsSolved : null,
     };
   } catch (error) {
     console.error('Codeforces API Error:', error);

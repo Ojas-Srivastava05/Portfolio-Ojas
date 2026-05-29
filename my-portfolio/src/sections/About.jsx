@@ -1,7 +1,18 @@
+import { useMemo } from "react";
 import { motion as Motion } from "framer-motion";
-import { education, principles, interests, profile } from "../data/portfolio";
+import { education, principles, interests } from "../data/portfolio";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function About() {
+  const { derived } = useLiveCodingStats();
+
+  const principlesMerged = useMemo(
+    () =>
+      principles.map((p) =>
+        p.n === "04" ? { ...p, body: derived.principlesAlgorithmsBody } : p,
+      ),
+    [derived.principlesAlgorithmsBody],
+  );
   return (
     <section id="about" className="relative overflow-hidden">
       <div className="section-shell">
@@ -54,7 +65,7 @@ export default function About() {
           </div>
 
           <div className="grid gap-px overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.04] sm:grid-cols-2 lg:grid-cols-4">
-            {principles.map((p, i) => (
+            {principlesMerged.map((p, i) => (
               <Motion.div
                 key={p.n}
                 initial={{ opacity: 0, y: 18 }}
@@ -96,7 +107,9 @@ export default function About() {
                   Academic record
                 </h3>
               </div>
-              <span className="chip-accent">CGPA 9.19</span>
+              <span className="chip-accent">
+                {derived.cgpa != null ? `CGPA ${derived.cgpa}` : "CGPA —"}
+              </span>
             </div>
 
             <div className="grid divide-y divide-white/[0.05]">

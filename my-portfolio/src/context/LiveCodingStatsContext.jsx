@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { STATS_POLL_INTERVAL_MS, platformUsernames } from "../data/portfolio";
+import { STATS_POLL_INTERVAL_MS, platformUsernames, projects } from "../data/portfolio";
 import { useCodingStats } from "../hooks/useCodingStats";
 import { fetchGitHubContributionHeatmap } from "../utils/codingPlatformAPIs";
+import { derivePortfolioStats } from "../utils/derivePortfolioStats";
 
 const LiveCodingStatsContext = createContext(null);
 
@@ -61,9 +62,12 @@ export function LiveCodingStatsProvider({ children }) {
     };
   }, [refetchStats, user.github]);
 
+  const derived = useMemo(() => derivePortfolioStats(stats, projects), [stats]);
+
   const value = useMemo(
     () => ({
       stats,
+      derived,
       loading,
       syncing,
       errors,
@@ -75,6 +79,7 @@ export function LiveCodingStatsProvider({ children }) {
     }),
     [
       stats,
+      derived,
       loading,
       syncing,
       errors,

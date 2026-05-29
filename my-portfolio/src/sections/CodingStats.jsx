@@ -1,15 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion as Motion } from "framer-motion";
-import {
-  STATS_CP_PLATFORM_FALLBACK,
-  achievementStats,
-  codingProfiles,
-} from "../data/portfolio";
+import { codingProfiles } from "../data/portfolio";
 import LeetContestVisualization from "../components/LeetContestVisualization";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
+import { formatTopPct } from "../utils/derivePortfolioStats";
 import { formatSyncedAge } from "../utils/statsTime";
 
-// Fallback heat-map when GitHub contributions API fails
 function generateActivity(seed = 1) {
   const cells = [];
   let x = seed;
@@ -34,15 +30,10 @@ const heatColors = [
   "rgba(52,211,153,0.95)",
 ];
 
-function formatTopPct(raw) {
-  if (typeof raw !== "number" || Number.isNaN(raw)) return null;
-  const s = Number.isInteger(raw) ? String(raw) : raw.toFixed(2).replace(/\.?0+$/, "");
-  return `Top ${s}%`;
-}
-
 export default function CodingStats() {
   const {
     stats,
+    derived,
     loading,
     syncing,
     errors,
@@ -77,36 +68,42 @@ export default function CodingStats() {
   }, [levels, contribTotalLive]);
 
   const mergedProfiles = useMemo(() => {
+    const { peak, rank, lcSolved, cfSolved, ccSolved } = derived;
+
     return codingProfiles.map((p) => {
       if (p.platform === "LeetCode" && stats.leetcode?.totalSolved) {
         const lc = stats.leetcode;
-        const topPct = formatTopPct(lc.topPercentage) ?? "Knight tier";
+        const topPctLabel = formatTopPct(lc.topPercentage) ?? "—";
+        const peakVal = peak != null ? String(peak) : "—";
+        const rankLabel = rank ?? "—";
         return {
           ...p,
           rating: lc.contestRating != null ? String(lc.contestRating) : p.rating,
-          detail: `${lc.totalSolved} solved · Peak 1952 · ${topPct}`,
+          rank: rankLabel,
+          detail: `${lc.totalSolved} solved · Peak ${peakVal} · ${topPctLabel}`,
           stats: [
-            { label: "Peak rating", value: "1952" },
+            { label: "Peak rating", value: peakVal },
             { label: "Current", value: lc.contestRating != null ? String(lc.contestRating) : "—" },
-            { label: "Rank", value: "Knight" },
+            { label: "Rank", value: rankLabel },
             { label: "Problems", value: String(lc.totalSolved) },
             { label: "Contests", value: String(lc.contestsAttended ?? "—") },
-            { label: "Global rank", value: formatTopPct(lc.topPercentage) ?? "—" },
+            { label: "Global rank", value: topPctLabel },
           ],
         };
       }
       if (p.platform === "Codeforces" && stats.codeforces?.rating != null) {
         const cf = stats.codeforces;
+        const probVal = cfSolved != null ? String(cfSolved) : "—";
         return {
           ...p,
           rating: String(cf.rating),
           rank: cf.rank ?? p.rank,
-          detail:
-            `${cf.rating} rated · ${cf.rank ?? "rank"} · ${STATS_CP_PLATFORM_FALLBACK.codeforcesProblems} problems uniquely solved (API snapshot).`,
+          detail: `${cf.rating} rated · ${cf.rank ?? "rank"} · ${probVal} problems uniquely solved.`,
           stats: [
             { label: "Rating", value: String(cf.rating) },
             { label: "Rank", value: cf.rank ?? "—" },
-            { label: "Problems", value: String(STATS_CP_PLATFORM_FALLBACK.codeforcesProblems) },
+            { label: "Max", value: cf.maxRating != null ? String(cf.maxRating) : "—" },
+            { label: "Problems", value: probVal },
           ],
         };
       }
@@ -126,54 +123,27 @@ export default function CodingStats() {
       }
       if (p.platform === "CodeChef" && stats.codechef?.rating) {
         const cc = stats.codechef;
+        const probVal = ccSolved != null ? String(ccSolved) : "—";
         return {
           ...p,
           rating: String(cc.rating),
-          detail:
-            `${cc.globalRank ?? "—"} global · ${cc.countryRank ?? "—"} India rank — live mirror`,
+          rank: String(cc.stars ?? p.rank),
+          detail: `${cc.globalRank ?? "—"} global · ${cc.countryRank ?? "—"} India — live mirror`,
           stats: [
             { label: "Rating", value: String(cc.rating) },
             { label: "Stars", value: String(cc.stars ?? "—") },
             { label: "Peak", value: String(cc.maxRating ?? "—") },
+            { label: "Problems", value: probVal },
           ],
         };
       }
       return p;
     });
-  }, [stats]);
-
-  const lcTop = stats.leetcode?.topPercentage;
-  const heroStatsMerged = useMemo(() => {
-    return achievementStats.map((s, idx) => {
-      if (!stats.leetcode) return s;
-      if (
-        s.label === "LeetCode peak" &&
-        typeof lcTop === "number" &&
-        !Number.isNaN(lcTop)
-      ) {
-        return {
-          ...s,
-          detail: `Knight · ${formatTopPct(lcTop)} (contests)`,
-        };
-      }
-      if (idx === 2 && stats.leetcode.totalSolved) {
-        const lc = stats.leetcode.totalSolved;
-        const cf = STATS_CP_PLATFORM_FALLBACK.codeforcesProblems;
-        const cc = STATS_CP_PLATFORM_FALLBACK.codechefProblems;
-        return {
-          ...s,
-          value: `${lc + cf + cc}+`,
-          detail: `${lc}+ LC · ${cf} CF · ${cc} CC`,
-        };
-      }
-      return s;
-    });
-  }, [stats, lcTop]);
+  }, [stats, derived]);
 
   return (
     <section id="coding-stats" className="relative overflow-hidden">
       <div className="section-shell">
-        {/* Header */}
         <div className="grid items-end gap-8 lg:grid-cols-[0.55fr_0.45fr]">
           <Motion.div
             initial={{ opacity: 0, y: 22 }}
@@ -183,8 +153,7 @@ export default function CodingStats() {
             <p className="eyebrow">// 04 — Stats</p>
             <h2 className="display-h2 mt-6">
               Numbers that point to
-              <span className="italic gradient-text-accent"> consistency</span>,
-              not decoration.
+              <span className="italic gradient-text-accent"> consistency</span>, not decoration.
             </h2>
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <span
@@ -196,7 +165,7 @@ export default function CodingStats() {
                       : "border-emerald-400/35 text-emerald-200"
                 }`}
               >
-                {loading ? "Pulling APIs…" : syncing ? "Background sync…" : "Live LC · GH · CF"}
+                {loading ? "Pulling APIs…" : syncing ? "Background sync…" : "Live LC · GH · CF · CC"}
               </span>
               {!loading && syncLabelParts != null ? (
                 <span className="rounded-full border border-white/[0.08] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
@@ -205,7 +174,7 @@ export default function CodingStats() {
               ) : null}
               {loading === false && !stats?.leetcode && errors?.leetcode != null && (
                 <span className="rounded-full border border-rose-400/35 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-rose-200/95">
-                  LeetCode fetch blocked — showing snapshot
+                  LeetCode fetch blocked — retry via command palette
                 </span>
               )}
             </div>
@@ -218,14 +187,14 @@ export default function CodingStats() {
             transition={{ delay: 0.1 }}
             className="text-[15px] leading-[1.75] text-zinc-400"
           >
-            Competitive programming, academic performance, and shipped projects all feed
-            the same habit: learn fast, debug carefully, build momentum.
+            Competitive programming, academic performance, and shipped projects all feed the same
+            habit: learn fast, debug carefully, build momentum. Every number below is pulled from
+            public APIs on a schedule — no hand-edited counters.
           </Motion.p>
         </div>
 
-        {/* Hero stats row */}
         <div className="mt-16 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {heroStatsMerged.map((s, i) => (
+          {derived.achievementStats.map((s, i) => (
             <Motion.div
               key={s.label}
               initial={{ opacity: 0, y: 20 }}
@@ -238,17 +207,12 @@ export default function CodingStats() {
               <p className="font-display text-[3.2rem] font-normal leading-none tracking-ultratight gradient-text-mono">
                 {s.value}
               </p>
-              <p className="mt-4 text-[13px] font-semibold text-emerald-200/90">
-                {s.label}
-              </p>
-              <p className="mt-1 text-[12px] leading-[1.6] text-zinc-500">
-                {s.detail}
-              </p>
+              <p className="mt-4 text-[13px] font-semibold text-emerald-200/90">{s.label}</p>
+              <p className="mt-1 text-[12px] leading-[1.6] text-zinc-500">{s.detail}</p>
             </Motion.div>
           ))}
         </div>
 
-        {/* Profiles grid */}
         <div className="mt-12 grid gap-4 md:grid-cols-2">
           {mergedProfiles.map((p, i) => (
             <Motion.a
@@ -286,11 +250,7 @@ export default function CodingStats() {
               <div className="relative flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <span className="grid h-12 w-12 place-items-center rounded-md border border-white/[0.08] bg-black/40">
-                    <img
-                      src={p.icon}
-                      alt=""
-                      className="h-6 w-6 object-contain"
-                    />
+                    <img src={p.icon} alt="" className="h-6 w-6 object-contain" />
                   </span>
                   <div>
                     <h3 className="text-[17px] font-semibold text-white">{p.platform}</h3>
@@ -306,7 +266,7 @@ export default function CodingStats() {
 
               <div
                 className={`relative mt-5 grid gap-2 ${
-                  (p.stats?.length ?? 0) >= 6 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-3"
+                  (p.stats?.length ?? 0) >= 6 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2 sm:grid-cols-4"
                 }`}
               >
                 {p.stats.map((stat) => (
@@ -327,10 +287,8 @@ export default function CodingStats() {
           ))}
         </div>
 
-        {/* LeetCode contest rating trajectory + contest solve heat */}
         <LeetContestVisualization contestHistory={stats.leetcode?.contestHistory} />
 
-        {/* Activity Grid */}
         <Motion.div
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}

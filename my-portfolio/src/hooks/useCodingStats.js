@@ -5,7 +5,6 @@ import {
   fetchLeetCodeStats,
   fetchCodeChefStats,
   fetchCodeforcesStats,
-  fetchKaggleStats,
 } from "../utils/codingPlatformAPIs";
 
 /**
@@ -22,7 +21,6 @@ export function useCodingStats(usernames, options = {}) {
     leetcode: leetcodeUsername,
     codechef: codechefUsername,
     codeforces: codeforcesUsername,
-    kaggle: kaggleUsername,
   } = usernames || {};
 
   const pollIntervalMs = Math.max(
@@ -35,7 +33,6 @@ export function useCodingStats(usernames, options = {}) {
     leetcode: null,
     codechef: null,
     codeforces: null,
-    kaggle: null,
   });
 
   const [loading, setLoading] = useState(true);
@@ -62,12 +59,11 @@ export function useCodingStats(usernames, options = {}) {
       const newErrors = {};
 
       try {
-        const [github, leetcode, codechef, codeforces, kaggle] = await Promise.allSettled([
+        const [github, leetcode, codechef, codeforces] = await Promise.allSettled([
           fetchGitHubStats(githubUsername),
           fetchLeetCodeStats(leetcodeUsername),
           fetchCodeChefStats(codechefUsername),
           fetchCodeforcesStats(codeforcesUsername),
-          fetchKaggleStats(kaggleUsername),
         ]);
 
         if (cancelled) return;
@@ -83,9 +79,6 @@ export function useCodingStats(usernames, options = {}) {
 
         if (codeforces.status === "fulfilled") newStats.codeforces = codeforces.value;
         else newErrors.codeforces = codeforces.reason;
-
-        if (kaggle.status === "fulfilled") newStats.kaggle = kaggle.value;
-        else newErrors.kaggle = kaggle.reason;
       } catch (error) {
         console.error("Error fetching stats:", error);
       }
@@ -115,7 +108,6 @@ export function useCodingStats(usernames, options = {}) {
     leetcodeUsername,
     codechefUsername,
     codeforcesUsername,
-    kaggleUsername,
     usernames,
     pollIntervalMs,
   ]);

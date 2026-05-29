@@ -1,7 +1,9 @@
 import { motion as Motion } from "framer-motion";
 import { navItems, socialLinks, profile } from "../data/portfolio";
+import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function Footer() {
+  const { derived } = useLiveCodingStats();
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -34,7 +36,7 @@ export default function Footer() {
               {profile.name}
             </p>
             <p className="mt-2 max-w-md text-sm leading-7 text-zinc-400">
-              {profile.shortBio}
+              {derived.shortBio}
             </p>
             <div className="mt-5 inline-flex items-center gap-2 rounded-md border border-emerald-300/25 bg-emerald-300/[0.06] px-3 py-1.5">
               <span className="live-dot" />
