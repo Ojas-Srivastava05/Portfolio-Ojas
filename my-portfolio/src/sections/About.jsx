@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { motion as Motion } from "framer-motion";
-import { education, principles, interests } from "../data/portfolio";
+import { education, principles, interests, profile } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function About() {
