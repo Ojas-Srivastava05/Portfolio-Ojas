@@ -1,12 +1,13 @@
-import { education, projects } from "../data/portfolio";
+import { ACADEMIC_CGPA, INTERNSHIP_AVAILABILITY, education, projects, formatCgpaDisplay } from "../data/portfolio";
 
 const CGPA_ENV =
   typeof import.meta !== "undefined" && import.meta.env?.VITE_CGPA != null
     ? Number(import.meta.env.VITE_CGPA)
     : NaN;
 
-/** Academic CGPA — env `VITE_CGPA` or parsed from education[0].score (no public API). */
+/** Academic CGPA — `ACADEMIC_CGPA`, env `VITE_CGPA`, or parsed from education[0].score. */
 export function getCgpa() {
+  if (Number.isFinite(ACADEMIC_CGPA)) return ACADEMIC_CGPA;
   if (Number.isFinite(CGPA_ENV)) return CGPA_ENV;
   const raw = education?.[0]?.score;
   const m = typeof raw === "string" ? raw.match(/([\d.]+)/) : null;
@@ -78,6 +79,7 @@ function problemsBreakdownSub({ lc, cf, cc }) {
  */
 export function derivePortfolioStats(stats, projectList = projects) {
   const cgpa = getCgpa();
+  const cgpaLabel = formatCgpaDisplay(cgpa);
   const lc = stats?.leetcode;
   const cf = stats?.codeforces;
   const cc = stats?.codechef;
@@ -102,7 +104,7 @@ export function derivePortfolioStats(stats, projectList = projects) {
 
   const heroMetrics = [
     { value: peak != null ? String(peak) : "—", label: "LeetCode peak", sub: peakSub },
-    { value: cgpa != null ? String(cgpa) : "—", label: "CGPA", sub: "/ 10.0" },
+    { value: cgpaLabel ?? "—", label: "CGPA", sub: "/ 10.0" },
     {
       value: problemsTotal != null ? `${problemsTotal}+` : "—",
       label: "Problems",
@@ -163,8 +165,9 @@ export function derivePortfolioStats(stats, projectList = projects) {
     cc?.rating != null
       ? `codechef::${cc.stars ?? "—"} · ${cc.rating} rating`
       : "codechef::syncing",
-    cgpa != null ? `svnit.ai · cgpa ${cgpa}` : "svnit.ai",
+    cgpa != null ? `svnit.ai · cgpa ${cgpaLabel}` : "svnit.ai",
     "stack::node + python + react + c++",
+    "gsc::global top 100 · logiflow",
     "currently::shipping logiflow",
     "hackathon::airhelp · powermind 2026",
     gh?.repositories != null ? `github::${gh.repositories} public repos` : "github::syncing",
@@ -174,7 +177,7 @@ export function derivePortfolioStats(stats, projectList = projects) {
   const shortBio =
     lcN != null && problemsTotal != null && rank
       ? `B.Tech AI at SVNIT Surat. I design backend systems, ship full-stack products, and grind algorithms — ${lcN} on LeetCode, ${problemsTotal}+ across CP, ${rank}${topPctApprox ? `, ${topPctApprox} contests` : ""}.`
-      : profileFallbackShortBio(cgpa, rank);
+      : profileFallbackShortBio(cgpaLabel, rank);
 
   const recruiterPitch = buildRecruiterPitch({ cgpa, rank, peak, shipped });
   const proofAlgorithms = buildProofAlgorithms({ rank, peak, problemsTotal });
@@ -214,12 +217,12 @@ export function derivePortfolioStats(stats, projectList = projects) {
   };
 }
 
-function profileFallbackShortBio(cgpa, rank) {
+function profileFallbackShortBio(cgpaLabel, rank) {
   const base =
     "B.Tech AI at SVNIT Surat. I design backend systems, ship full-stack products, and grind algorithms";
   const tail =
-    rank && cgpa != null
-      ? ` — ${rank}, CGPA ${cgpa}; stats refresh from LC · GH · CF APIs.`
+    rank && cgpaLabel != null
+      ? ` — ${rank}, CGPA ${cgpaLabel}; stats refresh from LC · GH · CF APIs.`
       : " — live stats refresh from LC · GH · CF APIs.";
   return base + tail;
 }
@@ -229,9 +232,9 @@ function buildRecruiterPitch({ cgpa, rank, peak, shipped }) {
   const role = "AI Engineer & Full-Stack Developer";
   const lcBit =
     rank && peak != null ? `LeetCode ${rank} (${peak} peak)` : "LeetCode (live ratings)";
-  const cgpaBit = cgpa != null ? `CGPA ${cgpa}` : "SVNIT AI";
+  const cgpaBit = formatCgpaDisplay(cgpa) != null ? `CGPA ${formatCgpaDisplay(cgpa)}` : "SVNIT AI";
   const shipBit = shipped > 0 ? `${shipped}+ shipped builds` : "shipped full-stack builds";
-  return `${name} - B.Tech AI at SVNIT Surat, ${role}. ${lcBit}, ${cgpaBit}, ${shipBit} across backend, full-stack, and AI systems. Strong fit for Summer 2026 SDE / AI engineering internships.`;
+  return `${name} - B.Tech AI at SVNIT Surat, ${role}. ${lcBit}, ${cgpaBit}, ${shipBit} across backend, full-stack, and AI systems. Strong fit for ${INTERNSHIP_AVAILABILITY} SDE / AI engineering internships.`;
 }
 
 function buildProofAlgorithms({ rank, peak, problemsTotal }) {
@@ -259,12 +262,12 @@ function buildNowFeed({ lcN, problemsTotal, peak, gh, rank }) {
       ? `github::${gh.repositories} public repos`
       : "github::syncing repos";
   return [
-    { tag: "BUILDING", text: "LogiFlow · multi-modal logistics decision engine" },
+    { tag: "BUILDING", text: "LogiFlow · GSC Global Top 100 · multi-modal logistics platform" },
     { tag: "SHIPPED", text: "AirHelp · AI airport assistant · PowerMind Hackathon 2026" },
     { tag: "GRINDING", text: grinding },
     { tag: "STUDYING", text: "Stanford ML Specialization + DBMS internals" },
     { tag: "READING", text: "Designing Data-Intensive Applications" },
-    { tag: "OPEN TO", text: "SDE / AI internships · Summer 2026" },
+    { tag: "OPEN TO", text: `SDE / AI internships · ${INTERNSHIP_AVAILABILITY}` },
     { tag: "GITHUB", text: ghLine },
   ];
 }

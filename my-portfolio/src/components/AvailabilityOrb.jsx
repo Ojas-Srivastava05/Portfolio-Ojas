@@ -1,6 +1,8 @@
+import { INTERNSHIP_AVAILABILITY } from "../data/portfolio";
+
 /**
  * AvailabilityOrb — slides in from bottom-left after 8 s or 25% scroll.
- * Pulsing green orb with "Available · Summer 2026" copy.
+ * Pulsing green orb with internship availability copy.
  * Click scrolls to contact. Dismiss with ×.
  */
 import { useEffect, useState } from "react";
@@ -74,7 +76,7 @@ export default function AvailabilityOrb() {
             </span>
 
             <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-200">
-              Available · Summer 2026
+              Available · {INTERNSHIP_AVAILABILITY}
             </span>
 
             <AnimatePresence>

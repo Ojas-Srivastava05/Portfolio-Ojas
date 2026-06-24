@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { motion as Motion } from "framer-motion";
-import { experiences } from "../data/portfolio";
+import { experiences, formatCgpaDisplay } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function Experience() {
   const { derived } = useLiveCodingStats();
+  const cgpaLabel = formatCgpaDisplay(derived.cgpa);
 
   const items = useMemo(
     () =>
@@ -12,11 +13,11 @@ export default function Experience() {
         item.metric?.startsWith("CGPA")
           ? {
               ...item,
-              metric: derived.cgpa != null ? `CGPA ${derived.cgpa}` : item.metric,
+              metric: cgpaLabel != null ? `CGPA ${cgpaLabel}` : item.metric,
             }
           : item,
       ),
-    [derived.cgpa],
+    [cgpaLabel],
   );
   return (
     <section id="experience" className="relative overflow-hidden">

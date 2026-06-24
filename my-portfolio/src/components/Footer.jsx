@@ -1,5 +1,5 @@
 import { motion as Motion } from "framer-motion";
-import { navItems, socialLinks, profile } from "../data/portfolio";
+import { navItems, socialLinks, profile, INTERNSHIP_AVAILABILITY } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function Footer() {
@@ -41,7 +41,7 @@ export default function Footer() {
             <div className="mt-5 inline-flex items-center gap-2 rounded-md border border-emerald-300/25 bg-emerald-300/[0.06] px-3 py-1.5">
               <span className="live-dot" />
               <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-emerald-200">
-                Available for Summer 2026
+                Available for {INTERNSHIP_AVAILABILITY}
               </span>
             </div>
           </div>

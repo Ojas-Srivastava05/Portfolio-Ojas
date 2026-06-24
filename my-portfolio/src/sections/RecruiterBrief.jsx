@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion as Motion } from "framer-motion";
-import { profile, projects, recruiterBrief } from "../data/portfolio";
+import { profile, projects, recruiterBrief, INTERNSHIP_AVAILABILITY, formatCgpaDisplay } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function RecruiterBrief() {
@@ -19,8 +19,11 @@ export default function RecruiterBrief() {
       }
       if (item.label === "Signal") {
         const lcBit = rank && peak != null ? `LeetCode ${rank} (${peak} peak)` : "LeetCode (live)";
-        const cgpaBit = cgpa != null ? `CGPA ${cgpa}` : "SVNIT AI";
+        const cgpaBit = formatCgpaDisplay(cgpa) != null ? `CGPA ${formatCgpaDisplay(cgpa)}` : "SVNIT AI";
         return { ...item, value: `${lcBit} · ${cgpaBit}` };
+      }
+      if (item.label === "Availability") {
+        return { ...item, value: INTERNSHIP_AVAILABILITY };
       }
       return item;
     });

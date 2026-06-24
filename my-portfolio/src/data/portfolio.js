@@ -18,6 +18,17 @@ const POLL_MS_ENV =
 export const STATS_POLL_INTERVAL_MS =
   Number.isFinite(POLL_MS_ENV) && POLL_MS_ENV >= 60_000 ? POLL_MS_ENV : 10 * 60 * 1000;
 
+/** Academic CGPA — update here when transcripts change; also parsed by derivePortfolioStats. */
+export const ACADEMIC_CGPA = 9.2;
+
+export function formatCgpaDisplay(cgpa) {
+  if (cgpa == null || Number.isNaN(cgpa)) return null;
+  return Number(cgpa).toFixed(2);
+}
+
+/** Target internship cycle shown across hero, contact, and recruiter copy. */
+export const INTERNSHIP_AVAILABILITY = "Summer 2027";
+
 export const profile = {
   name: "Ojas Srivastava",
   role: "AI Engineer & Full-Stack Developer",
@@ -26,7 +37,8 @@ export const profile = {
   email: "srivastavaojas454@gmail.com",
   phone: "+91-7424978046",
   resume: "/Ojas-Srivastava-Resume.pdf",
-  available: "Open to internships, freelance, and collaborative builds.",
+  available:
+    "Open to Summer 2027 SDE / AI internships, freelance, and collaborative builds.",
 };
 
 export const navItems = [
@@ -61,7 +73,7 @@ export const recruiterBrief = [
   },
   {
     label: "Availability",
-    value: "Summer 2026",
+    value: "Summer 2027",
     detail:
       "Open to SDE, AI engineering, full-stack, research engineering, and product-minded backend roles.",
   },
@@ -130,37 +142,51 @@ export const socialLinks = [
 export const projects = [
   {
     title: "LogiFlow",
-    subtitle: "Decision intelligence for multi-modal logistics",
+    subtitle: "Google Solution Challenge 2026 Global Top 100 · Neural Foundry",
     description:
-      "An end-to-end multi-modal logistics platform that unifies rail, air, road, and water pipelines, predicts disruptions with ML, and explains routing decisions with LLMs.",
+      "A multi-modal logistics platform (road, rail, air, water) built for Google Solution Challenge 2026 — Global Top 100. Co-led as Technical Co-Lead & UI/UX Head; owned the railway pipeline with sub-second read paths, Gradient Boosting delay ML, Pareto ranking, and Gemini explainability.",
     image: "/portfolio-preview.png?v=2",
-    tech: ["FastAPI", "Next.js", "Python", "ML", "Gemini", "Groq"],
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "FastAPI",
+      "Supabase",
+      "Redis",
+      "Scikit-learn",
+      "Gemini",
+      "Leaflet",
+    ],
     github: "https://github.com/Ojas-Srivastava05/LogiFlow-Solution-Challenge-2026",
     live: "https://logi-flow-solution-challenge-2026.vercel.app/",
     category: "AI Systems",
-    period: "2026 — Present",
-    role: "Backend, decision orchestration, ML pipeline, AI explanation layer",
-    impact: ["Normalizes 4 transport modes", "Optimizes time/cost/risk", "Explains route choices"],
-    problem:
-      "Logistics decisions break down when rail, road, air, and water options live in separate formats with unclear delay risk.",
-    solution:
-      "Built a routing layer that normalizes heterogeneous data, predicts disruption risk, and lets LLMs explain why a path wins.",
-    outcomes: [
-      "Unified four modal pipelines behind a single decision surface.",
-      "Added ML-based delay prediction to make route choices risk-aware.",
-      "Created interpretable routing explanations for web and mobile users.",
+    period: "Apr 2026 — Present",
+    role: "Technical Co-Lead, UI/UX Head & Railway Pipeline Owner",
+    impact: [
+      "GSC Global Top 100",
+      "100–400 ms hot paths",
+      "580+ rail corridors",
     ],
-    proof: "Flagship 2026 build with live deployment and public source repository.",
+    problem:
+      "Logistics decisions break down when rail, road, air, and water options live in separate formats with unclear delay risk and no unified comparison surface.",
+    solution:
+      "Built parallel real-time pipelines per mode, trained Gradient Boosting on 15,650 train-days for delay prediction, and shipped a Next.js decision surface with Pareto ranking and LLM explanations.",
+    outcomes: [
+      "Reached Google Solution Challenge 2026 Global Top 100 with Neural Foundry.",
+      "Engineered sub-second Supabase-first read paths (100–400 ms) across 580+ corridors and 9,526 stations.",
+      "Validated pricing with a pytest suite — 100/100 IRCA tariff business-rule checks.",
+    ],
+    proof: "Google Solution Challenge 2026 Global Top 100 · live deployment · public source.",
     highlights: [
-      "Hybrid decision orchestrator",
-      "ML-based delay prediction",
-      "LLM routing explanations",
+      "Railway pipeline owner",
+      "Gradient Boosting delay ML",
+      "Next.js design system",
     ],
     bullets: [
-      "Engineered an end-to-end logistics platform integrating rail, air, road, and water pipelines.",
-      "Built a robust railway pipeline with advanced scraping, session spoofing, and ML-based delay prediction.",
-      "Designed a hybrid decision orchestrator that normalizes heterogeneous transport data and routes by time, cost, and risk.",
-      "Integrated Gemini and Groq for interpretable routing insights across web and mobile.",
+      "Owned the full Next.js web frontend — 7 pipeline surfaces, design system, Zustand state, Leaflet maps, and Vercel proxy.",
+      "Built railway pipeline with Supabase geometry cascade, split caching, and 100–400 ms hot-path reads separate from heavy search compute.",
+      "Trained Gradient Boosting delay models (MAE 22.7 min, 81% within 30 min CV) and added Pareto-based time/cost/risk ranking.",
+      "Co-led technical delivery across modes with Gemini explainability and FastAPI + Redis backend on GCP Cloud Run.",
     ],
     featured: true,
     flagship: true,
@@ -169,31 +195,40 @@ export const projects = [
     title: "AirHelp",
     subtitle: "AI airport companion — PowerMind Hackathon 2026",
     description:
-      "An intelligent, privacy-first airport assistant built at PowerMind Hackathon 2026. Conversational AI with offline LLM, A* graph-based navigation, RAG-powered facility discovery, voice interaction (Whisper STT + Piper TTS), and boarding-pass OCR — all running locally with zero cloud dependencies.",
+      "An AI-powered airport companion built at PowerMind Hackathon 2026 — conversational backend with intent orchestration, RAG semantic search, A* indoor navigation on custom terminal graphs, WebSocket real-time alerts, and offline voice (Whisper STT + Piper TTS).",
     image: "/portfolio-preview.png?v=2",
-    tech: ["FastAPI", "Python", "React", "Ollama", "ChromaDB", "NetworkX", "Whisper", "Piper TTS"],
+    tech: [
+      "FastAPI",
+      "React",
+      "WebSockets",
+      "ChromaDB",
+      "Sentence Transformers",
+      "NetworkX",
+      "RAG",
+      "Ollama",
+    ],
     github: "https://github.com/Ojas-Srivastava05/AirHelp-AI-Airport-Assistant",
     live: "https://github.com/Ojas-Srivastava05/AirHelp-AI-Airport-Assistant",
     category: "AI Systems",
     period: "2026 · Hackathon",
-    role: "UI/UX, graph navigation engine, RAG + voice integration",
-    impact: ["Offline-first LLM", "A* pathfinding", "Privacy-preserving voice"],
+    role: "Graph navigation, RAG pipeline, voice & backend integration",
+    impact: ["1–3s responses", "95%+ nav accuracy", "50–100 concurrent users"],
     problem:
       "Airport help desks are overloaded, and travelers need navigation, facility lookup, and document help without sending sensitive data to cloud services.",
     solution:
-      "Built a local-first assistant with graph routing, RAG facility search, Whisper STT, Piper TTS, and boarding-pass OCR.",
+      "Shipped a FastAPI backend with A* pathfinding on custom walking graphs, ChromaDB RAG, WebSocket alerts, and local voice pipelines managed via lifespan events.",
     outcomes: [
-      "Generated turn-by-turn airport directions with estimated walk time.",
-      "Kept conversation, speech, and retrieval flows local for privacy.",
-      "Combined persistent, ephemeral, and turn-based memory for contextual help.",
+      "Achieved 1–3s response latency with 50–100 concurrent users per instance.",
+      "Delivered 95%+ navigation accuracy on custom Terminal 2 walking graphs.",
+      "Kept speech and retrieval flows local for privacy with offline Piper TTS.",
     ],
-    proof: "PowerMind Hackathon 2026 project with public repository and implementation notes.",
-    highlights: ["A* navigation engine", "Offline-first LLM", "RAG + voice pipeline"],
+    proof: "PowerMind Hackathon 2026 · public repository and implementation notes.",
+    highlights: ["A* navigation engine", "WebSocket alerts", "RAG + voice pipeline"],
     bullets: [
-      "Built the UI/UX and graph-based navigation engine using A* pathfinding with turn-by-turn directions and time estimation.",
+      "Built A* indoor navigation on custom airport walking graphs with turn-by-turn directions and walk-time estimates.",
       "Integrated RAG pipeline (ChromaDB + Sentence Transformers) for semantic facility discovery with metadata filtering.",
-      "Implemented offline voice pipeline: Whisper STT + Piper TTS — no cloud, full privacy.",
-      "Contributed to the multi-layer memory architecture (persistent, ephemeral, turn-based) for context-aware conversations.",
+      "Shipped WebSocket real-time alerts and FastAPI lifespan-managed voice services (Whisper STT + Piper TTS).",
+      "Contributed to multi-layer memory architecture (persistent, ephemeral, turn-based) for context-aware conversations.",
     ],
     featured: true,
   },
@@ -341,11 +376,11 @@ export const experiences = [
     company: "IFFCO — Phulpur Unit",
     location: "Prayagraj, India",
     description:
-      "Built and deployed an internal full-stack web application for the System Networking Division to automate enterprise workflows.",
+      "Built and deployed a production full-stack application for the System Networking Division — automating 50+ daily enterprise workflows with JWT auth and structured error handling.",
     bullets: [
-      "Developed REST APIs and backend features in Node.js + Express, integrated with MySQL.",
-      "Shipped production-ready code through debugging, testing, and peer code reviews.",
-      "Collaborated on system architecture, infrastructure, and deployment pipelines.",
+      "Developed 10+ RESTful APIs in Node.js + Express with optimized MySQL queries, indexing, and joins.",
+      "Shipped through unit testing, integration testing, debugging, and peer code reviews on internal production infrastructure.",
+      "Contributed to Docker containerization, CI/CD pipelines, and end-to-end feature ownership from implementation to release.",
     ],
     tags: ["Node.js", "Express", "MySQL", "REST"],
     accent: "primary",
@@ -370,7 +405,7 @@ export const experiences = [
     location: "Surat, India",
     description:
       "Studying AI, algorithms, operating systems, DBMS, computer organization, software engineering, and OOP.",
-    metric: "CGPA 9.19",
+    metric: "CGPA 9.20",
     tags: ["AI / ML", "DSA", "Systems"],
   },
   {
@@ -399,7 +434,7 @@ export const education = [
     institution: "Sardar Vallabhbhai National Institute of Technology",
     location: "Surat, Gujarat",
     period: "2024 — 2028",
-    score: "9.19 / 10",
+    score: "9.20 / 10",
     note: "Concentrations in AI, systems, DSA, and software engineering.",
   },
   {
@@ -520,6 +555,12 @@ export const codingProfiles = [
 
 export const achievements = [
   {
+    title: "Google Solution Challenge 2026",
+    detail:
+      "LogiFlow (Neural Foundry) — Global Top 100. Technical Co-Lead, UI/UX Head, and Railway Pipeline Owner.",
+    tag: "Competitive",
+  },
+  {
     title: "PowerMind Hackathon 2026",
     detail: "Built AirHelp — AI airport companion with offline LLM, voice, and A* navigation.",
     tag: "Hackathon",
@@ -564,6 +605,7 @@ export const toolkit = [
       { name: "C / C++", logo: "https://cdn.simpleicons.org/cplusplus/00599C" },
       { name: "Python", logo: "https://cdn.simpleicons.org/python/3776AB" },
       { name: "JavaScript", logo: "https://cdn.simpleicons.org/javascript/F7DF1E" },
+      { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript/3178C6" },
       { name: "HTML / CSS", logo: "https://cdn.simpleicons.org/html5/E34F26" },
     ],
   },
@@ -585,8 +627,11 @@ export const toolkit = [
     skills: [
       { name: "MongoDB", logo: "https://cdn.simpleicons.org/mongodb/47A248" },
       { name: "MySQL", logo: "https://cdn.simpleicons.org/mysql/4479A1" },
+      { name: "Supabase", logo: "https://cdn.simpleicons.org/supabase/3FCF8E" },
+      { name: "Redis", logo: "https://cdn.simpleicons.org/redis/DC382D" },
       { name: "Pandas", logo: "https://cdn.simpleicons.org/pandas/FFFFFF" },
       { name: "NumPy", logo: "https://cdn.simpleicons.org/numpy/013243" },
+      { name: "Scikit-learn", logo: "https://cdn.simpleicons.org/scikitlearn/F7931E" },
     ],
   },
   {

@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { motion as Motion } from "framer-motion";
-import { education, principles, interests, profile } from "../data/portfolio";
+import { education, principles, interests, profile, formatCgpaDisplay } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 export default function About() {
   const { derived } = useLiveCodingStats();
+  const cgpaLabel = formatCgpaDisplay(derived.cgpa);
 
   const principlesMerged = useMemo(
     () =>
@@ -108,7 +109,7 @@ export default function About() {
                 </h3>
               </div>
               <span className="chip-accent">
-                {derived.cgpa != null ? `CGPA ${derived.cgpa}` : "CGPA —"}
+                {cgpaLabel != null ? `CGPA ${cgpaLabel}` : "CGPA —"}
               </span>
             </div>
 

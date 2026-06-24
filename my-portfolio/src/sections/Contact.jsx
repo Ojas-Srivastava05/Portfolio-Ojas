@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { motion as Motion } from "framer-motion";
-import { socialLinks, profile } from "../data/portfolio";
+import { socialLinks, profile, INTERNSHIP_AVAILABILITY } from "../data/portfolio";
 
 const formInitial = { name: "", email: "", subject: "", message: "" };
 
 const messageStarters = [
   {
     label: "Internship",
-    subject: "Summer 2026 internship opportunity",
+    subject: `${INTERNSHIP_AVAILABILITY} internship opportunity`,
     message:
-      "Hi Ojas, I saw your portfolio and would like to discuss a Summer 2026 internship opportunity on our engineering team.",
+      `Hi Ojas, I saw your portfolio and would like to discuss a ${INTERNSHIP_AVAILABILITY} internship opportunity on our engineering team.`,
   },
   {
     label: "AI build",
@@ -283,7 +283,7 @@ export default function Contact() {
             <div className="rounded-xl border border-emerald-300/25 bg-emerald-300/[0.05] p-6">
               <p className="label-mono text-emerald-200/80">Status</p>
               <p className="mt-3 font-display text-2xl tracking-ultratight text-white">
-                Available · Summer 2026
+                Available · {INTERNSHIP_AVAILABILITY}
               </p>
               <p className="mt-2 text-[13px] leading-[1.7] text-zinc-300">
                 Looking for SDE or AI internships, freelance contracts, or research

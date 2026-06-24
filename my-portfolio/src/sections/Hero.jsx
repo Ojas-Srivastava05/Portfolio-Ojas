@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion as Motion } from "framer-motion";
-import { profileLinks, profile } from "../data/portfolio";
+import { profileLinks, profile, INTERNSHIP_AVAILABILITY, formatCgpaDisplay } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
 
 const headlineVerbs = ["ship.", "engineer.", "model.", "deploy.", "solve."];
@@ -23,7 +23,7 @@ export default function Hero() {
       {
         kind: "field",
         label: "school",
-        value: cgpa != null ? `"SVNIT Surat · CGPA ${cgpa}"` : '"SVNIT Surat"',
+        value: cgpa != null ? `"SVNIT Surat · CGPA ${formatCgpaDisplay(cgpa)}"` : '"SVNIT Surat"',
       },
       {
         kind: "field",
@@ -95,7 +95,7 @@ export default function Hero() {
             <span className="live-dot" />
             <span className="text-emerald-200">CURRENTLY AVAILABLE</span>
             <span className="text-zinc-700">/</span>
-            <span>SUMMER 2026 INTERN</span>
+            <span>{INTERNSHIP_AVAILABILITY.toUpperCase()} INTERN</span>
           </div>
           <div className="flex items-center gap-4">
             <span>SURAT, IN</span>
@@ -337,7 +337,7 @@ export default function Hero() {
                 Now Building
               </p>
               <p className="mt-0.5 font-mono text-[12px] font-semibold text-emerald-200">
-                LogiFlow ⌁ logistics decision engine
+                LogiFlow ⌁ GSC Top 100 · logistics platform
               </p>
             </Motion.div>
           </Motion.div>
