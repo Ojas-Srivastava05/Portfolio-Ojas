@@ -145,8 +145,10 @@ export const projects = [
     subtitle: "Google Solution Challenge 2026 Global Top 106 · Neural Foundry",
     description:
       "A multi-modal logistics platform (road, rail, air, water) built for Google Solution Challenge 2026 — Global Top 106. Co-led as Technical Co-Lead & UI/UX Head; owned the railway pipeline with sub-second read paths, Gradient Boosting delay ML, Pareto ranking, and Gemini explainability.",
-    image: "/logiflow-preview.png?v=3",
+    image: "/logiflow-preview.png?v=4",
+    flagshipImage: "/logiflow-flagship-preview.png?v=1",
     imagePosition: "center top",
+    flagshipImagePosition: "center top",
     tech: [
       "Next.js",
       "React",

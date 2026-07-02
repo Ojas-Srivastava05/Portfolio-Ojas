@@ -78,38 +78,40 @@ export default function Projects() {
               </span>
             </div>
 
-            <div className="grid items-start gap-0 lg:grid-cols-[1.1fr_0.9fr]">
-              {/* Visual */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-white/[0.06] bg-ink-100 lg:border-b-0 lg:border-r">
-                <ProjectPreview
-                  src={flagship.image}
-                  alt={`${flagship.title} preview`}
-                  position={flagship.imagePosition || "center top"}
-                  loading="eager"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              {/* Detail */}
-              <div className="p-7 lg:p-9">
+            {/* Full-width hero preview */}
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink-100 sm:aspect-[2/1]">
+              <ProjectPreview
+                src={flagship.flagshipImage || flagship.image}
+                alt={`${flagship.title} preview`}
+                position={flagship.flagshipImagePosition || flagship.imagePosition || "center top"}
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                 <span className="chip-accent">{flagship.category}</span>
-                <h3 className="mt-5 font-display text-[2.25rem] leading-[1.05] tracking-ultratight text-white sm:text-5xl">
+                <h3 className="mt-3 font-display text-[2.4rem] leading-[1.02] tracking-ultratight text-white sm:text-5xl lg:text-[3.4rem]">
                   {flagship.title}
                 </h3>
-                <p className="mt-2 text-[15px] font-medium text-emerald-200/90">
+                <p className="mt-2 max-w-3xl text-[15px] font-medium text-emerald-200/90 sm:text-base">
                   {flagship.subtitle}
                 </p>
+              </div>
+            </div>
+
+            {/* Details */}
+            <div className="grid gap-8 border-t border-white/[0.06] p-7 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:p-9">
+              <div>
                 {flagship.role && (
-                  <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
                     Role · <span className="text-zinc-300">{flagship.role}</span>
                   </p>
                 )}
-                <p className="mt-5 max-w-xl text-[14px] leading-[1.75] text-zinc-400">
+                <p className="mt-4 text-[14px] leading-[1.8] text-zinc-400 lg:mt-5">
                   {flagship.description}
                 </p>
 
                 {flagship.impact && (
-                  <div className="mt-5 grid gap-2 sm:grid-cols-3">
+                  <div className="mt-6 grid gap-2 sm:grid-cols-3">
                     {flagship.impact.map((item) => (
                       <div
                         key={item}
@@ -120,8 +122,10 @@ export default function Projects() {
                     ))}
                   </div>
                 )}
+              </div>
 
-                <ul className="mt-6 grid gap-2.5">
+              <div>
+                <ul className="grid gap-2.5">
                   {flagship.bullets?.map((b, i) => (
                     <li
                       key={i}
