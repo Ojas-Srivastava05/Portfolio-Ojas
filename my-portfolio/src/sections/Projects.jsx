@@ -78,13 +78,13 @@ export default function Projects() {
               </span>
             </div>
 
-            <div className="grid items-stretch gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="grid items-start gap-0 lg:grid-cols-[1.1fr_0.9fr]">
               {/* Visual */}
-              <div className="relative min-h-[280px] overflow-hidden border-b border-white/[0.06] bg-ink-100 lg:h-full lg:min-h-[480px] lg:border-b-0 lg:border-r">
+              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-white/[0.06] bg-ink-100 lg:border-b-0 lg:border-r">
                 <ProjectPreview
                   src={flagship.image}
                   alt={`${flagship.title} preview`}
-                  position="center top"
+                  position={flagship.imagePosition || "center top"}
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent pointer-events-none" />
