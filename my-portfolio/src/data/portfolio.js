@@ -145,7 +145,7 @@ export const projects = [
     subtitle: "Google Solution Challenge 2026 Global Top 106 · Neural Foundry",
     description:
       "A multi-modal logistics platform (road, rail, air, water) built for Google Solution Challenge 2026 — Global Top 106. Co-led as Technical Co-Lead & UI/UX Head; owned the railway pipeline with sub-second read paths, Gradient Boosting delay ML, Pareto ranking, and Gemini explainability.",
-    image: "/logiflow-preview.png?v=1",
+    image: "/logiflow-preview.png?v=2",
     tech: [
       "Next.js",
       "React",
@@ -196,7 +196,7 @@ export const projects = [
     subtitle: "AI airport companion — PowerMind Hackathon 2026",
     description:
       "An AI-powered airport companion built at PowerMind Hackathon 2026 — conversational backend with intent orchestration, RAG semantic search, A* indoor navigation on custom terminal graphs, WebSocket real-time alerts, and offline voice (Whisper STT + Piper TTS).",
-    image: "/airhelp-preview.png?v=1",
+    image: "/airhelp-preview.png?v=2",
     tech: [
       "FastAPI",
       "React",
@@ -237,7 +237,7 @@ export const projects = [
     subtitle: "CIVICPULSE AI — Vibe2Ship 2026 · hyperlocal civic reporting",
     description:
       "A hyperlocal civic issue reporting PWA for Indian urban citizens — photograph potholes, water leaks, and streetlights; Gemini classifies in seconds; six agents route, verify, and track SLA deadlines with public impact dashboards.",
-    image: "/community-hero-preview.png?v=1",
+    image: "/community-hero-preview.png?v=2",
     tech: [
       "React",
       "TypeScript",

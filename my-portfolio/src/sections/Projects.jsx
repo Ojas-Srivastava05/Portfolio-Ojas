@@ -77,18 +77,16 @@ export default function Projects() {
               </span>
             </div>
 
-            <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="grid items-stretch gap-0 lg:grid-cols-[1.1fr_0.9fr]">
               {/* Visual */}
-              <div className="relative overflow-hidden border-b border-white/[0.06] bg-black/40 lg:border-b-0 lg:border-r">
-                <div className="aspect-[16/11] w-full lg:aspect-auto lg:h-full">
-                  <img
-                    src={flagship.image}
-                    alt={`${flagship.title} preview`}
-                    className="h-full w-full object-cover object-top"
-                    loading="eager"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
-                </div>
+              <div className="relative min-h-[280px] overflow-hidden border-b border-white/[0.06] bg-ink-100 lg:min-h-[480px] lg:border-b-0 lg:border-r">
+                <img
+                  src={flagship.image}
+                  alt={`${flagship.title} preview`}
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent pointer-events-none" />
               </div>
 
               {/* Detail */}
@@ -239,7 +237,7 @@ export default function Projects() {
                   <img
                     src={p.image}
                     alt={`${p.title} preview`}
-                    className="h-full w-full object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
+                    className="absolute inset-0 h-full w-full object-cover object-center opacity-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
                     loading={i > 1 ? "lazy" : "eager"}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
@@ -371,11 +369,11 @@ function ProjectBriefModal({ project, onClose }) {
             className="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-white/[0.10] bg-[rgba(14,15,20,0.96)] shadow-[0_30px_90px_rgba(0,0,0,0.7)]"
           >
             <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
-              <div className="relative min-h-[280px] overflow-hidden border-b border-white/[0.07] bg-black/35 lg:border-b-0 lg:border-r">
+              <div className="relative min-h-[320px] overflow-hidden border-b border-white/[0.07] bg-ink-100 lg:min-h-full lg:border-b-0 lg:border-r">
                 <img
                   src={project.image}
                   alt={`${project.title} preview`}
-                  className="absolute inset-0 h-full w-full object-cover opacity-75"
+                  className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6">
