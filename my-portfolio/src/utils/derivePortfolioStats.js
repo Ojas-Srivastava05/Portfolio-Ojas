@@ -169,6 +169,7 @@ export function derivePortfolioStats(stats, projectList = projects) {
     "stack::node + python + react + c++",
     "gsc::global top 100 · logiflow",
     "currently::shipping logiflow",
+    "automation::resume-optimiser · 965+ companies",
     "hackathon::airhelp · powermind 2026",
     gh?.repositories != null ? `github::${gh.repositories} public repos` : "github::syncing",
     "areas::backend · distributed · ai",
@@ -229,7 +230,7 @@ function profileFallbackShortBio(cgpaLabel, rank) {
 
 function buildRecruiterPitch({ cgpa, rank, peak, shipped }) {
   const name = "Ojas Srivastava";
-  const role = "AI Engineer & Full-Stack Developer";
+  const role = "Software Engineer · Full-Stack & AI";
   const lcBit =
     rank && peak != null ? `LeetCode ${rank} (${peak} peak)` : "LeetCode (live ratings)";
   const cgpaBit = formatCgpaDisplay(cgpa) != null ? `CGPA ${formatCgpaDisplay(cgpa)}` : "SVNIT AI";
@@ -263,11 +264,11 @@ function buildNowFeed({ lcN, problemsTotal, peak, gh, rank }) {
       : "github::syncing repos";
   return [
     { tag: "BUILDING", text: "LogiFlow · GSC Global Top 100 · multi-modal logistics platform" },
+    { tag: "AUTOMATING", text: "Career Automation Stack · 965+ companies · 14K+ OA questions" },
     { tag: "SHIPPED", text: "AirHelp · AI airport assistant · PowerMind Hackathon 2026" },
     { tag: "GRINDING", text: grinding },
-    { tag: "STUDYING", text: "Stanford ML Specialization + DBMS internals" },
-    { tag: "READING", text: "Designing Data-Intensive Applications" },
-    { tag: "OPEN TO", text: `SDE / AI internships · ${INTERNSHIP_AVAILABILITY}` },
+    { tag: "STUDYING", text: "Distributed systems · DBMS · Stanford ML Specialization" },
+    { tag: "OPEN TO", text: `Software Engineering internships · ${INTERNSHIP_AVAILABILITY}` },
     { tag: "GITHUB", text: ghLine },
   ];
 }

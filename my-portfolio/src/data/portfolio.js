@@ -31,14 +31,14 @@ export const INTERNSHIP_AVAILABILITY = "Summer 2027";
 
 export const profile = {
   name: "Ojas Srivastava",
-  role: "AI Engineer & Full-Stack Developer",
+  role: "Software Engineer · Full-Stack & AI",
   location: "Surat, India",
   origin: "Prayagraj, India",
   email: "srivastavaojas454@gmail.com",
   phone: "+91-7424978046",
   resume: "/Ojas-Srivastava-Resume.pdf",
   available:
-    "Open to Summer 2027 SDE / AI internships, freelance, and collaborative builds.",
+    "Seeking Software Engineering internships for Summer 2027 — Bengaluru, Hyderabad, Pune, or remote-friendly.",
 };
 
 export const navItems = [
@@ -55,27 +55,27 @@ export const navItems = [
 export const recruiterBrief = [
   {
     label: "Best fit",
-    value: "Backend + AI product internships",
+    value: "Software Engineering internships",
     detail:
-      "Useful when a team needs someone who can wire APIs, model data, and still care about the product surface.",
+      "Backend systems, full-stack product work, and applied ML — someone who can own APIs, data pipelines, and ship deployable software.",
   },
   {
     label: "Proof",
-    value: "Shipped builds",
+    value: "8+ shipped builds",
     detail:
-      "LogiFlow, AirHelp, RangRiti, Ink'd, Clubify, ClimaTrack, and this portfolio are all concrete builds with source or live links.",
+      "LogiFlow (GSC Top 100), Career Automation Stack, AirHelp, RangRiti, IFFCO production tooling, and more — all with source or live links.",
   },
   {
     label: "Signal",
-    value: "Algorithms + academics",
+    value: "LeetCode Knight · CGPA 9.20",
     detail:
-      "A blend of algorithmic consistency, strong academics, and practical deployment work.",
+      "LeetCode Knight (2048 peak, 637+ solved), Codeforces Specialist (1457), strong academics, and industry internship experience.",
   },
   {
     label: "Availability",
     value: "Summer 2027",
     detail:
-      "Open to SDE, AI engineering, full-stack, research engineering, and product-minded backend roles.",
+      "Penultimate-year B.Tech AI student (graduating May 2028) — open to SDE, backend, full-stack, and AI engineering roles.",
   },
 ];
 
@@ -233,8 +233,47 @@ export const projects = [
     featured: true,
   },
   {
+    title: "Career Automation Stack",
+    subtitle: "Internship Scout & OA Forge — resume-optimiser monorepo",
+    description:
+      "A production automation stack aggregating internship listings across 965+ companies and 14K+ evidence-tracked OA questions — with scheduled CI pipelines, Supabase-backed data, and GitHub Actions orchestration.",
+    image: "/portfolio-preview.png?v=2",
+    tech: [
+      "Python",
+      "GitHub Actions",
+      "Supabase",
+      "BeautifulSoup",
+      "REST APIs",
+      "Next.js",
+      "TypeScript",
+    ],
+    github: "https://github.com/Ojas-Srivastava05/resume-optimiser",
+    live: "https://github.com/Ojas-Srivastava05/resume-optimiser",
+    category: "AI Systems",
+    period: "Jun 2026 — Present",
+    role: "Sole architect — data pipelines, CI/CD, and automation tooling",
+    impact: ["965+ companies", "14K+ OA questions", "Scheduled CI pipelines"],
+    problem:
+      "Internship hunting at scale means tracking hundreds of companies, OA question banks, and outreach — manually, it does not scale.",
+    solution:
+      "Built a monorepo with Internship Scout (listing aggregation), OA Forge (question drill platform), and Hiring Contacts discovery — all wired through GitHub Actions and Supabase.",
+    outcomes: [
+      "Aggregated listings across 965+ companies with evidence-tracked filtering.",
+      "Indexed 14K+ OA questions with daily drill workflows and CI validation.",
+      "Automated cold outreach and hiring-contact discovery via scheduled pipelines.",
+    ],
+    proof: "Public monorepo with active GitHub Actions workflows and production deployments.",
+    highlights: ["GitHub Actions CI", "Data aggregation", "Supabase backend"],
+    bullets: [
+      "Architected internship listing aggregation across 965+ companies with BeautifulSoup scraping and REST API integrations.",
+      "Built OA Forge with 14K+ evidence-tracked questions, daily drill workflows, and pytest-validated pipelines.",
+      "Wired GitHub Actions for scheduled scouting, cold outreach, and hiring-contact discovery with Supabase persistence.",
+    ],
+    featured: true,
+  },
+  {
     title: "RangRiti",
-    subtitle: "Cultural-tech experience platform",
+    subtitle: "Web Wonders 2025 · Cultural-tech marketplace",
     description:
       "A cultural hub with VR experiences, AI storytelling, and a marketplace for traditional Indian arts. Forty-plus pages and a complete artisan commerce flow.",
     image: "/rangriti-preview.png?v=2",
@@ -290,7 +329,6 @@ export const projects = [
       "Developed an AI summarisation platform using Node.js, Express.js, and the Cohere API.",
       "Implemented backend APIs with export functionality and clean error handling.",
     ],
-    featured: true,
   },
   {
     title: "Clubify",
@@ -350,7 +388,7 @@ export const projects = [
     image: "/portfolio-preview.png?v=2",
     tech: ["React", "Vite", "Tailwind", "Framer Motion"],
     github: "https://github.com/Ojas-Srivastava05/Portfolio-Ojas.git",
-    live: "https://portfolio-ojas-teal.vercel.app/",
+    live: "https://ojas-srivastava.vercel.app/",
     category: "Frontend",
     period: "2025 — Present",
     role: "Design, React architecture, motion system, live stats integrations",
@@ -388,15 +426,15 @@ export const experiences = [
   {
     year: "Jun — Aug 2025",
     role: "Technical Lead",
-    company: "Inspectonly.devs · Web Wonders 2025",
+    company: "RangRiti · Web Wonders 2025",
     location: "Surat, India",
     description:
-      "Led a four-member development team, owning backend integration and feature deployment for a competition-ready platform.",
+      "Led a four-member team building RangRiti — a cultural marketplace with 40+ pages, artisan commerce flows, and AI storytelling for Web Wonders 2025.",
     bullets: [
-      "Coordinated milestones and ensured on-time delivery of a 40+ page product.",
-      "Owned backend integration end-to-end and reviewed every PR.",
+      "Coordinated sprints and ensured on-time delivery of a 40+ page competition-ready product.",
+      "Owned backend integration end-to-end, reviewed every PR, and shipped to Render.",
     ],
-    tags: ["Leadership", "Backend", "Delivery"],
+    tags: ["Leadership", "Node.js", "MongoDB"],
   },
   {
     year: "2024 — Present",
@@ -433,9 +471,9 @@ export const education = [
     title: "B.Tech, Artificial Intelligence",
     institution: "Sardar Vallabhbhai National Institute of Technology",
     location: "Surat, Gujarat",
-    period: "2024 — 2028",
+    period: "2024 — May 2028",
     score: "9.20 / 10",
-    note: "Concentrations in AI, systems, DSA, and software engineering.",
+    note: "Penultimate year · Concentrations in AI, systems, DSA, and software engineering.",
   },
   {
     title: "Class XII · CBSE",
@@ -491,34 +529,34 @@ export const codingProfiles = [
   {
     platform: "LeetCode",
     handle: "Oju_Srivastava",
-    rating: "1931",
+    rating: "2048",
     rank: "Knight",
-    detail: "548 solved · Peak 1952 · Top 3.67% contest percentile.",
+    detail: "637 solved · Peak 2048 · 32 contests.",
     color: "#FFA116",
     href: "https://leetcode.com/Oju_Srivastava",
     icon: "https://cdn.simpleicons.org/leetcode/FFA116",
     stats: [
-      { label: "Peak rating", value: "1952" },
-      { label: "Current", value: "1931" },
+      { label: "Peak rating", value: "2048" },
+      { label: "Current", value: "2048" },
       { label: "Rank", value: "Knight" },
-      { label: "Problems", value: "548" },
-      { label: "Contests", value: "26" },
-      { label: "Global rank", value: "Top 3.67%" },
+      { label: "Problems", value: "637" },
+      { label: "Contests", value: "32" },
+      { label: "Global rank", value: "Top 3%" },
     ],
   },
   {
     platform: "Codeforces",
     handle: "oju",
-    rating: "1179",
-    rank: "Newbie",
-    detail: "144 problems uniquely solved — rated rounds and practice grind.",
+    rating: "1457",
+    rank: "Specialist",
+    detail: "207 problems solved — rated rounds and consistent practice grind.",
     color: "#1F8ACB",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
     stats: [
-      { label: "Rating", value: "1179" },
-      { label: "Rank", value: "Newbie" },
-      { label: "Problems", value: "144" },
+      { label: "Rating", value: "1457" },
+      { label: "Rank", value: "Specialist" },
+      { label: "Problems", value: "207" },
     ],
   },
   {
@@ -561,38 +599,44 @@ export const achievements = [
     tag: "Competitive",
   },
   {
+    title: "McKinsey.org Forward Fellow",
+    detail:
+      "2026 cohort — structured problem-solving, communication, and cross-functional collaboration.",
+    tag: "Fellowship",
+  },
+  {
     title: "PowerMind Hackathon 2026",
-    detail: "Built AirHelp — AI airport companion with offline LLM, voice, and A* navigation.",
+    detail: "Built AirHelp — AI airport companion with RAG, voice, and A* navigation.",
     tag: "Hackathon",
   },
   {
     title: "LeetCode Knight",
-    detail: "Contest peak and solve counts sync from LeetCode automatically.",
+    detail: "Rating 2048 · 637+ problems solved · 32 contests.",
+    tag: "Competitive",
+  },
+  {
+    title: "Codeforces Specialist",
+    detail: "Rating 1457 · 207 problems solved across rated rounds.",
     tag: "Competitive",
   },
   {
     title: "Software Intern at IFFCO",
-    detail: "Shipped internal workflow tooling for the Phulpur Unit.",
+    detail: "Shipped production tooling automating 50+ daily enterprise workflows.",
     tag: "Industry",
   },
   {
     title: "Technical Lead, Web Wonders 2025",
-    detail: "Led a 4-member team to a competition-ready platform.",
+    detail: "Led a 4-member team building RangRiti — 40+ page cultural marketplace.",
     tag: "Leadership",
   },
   {
     title: "ACM SVNIT Executive",
-    detail: "Organising workshops and programming events on campus.",
+    detail: "Organising DSA workshops, contests, and programming events on campus.",
     tag: "Community",
   },
   {
-    title: "Stanford ML Specialization",
-    detail: "Pursuing Andrew Ng's specialization alongside coursework.",
-    tag: "Learning",
-  },
-  {
     title: "Nexus SVNIT Mentor",
-    detail: "Mentoring juniors in programming and technical onboarding.",
+    detail: "Mentoring juniors in programming fundamentals and technical onboarding.",
     tag: "Mentorship",
   },
 ];
@@ -639,10 +683,12 @@ export const toolkit = [
     blurb: "Day-to-day flow.",
     skills: [
       { name: "Git", logo: "https://cdn.simpleicons.org/git/F05032" },
-      { name: "GitHub", logo: "https://cdn.simpleicons.org/github/FFFFFF" },
+      { name: "GitHub Actions", logo: "https://cdn.simpleicons.org/githubactions/2088FF" },
+      { name: "Docker", logo: "https://cdn.simpleicons.org/docker/2496ED" },
       { name: "VS Code", logo: "https://cdn.simpleicons.org/visualstudiocode/007ACC" },
       { name: "Postman", logo: "https://cdn.simpleicons.org/postman/FF6C37" },
       { name: "Vercel", logo: "https://cdn.simpleicons.org/vercel/FFFFFF" },
+      { name: "GCP Cloud Run", logo: "https://cdn.simpleicons.org/googlecloud/4285F4" },
       { name: "Render", logo: "https://cdn.simpleicons.org/render/46E3B7" },
     ],
   },

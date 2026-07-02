@@ -19,11 +19,11 @@ export default function Hero() {
       { kind: "muted", text: "// ojas.srivastava — builder.config.ts" },
       { kind: "keyword", token: "export const", name: "engineer", value: "{" },
       { kind: "field", label: "name", value: '"Ojas Srivastava"' },
-      { kind: "field", label: "role", value: '"AI Engineer · Full-stack"' },
+      { kind: "field", label: "role", value: '"Software Engineer · Full-stack & AI"' },
       {
         kind: "field",
         label: "school",
-        value: cgpa != null ? `"SVNIT Surat · CGPA ${formatCgpaDisplay(cgpa)}"` : '"SVNIT Surat"',
+        value: cgpa != null ? `"SVNIT Surat · CGPA ${formatCgpaDisplay(cgpa)} · '28"` : '"SVNIT Surat · May 2028"',
       },
       {
         kind: "field",
@@ -132,7 +132,7 @@ export default function Hero() {
             </h1>
 
             <p className="mt-8 max-w-2xl text-balance text-[17px] leading-[1.7] text-zinc-300 sm:text-[19px]">
-              <span className="text-white">B.Tech in Artificial Intelligence at SVNIT Surat.</span>{" "}
+              <span className="text-white">Penultimate-year B.Tech AI at SVNIT Surat — seeking Summer 2027 SWE internships.</span>{" "}
               I design backends that behave, ship full-stack products that survive deployment, and
               grind algorithms like the scoreboard is watching.{" "}
               <span className="text-emerald-200">{leetSubtitle}</span>

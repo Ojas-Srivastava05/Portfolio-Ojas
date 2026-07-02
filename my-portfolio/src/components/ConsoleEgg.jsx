@@ -23,7 +23,7 @@ export default function ConsoleEgg() {
     console.log(ascii, emerald);
 
     console.log(
-      "%cHey, you found the console 👀\n%cI'm Ojas Srivastava — AI Engineer & Full-Stack Developer.\n%cIf you're reading this, we'd probably get along.\n\n%c→ Email   %csrivastavaojas454@gmail.com\n%c→ GitHub  %cgithub.com/Ojas-Srivastava05\n%c→ Resume  %c/Ojas-Srivastava-Resume.pdf\n\n%cBuilt with React · Vite · Tailwind · Framer Motion",
+      "%cHey, you found the console 👀\n%cI'm Ojas Srivastava — Software Engineer · Full-Stack & AI.\n%cSeeking Summer 2027 SWE internships. If you're reading this, we'd probably get along.\n\n%c→ Email   %csrivastavaojas454@gmail.com\n%c→ GitHub  %cgithub.com/Ojas-Srivastava05\n%c→ Resume  %c/Ojas-Srivastava-Resume.pdf\n\n%cBuilt with React · Vite · Tailwind · Framer Motion",
       gold,
       white,
       white,

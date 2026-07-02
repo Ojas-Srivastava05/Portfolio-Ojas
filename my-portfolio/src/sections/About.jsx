@@ -40,12 +40,11 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <p className="text-[15px] leading-[1.75] text-zinc-400">
-              I am an Artificial Intelligence undergraduate at SVNIT Surat, currently
-              building the kind of foundation that lets me move comfortably between
-              full-stack products, machine-learning systems, and algorithmic problem
-              solving. My work is strongest where engineering detail meets product
-              clarity: APIs that behave, interfaces that scan quickly, and AI features
-              that solve a real workflow instead of just sounding impressive.
+              Penultimate-year B.Tech Artificial Intelligence student at SVNIT Surat
+              (CGPA 9.20, graduating May 2028), building production-grade software at the
+              intersection of backend systems, applied ML, and thoughtful product design.
+              My work is strongest where engineering detail meets product clarity: APIs that
+              behave, interfaces that scan quickly, and systems that ship.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -162,14 +161,14 @@ export default function About() {
             </h3>
             <div className="mt-5 space-y-4 text-[13.5px] leading-[1.75] text-zinc-400">
               <p>
-                Pursuing the Stanford Online Machine Learning Specialization while
-                strengthening core systems — operating systems, DBMS, computer
-                organisation, and data structures.
+                Last summer I interned at IFFCO, shipping a full-stack internal tool that
+                automated 50+ daily workflows — REST APIs, optimized SQL, Docker, and CI/CD.
               </p>
               <p>
-                Building <span className="text-emerald-200">LogiFlow</span> on the side: a
-                multi-modal logistics decision engine with ML-based delay prediction and
-                LLM routing explanations.
+                Building <span className="text-emerald-200">LogiFlow</span> (GSC Top 100)
+                and the <span className="text-emerald-200">Career Automation Stack</span> —
+                internship scouting, OA drills, and hiring-contact pipelines across 965+
+                companies.
               </p>
             </div>
 

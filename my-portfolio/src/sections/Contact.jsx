@@ -106,7 +106,8 @@ export default function Contact() {
             transition={{ delay: 0.1 }}
             className="text-[15px] leading-[1.75] text-zinc-400"
           >
-            I'm open to software internships, freelance builds, collaborative projects,
+            I'm seeking Summer 2027 software engineering internships and open to
+            collaborative projects with teams that value strong engineering and clear ownership.
             and conversations around AI product ideas. Reach out — I read every message.
           </Motion.p>
         </div>
@@ -286,8 +287,8 @@ export default function Contact() {
                 Available · {INTERNSHIP_AVAILABILITY}
               </p>
               <p className="mt-2 text-[13px] leading-[1.7] text-zinc-300">
-                Looking for SDE or AI internships, freelance contracts, or research
-                collaborations. Open to remote and on-site.
+                Seeking software engineering internships for Summer 2027.
+                Open to Bengaluru, Hyderabad, Pune, and remote-friendly roles.
               </p>
             </div>
           </Motion.aside>
