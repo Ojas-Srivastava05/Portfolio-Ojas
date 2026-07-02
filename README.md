@@ -11,7 +11,9 @@
 
 ## 🌐 Live Demo
 
-**🔗 [View Live Portfolio](https://portfolio-ojas-teal.vercel.app/)**
+**🔗 [View Live Portfolio](https://ojas-srivastava.vercel.app/)**
+
+> Deployed on Vercel with GitHub auto-deploy from `main` → [Portfolio-Ojas](https://github.com/Ojas-Srivastava05/Portfolio-Ojas)
 
 ## ✨ Features
 
@@ -105,8 +107,10 @@ npm run lint
 ```
 my-portfolio/
 ├── public/                  # Static assets
-│   ├── favicon.svg         # Site favicon
-│   └── Ojas-Srivastava-Resume-Sem2 2.pdf
+│   ├── favicon.svg
+│   ├── Ojas-Srivastava-Resume.pdf
+│   ├── logiflow-preview.png
+│   └── airhelp-preview.png
 ├── src/
 │   ├── components/         # Reusable React components
 │   │   ├── Background.jsx  # Animated background

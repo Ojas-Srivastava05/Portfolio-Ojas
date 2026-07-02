@@ -334,10 +334,10 @@ export default function Hero() {
               className="absolute -bottom-4 -left-3 rounded-md border border-white/[0.10] bg-[rgba(14,15,20,0.95)] px-3 py-2.5 shadow-2xl backdrop-blur"
             >
               <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
-                Now Building
+                Recently Shipped
               </p>
               <p className="mt-0.5 font-mono text-[12px] font-semibold text-emerald-200">
-                LogiFlow ⌁ GSC Top 100 · logistics platform
+                LogiFlow ⌁ GSC Top 100 · live on Vercel
               </p>
             </Motion.div>
           </Motion.div>

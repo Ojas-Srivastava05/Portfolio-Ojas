@@ -145,7 +145,7 @@ export const projects = [
     subtitle: "Google Solution Challenge 2026 Global Top 100 · Neural Foundry",
     description:
       "A multi-modal logistics platform (road, rail, air, water) built for Google Solution Challenge 2026 — Global Top 100. Co-led as Technical Co-Lead & UI/UX Head; owned the railway pipeline with sub-second read paths, Gradient Boosting delay ML, Pareto ranking, and Gemini explainability.",
-    image: "/portfolio-preview.png?v=2",
+    image: "/logiflow-preview.png?v=1",
     tech: [
       "Next.js",
       "React",
@@ -160,7 +160,7 @@ export const projects = [
     github: "https://github.com/Ojas-Srivastava05/LogiFlow-Solution-Challenge-2026",
     live: "https://logi-flow-solution-challenge-2026.vercel.app/",
     category: "AI Systems",
-    period: "Apr 2026 — Present",
+    period: "Apr — Jun 2026",
     role: "Technical Co-Lead, UI/UX Head & Railway Pipeline Owner",
     impact: [
       "GSC Global Top 100",
@@ -196,7 +196,7 @@ export const projects = [
     subtitle: "AI airport companion — PowerMind Hackathon 2026",
     description:
       "An AI-powered airport companion built at PowerMind Hackathon 2026 — conversational backend with intent orchestration, RAG semantic search, A* indoor navigation on custom terminal graphs, WebSocket real-time alerts, and offline voice (Whisper STT + Piper TTS).",
-    image: "/portfolio-preview.png?v=2",
+    image: "/airhelp-preview.png?v=1",
     tech: [
       "FastAPI",
       "React",

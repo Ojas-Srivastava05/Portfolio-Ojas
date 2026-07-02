@@ -69,7 +69,7 @@ export default function Projects() {
               <div className="flex items-center gap-3">
                 <span className="live-dot" />
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-200">
-                  Flagship · In Progress
+                  Flagship · Shipped · GSC Top 100
                 </span>
               </div>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
@@ -80,74 +80,14 @@ export default function Projects() {
             <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
               {/* Visual */}
               <div className="relative overflow-hidden border-b border-white/[0.06] bg-black/40 lg:border-b-0 lg:border-r">
-                <div className="aspect-[16/11] w-full bg-[radial-gradient(circle_at_30%_30%,rgba(52,211,153,0.18),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(99,102,241,0.18),transparent_60%)] lg:aspect-auto lg:h-full">
-                  {/* Simulated dashboard graphic */}
-                  <div className="absolute inset-0 grid-bg-fine opacity-50" />
-                  <div className="relative flex h-full items-center justify-center p-10">
-                    <div className="w-full max-w-md">
-                      <div className="mb-4 grid grid-cols-4 gap-2">
-                        {["Rail", "Air", "Road", "Water"].map((m, i) => (
-                          <div
-                            key={m}
-                            className="rounded-md border border-white/[0.08] bg-black/50 px-2.5 py-2 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400 backdrop-blur"
-                            style={{
-                              borderColor:
-                                i === 0
-                                  ? "rgba(52,211,153,0.4)"
-                                  : "rgba(255,255,255,0.08)",
-                              color: i === 0 ? "#34d399" : undefined,
-                            }}
-                          >
-                            {m}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="rounded-lg border border-white/[0.08] bg-black/60 p-4 backdrop-blur">
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-                            Optimal Route
-                          </span>
-                          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-300">
-                            ETA -18%
-                          </span>
-                        </div>
-                        <div className="mt-3 flex items-center gap-2 font-mono text-[11px] text-zinc-300">
-                          <span className="rounded border border-emerald-300/30 bg-emerald-300/[0.08] px-2 py-1 text-emerald-200">
-                            DEL
-                          </span>
-                          <span className="text-zinc-600">→</span>
-                          <span className="rounded border border-white/[0.10] bg-white/[0.04] px-2 py-1">
-                            JBP
-                          </span>
-                          <span className="text-zinc-600">→</span>
-                          <span className="rounded border border-white/[0.10] bg-white/[0.04] px-2 py-1">
-                            MUM
-                          </span>
-                          <span className="text-zinc-600">→</span>
-                          <span className="rounded border border-emerald-300/30 bg-emerald-300/[0.08] px-2 py-1 text-emerald-200">
-                            PNQ
-                          </span>
-                        </div>
-                        <div className="mt-3 grid grid-cols-3 gap-2 font-mono text-[10px]">
-                          <div className="rounded border border-white/[0.08] bg-white/[0.02] p-2">
-                            <p className="text-zinc-500">TIME</p>
-                            <p className="mt-1 text-white">42h</p>
-                          </div>
-                          <div className="rounded border border-white/[0.08] bg-white/[0.02] p-2">
-                            <p className="text-zinc-500">COST</p>
-                            <p className="mt-1 text-white">₹12.4K</p>
-                          </div>
-                          <div className="rounded border border-white/[0.08] bg-white/[0.02] p-2">
-                            <p className="text-zinc-500">RISK</p>
-                            <p className="mt-1 text-emerald-300">LOW</p>
-                          </div>
-                        </div>
-                        <div className="mt-3 rounded border border-white/[0.08] bg-white/[0.02] p-2 font-mono text-[10px] text-zinc-400">
-                          <span className="text-amber-200">↳ AI:</span> Switching to rail leg cuts cost without breaching SLA window.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="aspect-[16/11] w-full lg:aspect-auto lg:h-full">
+                  <img
+                    src={flagship.image}
+                    alt={`${flagship.title} preview`}
+                    className="h-full w-full object-cover object-top"
+                    loading="eager"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
                 </div>
               </div>
 

@@ -165,8 +165,8 @@ export default function About() {
                 automated 50+ daily workflows — REST APIs, optimized SQL, Docker, and CI/CD.
               </p>
               <p>
-                Building <span className="text-emerald-200">LogiFlow</span> (GSC Top 100)
-                and the <span className="text-emerald-200">Career Automation Stack</span> —
+                Shipped <span className="text-emerald-200">LogiFlow</span> (GSC Global Top 100)
+                and building the <span className="text-emerald-200">Career Automation Stack</span> —
                 internship scouting, OA drills, and hiring-contact pipelines across 965+
                 companies.
               </p>
