@@ -63,7 +63,7 @@ export const recruiterBrief = [
     label: "Proof",
     value: "8+ shipped builds",
     detail:
-      "LogiFlow (GSC Top 100), Career Automation Stack, AirHelp, RangRiti, IFFCO production tooling, and more — all with source or live links.",
+      "LogiFlow (GSC Top 106), Community Hero, Career Automation Stack, AirHelp, RangRiti, IFFCO production tooling, and more — all with source or live links.",
   },
   {
     label: "Signal",
@@ -142,9 +142,9 @@ export const socialLinks = [
 export const projects = [
   {
     title: "LogiFlow",
-    subtitle: "Google Solution Challenge 2026 Global Top 100 · Neural Foundry",
+    subtitle: "Google Solution Challenge 2026 Global Top 106 · Neural Foundry",
     description:
-      "A multi-modal logistics platform (road, rail, air, water) built for Google Solution Challenge 2026 — Global Top 100. Co-led as Technical Co-Lead & UI/UX Head; owned the railway pipeline with sub-second read paths, Gradient Boosting delay ML, Pareto ranking, and Gemini explainability.",
+      "A multi-modal logistics platform (road, rail, air, water) built for Google Solution Challenge 2026 — Global Top 106. Co-led as Technical Co-Lead & UI/UX Head; owned the railway pipeline with sub-second read paths, Gradient Boosting delay ML, Pareto ranking, and Gemini explainability.",
     image: "/logiflow-preview.png?v=1",
     tech: [
       "Next.js",
@@ -163,7 +163,7 @@ export const projects = [
     period: "Apr — Jun 2026",
     role: "Technical Co-Lead, UI/UX Head & Railway Pipeline Owner",
     impact: [
-      "GSC Global Top 100",
+      "GSC Global Top 106",
       "100–400 ms hot paths",
       "580+ rail corridors",
     ],
@@ -172,11 +172,11 @@ export const projects = [
     solution:
       "Built parallel real-time pipelines per mode, trained Gradient Boosting on 15,650 train-days for delay prediction, and shipped a Next.js decision surface with Pareto ranking and LLM explanations.",
     outcomes: [
-      "Reached Google Solution Challenge 2026 Global Top 100 with Neural Foundry.",
+      "Reached Google Solution Challenge 2026 Global Top 106 with Neural Foundry.",
       "Engineered sub-second Supabase-first read paths (100–400 ms) across 580+ corridors and 9,526 stations.",
       "Validated pricing with a pytest suite — 100/100 IRCA tariff business-rule checks.",
     ],
-    proof: "Google Solution Challenge 2026 Global Top 100 · live deployment · public source.",
+    proof: "Google Solution Challenge 2026 Global Top 106 · live deployment · public source.",
     highlights: [
       "Railway pipeline owner",
       "Gradient Boosting delay ML",
@@ -229,6 +229,46 @@ export const projects = [
       "Integrated RAG pipeline (ChromaDB + Sentence Transformers) for semantic facility discovery with metadata filtering.",
       "Shipped WebSocket real-time alerts and FastAPI lifespan-managed voice services (Whisper STT + Piper TTS).",
       "Contributed to multi-layer memory architecture (persistent, ephemeral, turn-based) for context-aware conversations.",
+    ],
+    featured: true,
+  },
+  {
+    title: "Community Hero",
+    subtitle: "CIVICPULSE AI — Vibe2Ship 2026 · hyperlocal civic reporting",
+    description:
+      "A hyperlocal civic issue reporting PWA for Indian urban citizens — photograph potholes, water leaks, and streetlights; Gemini classifies in seconds; six agents route, verify, and track SLA deadlines with public impact dashboards.",
+    image: "/community-hero-preview.png?v=1",
+    tech: [
+      "React",
+      "TypeScript",
+      "Firebase",
+      "Firestore",
+      "Gemini",
+      "Cloud Run",
+      "Express",
+      "Google Maps",
+    ],
+    github: "https://github.com/Ojas-Srivastava05/community-hero",
+    live: "https://community-hero-987477089222.asia-south1.run.app",
+    category: "AI Systems",
+    period: "2026 · Vibe2Ship",
+    role: "Solo builder — full-stack, AI agents, geo, deploy, and docs",
+    impact: ["8 civic features", "6-agent pipeline", "Live on Cloud Run"],
+    problem:
+      "Citizens report civic issues through fragmented channels with no accountability, routing, or verifiable public tracking.",
+    solution:
+      "Built a mobile-first PWA on Google Cloud: AI categorization, geo-tagged reports, community upvotes, SLA timelines, analytics dashboards, and a civic assistant.",
+    outcomes: [
+      "Shipped all eight Vibe2Ship example features with a 6-agent orchestration pipeline.",
+      "Deployed production app on Cloud Run (asia-south1) with Firebase Auth, Firestore, and Gemini Vision.",
+      "Added gamification, hotspot analytics, Open311 export, and admin resolution workflows.",
+    ],
+    proof: "Vibe2Ship 2026 · live Cloud Run deployment · public GitHub.",
+    highlights: ["Gemini Vision", "6-agent pipeline", "Civic PWA"],
+    bullets: [
+      "Architected solo full-stack delivery: React PWA, Express API, Firestore schema, and Cloud Run deployment.",
+      "Built Gemini-powered issue categorization, 6-agent routing/dedup/SLA pipeline, and civic assistant chat.",
+      "Shipped map explorer, community verification tiers, impact dashboards, leaderboard gamification, and admin analytics.",
     ],
     featured: true,
   },
@@ -595,8 +635,14 @@ export const achievements = [
   {
     title: "Google Solution Challenge 2026",
     detail:
-      "LogiFlow (Neural Foundry) — Global Top 100. Technical Co-Lead, UI/UX Head, and Railway Pipeline Owner.",
+      "LogiFlow (Neural Foundry) — Global Top 106. Technical Co-Lead, UI/UX Head, and Railway Pipeline Owner.",
     tag: "Competitive",
+  },
+  {
+    title: "Community Hero · Vibe2Ship 2026",
+    detail:
+      "Solo-built CIVICPULSE AI — hyperlocal civic PWA with Gemini Vision, 6-agent pipeline, and Cloud Run deploy.",
+    tag: "Hackathon",
   },
   {
     title: "McKinsey.org Forward Fellow",

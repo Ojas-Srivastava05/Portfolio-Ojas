@@ -337,7 +337,7 @@ export default function Hero() {
                 Recently Shipped
               </p>
               <p className="mt-0.5 font-mono text-[12px] font-semibold text-emerald-200">
-                LogiFlow ⌁ GSC Top 100 · live on Vercel
+                LogiFlow ⌁ GSC Top 106 · live on Vercel
               </p>
             </Motion.div>
           </Motion.div>

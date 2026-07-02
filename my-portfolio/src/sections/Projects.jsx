@@ -69,7 +69,7 @@ export default function Projects() {
               <div className="flex items-center gap-3">
                 <span className="live-dot" />
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-200">
-                  Flagship · Shipped · GSC Top 100
+                  Flagship · Shipped · GSC Top 106
                 </span>
               </div>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">

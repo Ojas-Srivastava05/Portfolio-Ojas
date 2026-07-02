@@ -167,8 +167,9 @@ export function derivePortfolioStats(stats, projectList = projects) {
       : "codechef::syncing",
     cgpa != null ? `svnit.ai · cgpa ${cgpaLabel}` : "svnit.ai",
     "stack::node + python + react + c++",
-    "gsc::global top 100 · logiflow",
+    "gsc::global top 106 · logiflow",
     "shipped::logiflow · live deployment",
+    "civic::community-hero · vibe2ship 2026",
     "automation::resume-optimiser · 965+ companies",
     "hackathon::airhelp · powermind 2026",
     gh?.repositories != null ? `github::${gh.repositories} public repos` : "github::syncing",
@@ -263,7 +264,8 @@ function buildNowFeed({ lcN, problemsTotal, peak, gh, rank }) {
       ? `github::${gh.repositories} public repos`
       : "github::syncing repos";
   return [
-    { tag: "SHIPPED", text: "LogiFlow · GSC Global Top 100 · multi-modal logistics platform" },
+    { tag: "SHIPPED", text: "LogiFlow · GSC Global Top 106 · multi-modal logistics platform" },
+    { tag: "SHIPPED", text: "Community Hero · CIVICPULSE AI · Vibe2Ship 2026 · Cloud Run" },
     { tag: "AUTOMATING", text: "Career Automation Stack · 965+ companies · 14K+ OA questions" },
     { tag: "SHIPPED", text: "AirHelp · AI airport assistant · PowerMind Hackathon 2026" },
     { tag: "GRINDING", text: grinding },
