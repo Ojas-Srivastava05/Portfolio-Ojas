@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
+import ProjectPreview from "../components/ProjectPreview";
 import { projects } from "../data/portfolio";
 
 const categories = ["All", "AI Systems", "Full Stack", "AI Tools", "Product", "Machine Learning", "Frontend"];
@@ -79,11 +80,11 @@ export default function Projects() {
 
             <div className="grid items-stretch gap-0 lg:grid-cols-[1.1fr_0.9fr]">
               {/* Visual */}
-              <div className="relative min-h-[280px] overflow-hidden border-b border-white/[0.06] bg-ink-100 lg:min-h-[480px] lg:border-b-0 lg:border-r">
-                <img
+              <div className="relative min-h-[280px] overflow-hidden border-b border-white/[0.06] bg-ink-100 lg:h-full lg:min-h-[480px] lg:border-b-0 lg:border-r">
+                <ProjectPreview
                   src={flagship.image}
                   alt={`${flagship.title} preview`}
-                  className="absolute inset-0 h-full w-full object-cover object-top"
+                  position="center top"
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent pointer-events-none" />
@@ -234,11 +235,12 @@ export default function Projects() {
                 className="block"
               >
                 <div className="relative aspect-[16/10] overflow-hidden border-b border-white/[0.06] bg-ink-100">
-                  <img
+                  <ProjectPreview
                     src={p.image}
                     alt={`${p.title} preview`}
-                    className="absolute inset-0 h-full w-full object-cover object-center opacity-90 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+                    position={p.imagePosition || "center"}
                     loading={i > 1 ? "lazy" : "eager"}
+                    imgClassName="transition duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
                   <div className="absolute left-3 top-3 flex items-center gap-2">
@@ -370,10 +372,10 @@ function ProjectBriefModal({ project, onClose }) {
           >
             <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
               <div className="relative min-h-[320px] overflow-hidden border-b border-white/[0.07] bg-ink-100 lg:min-h-full lg:border-b-0 lg:border-r">
-                <img
+                <ProjectPreview
                   src={project.image}
                   alt={`${project.title} preview`}
-                  className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
+                  position={project.imagePosition || "center"}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6">

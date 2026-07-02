@@ -145,7 +145,8 @@ export const projects = [
     subtitle: "Google Solution Challenge 2026 Global Top 106 · Neural Foundry",
     description:
       "A multi-modal logistics platform (road, rail, air, water) built for Google Solution Challenge 2026 — Global Top 106. Co-led as Technical Co-Lead & UI/UX Head; owned the railway pipeline with sub-second read paths, Gradient Boosting delay ML, Pareto ranking, and Gemini explainability.",
-    image: "/logiflow-preview.png?v=2",
+    image: "/logiflow-preview.png?v=3",
+    imagePosition: "center top",
     tech: [
       "Next.js",
       "React",
@@ -196,7 +197,7 @@ export const projects = [
     subtitle: "AI airport companion — PowerMind Hackathon 2026",
     description:
       "An AI-powered airport companion built at PowerMind Hackathon 2026 — conversational backend with intent orchestration, RAG semantic search, A* indoor navigation on custom terminal graphs, WebSocket real-time alerts, and offline voice (Whisper STT + Piper TTS).",
-    image: "/airhelp-preview.png?v=2",
+    image: "/airhelp-preview.png?v=3",
     tech: [
       "FastAPI",
       "React",
@@ -237,7 +238,8 @@ export const projects = [
     subtitle: "CIVICPULSE AI — Vibe2Ship 2026 · hyperlocal civic reporting",
     description:
       "A hyperlocal civic issue reporting PWA for Indian urban citizens — photograph potholes, water leaks, and streetlights; Gemini classifies in seconds; six agents route, verify, and track SLA deadlines with public impact dashboards.",
-    image: "/community-hero-preview.png?v=2",
+    image: "/community-hero-preview.png?v=3",
+    imagePosition: "center top",
     tech: [
       "React",
       "TypeScript",
@@ -277,7 +279,7 @@ export const projects = [
     subtitle: "Internship Scout & OA Forge — resume-optimiser monorepo",
     description:
       "A production automation stack aggregating internship listings across 965+ companies and 14K+ evidence-tracked OA questions — with scheduled CI pipelines, Supabase-backed data, and GitHub Actions orchestration.",
-    image: "/portfolio-preview.png?v=2",
+    image: "/portfolio-preview.png?v=3",
     tech: [
       "Python",
       "GitHub Actions",
@@ -316,7 +318,7 @@ export const projects = [
     subtitle: "Web Wonders 2025 · Cultural-tech marketplace",
     description:
       "A cultural hub with VR experiences, AI storytelling, and a marketplace for traditional Indian arts. Forty-plus pages and a complete artisan commerce flow.",
-    image: "/rangriti-preview.png?v=2",
+    image: "/rangriti-preview.png?v=3",
     tech: ["Node.js", "Express", "MongoDB", "Cloudinary", "Hugging Face"],
     github: "https://github.com/Ojas-Srivastava05/RangRiti",
     live: "https://rangriti.onrender.com",
@@ -346,7 +348,7 @@ export const projects = [
     subtitle: "AI text summariser",
     description:
       "An AI-powered platform for summarising user text with NLP-driven concise outputs and local export support.",
-    image: "/inkd-preview.png?v=2",
+    image: "/inkd-preview.png?v=3",
     tech: ["Node.js", "Express", "Cohere API", "NLP"],
     github: "https://github.com/Ojas-Srivastava05/inkd-diary",
     live: "https://inkd-diary.onrender.com",
@@ -375,7 +377,7 @@ export const projects = [
     subtitle: "Campus community platform",
     description:
       "A club discovery and event-management platform with membership flows, role-based admin controls, JWT authentication, and Cloudinary media handling.",
-    image: "/clubify-preview.png?v=2",
+    image: "/clubify-preview.png?v=3",
     tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"],
     github: "https://github.com/Ojas-Srivastava05/WPP-Project.git",
     live: "https://github.com/Ojas-Srivastava05/WPP-Project.git",
@@ -400,7 +402,7 @@ export const projects = [
     subtitle: "Temperature prediction system",
     description:
       "A machine learning project with custom gradient descent, a Flask API, weather data ingestion, and a React interface for next-day forecasts.",
-    image: "/climatracker-preview.png?v=2",
+    image: "/climatracker-preview.png?v=3",
     tech: ["Python", "Flask", "Linear Regression", "React"],
     github: "https://github.com/Ojas-Srivastava05/TempPredictor",
     live: "https://climatrack-2o3u.onrender.com",
@@ -425,7 +427,7 @@ export const projects = [
     subtitle: "This site",
     description:
       "A handcrafted, motion-rich personal site built to showcase work, ratings, and engineering principles with intent in every interaction.",
-    image: "/portfolio-preview.png?v=2",
+    image: "/portfolio-preview.png?v=3",
     tech: ["React", "Vite", "Tailwind", "Framer Motion"],
     github: "https://github.com/Ojas-Srivastava05/Portfolio-Ojas.git",
     live: "https://ojas-srivastava.vercel.app/",
