@@ -67,13 +67,13 @@ export default function RecruiterBrief() {
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            className="panel-strong overflow-hidden rounded-xl"
+            className="liquid-glass overflow-hidden rounded-2xl"
           >
             <div className="border-b border-white/[0.06] px-6 py-4">
               <p className="eyebrow">// 00 — Recruiter Scan</p>
               <h2 className="mt-5 font-display text-[2.4rem] leading-[1.03] tracking-ultratight text-white sm:text-5xl">
                 The 60-second
-                <span className="italic gradient-text-accent"> proof layer</span>.
+                <span className="italic shiny-text animate-shiny"> proof layer</span>.
               </h2>
               <p className="mt-4 max-w-xl text-[14px] leading-[1.75] text-zinc-400">
                 A compact read for recruiters and hiring managers: what I build, why I am credible,
@@ -120,7 +120,7 @@ export default function RecruiterBrief() {
               {proofItems.map((item, i) => (
                 <div
                   key={item.title}
-                  className="rounded-xl border border-white/[0.07] bg-white/[0.015] p-5"
+                  className="liquid-glass rounded-xl p-5"
                 >
                   <span className="font-mono text-[11px] font-bold tracking-[0.22em] text-zinc-700">
                     {String(i + 1).padStart(2, "0")}

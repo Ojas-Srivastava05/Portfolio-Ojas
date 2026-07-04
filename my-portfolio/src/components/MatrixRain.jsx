@@ -84,7 +84,7 @@ export default function MatrixRain({ active, intensity = 1 }) {
     <canvas
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[6] opacity-[0.26] mix-blend-screen sm:opacity-[0.29] md:opacity-[0.3]"
+      className="pointer-events-none fixed inset-0 z-[45] opacity-[0.22] mix-blend-screen sm:opacity-[0.26] md:opacity-[0.28]"
     />
   );
 }

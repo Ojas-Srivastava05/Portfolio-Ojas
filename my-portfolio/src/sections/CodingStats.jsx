@@ -153,7 +153,7 @@ export default function CodingStats() {
             <p className="eyebrow">// 04 — Stats</p>
             <h2 className="display-h2 mt-6">
               Numbers that point to
-              <span className="italic gradient-text-accent"> consistency</span>, not decoration.
+              <span className="italic shiny-text animate-shiny"> consistency</span>, not decoration.
             </h2>
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <span
@@ -201,7 +201,7 @@ export default function CodingStats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.05 }}
-              className="panel panel-hover relative overflow-hidden p-6"
+              className="liquid-glass relative overflow-hidden rounded-2xl p-6"
             >
               <span className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-emerald-300/[0.05] blur-2xl" />
               <p className="font-display text-[3.2rem] font-normal leading-none tracking-ultratight gradient-text-mono">
@@ -293,7 +293,7 @@ export default function CodingStats() {
           initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="panel-strong mt-12 overflow-hidden rounded-xl"
+          className="liquid-glass mt-12 overflow-hidden rounded-2xl"
         >
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.06] px-6 py-4">
             <div>

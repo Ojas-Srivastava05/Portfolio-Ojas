@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import Background from "./components/Background";
 import CommandPalette from "./components/CommandPalette";
@@ -25,6 +25,9 @@ import Hero from "./sections/Hero";
 import Projects from "./sections/Projects";
 import RecruiterBrief from "./sections/RecruiterBrief";
 import Toolkit from "./sections/Toolkit";
+
+// Code-split: opentype.js loads for the boot signature under cover of the intro.
+const Signature = lazy(() => import("./components/Signature"));
 
 const CIRCUMFERENCE = 2 * Math.PI * 20; // r=20 on 48px button
 
@@ -115,12 +118,22 @@ function ScrollRingButton() {
 
 function App() {
   const [booted, setBooted] = useState(false);
+  const [sigReady, setSigReady] = useState(false);
   const { chaosMode, matrixRain } = useSiteFx();
 
+  // Hard safety cap so the intro never hangs if the font/chunk is slow.
   useEffect(() => {
-    const t = window.setTimeout(() => setBooted(true), 900);
+    if (booted) return undefined;
+    const safety = window.setTimeout(() => setBooted(true), 6200);
+    return () => window.clearTimeout(safety);
+  }, [booted]);
+
+  // Once the signature has computed its strokes, let it draw, then reveal.
+  useEffect(() => {
+    if (!sigReady || booted) return undefined;
+    const t = window.setTimeout(() => setBooted(true), 3100);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [sigReady, booted]);
 
   useEffect(() => {
     const scrollToHash = () => {
@@ -164,7 +177,7 @@ function App() {
           <Navbar />
         </div>
         <main>
-          <Hero />
+          <Hero ready={booted} />
           <RecruiterBrief />
           <About />
           <Experience />
@@ -178,7 +191,7 @@ function App() {
       </div>
 
       {/* Boot screen */}
-      <AnimatePresence>{!booted && <BootScreen />}</AnimatePresence>
+      <AnimatePresence>{!booted && <BootScreen onReady={() => setSigReady(true)} />}</AnimatePresence>
 
       {/* Scroll ring back-to-top */}
       <ScrollRingButton />
@@ -186,36 +199,53 @@ function App() {
   );
 }
 
-function BootScreen() {
+function BootScreen({ onReady }) {
   return (
     <Motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-0 z-[200] grid place-items-center bg-ink"
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-0 z-[200] grid place-items-center overflow-hidden bg-ink"
     >
-      <div className="text-center">
+      {/* Soft emerald glow behind the signature */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(46% 38% at 50% 46%, rgba(52,211,153,0.12), transparent 70%)",
+        }}
+      />
+      <div className="relative flex flex-col items-center px-6">
+        <Suspense fallback={<div className="h-24 w-[min(520px,84vw)]" />}>
+          <Signature
+            text="Ojas Srivastava"
+            color="#34d399"
+            fontSize={120}
+            duration={1.15}
+            staggerStep={0.1}
+            shimmer
+            strokeWidth={2}
+            inView={false}
+            onReady={onReady}
+            className="h-auto w-[min(560px,86vw)] [filter:drop-shadow(0_0_24px_rgba(52,211,153,0.35))]"
+          />
+        </Suspense>
         <Motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-md border border-emerald-300/40 bg-emerald-300/[0.08] font-mono text-xl font-bold text-emerald-200"
-        >
-          OS
-        </Motion.div>
-        <p className="font-display text-3xl tracking-ultratight text-white sm:text-4xl">
-          Ojas <span className="italic text-emerald-300">Srivastava</span>
-        </p>
-        <div className="mt-5 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
-          <span className="live-dot" />
-          <span>Booting builder OS</span>
-        </div>
-        <Motion.div
-          initial={{ width: 0 }}
-          animate={{ width: 220 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mt-6 h-[2px] origin-left rounded-full bg-gradient-to-r from-emerald-300 to-amber-300"
+          initial={{ width: 0, opacity: 0 }}
+          animate={{ width: 200, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-9 h-px rounded-full bg-gradient-to-r from-transparent via-emerald-300/70 to-transparent"
         />
+        <Motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
+          className="mt-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-600"
+        >
+          <span className="live-dot" />
+          Software Engineer
+        </Motion.p>
       </div>
     </Motion.div>
   );

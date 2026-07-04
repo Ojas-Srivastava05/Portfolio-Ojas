@@ -39,7 +39,7 @@ export default function Projects() {
             <p className="eyebrow">// 03 — Selected Work</p>
             <h2 className="display-h2 mt-6">
               Products with
-              <span className="italic gradient-text-accent"> real surfaces</span>,
+              <span className="italic shiny-text animate-shiny"> real surfaces</span>,
               not just slide decks.
             </h2>
           </Motion.div>
@@ -63,7 +63,7 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mt-16 overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-emerald-300/[0.05] via-white/[0.015] to-indigo-400/[0.04]"
+            className="liquid-glass liquid-glass-accent relative mt-16 overflow-hidden rounded-2xl"
           >
             {/* Top status bar */}
             <div className="flex items-center justify-between border-b border-white/[0.08] px-6 py-3">

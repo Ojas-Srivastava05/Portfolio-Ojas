@@ -17,12 +17,12 @@ export function getCgpa() {
 export function leetCodePeakFromStats(lc) {
   if (!lc) return null;
   if (typeof lc.maxContestRating === "number" && lc.maxContestRating > 0) {
-    return lc.maxContestRating;
+    return Math.round(lc.maxContestRating);
   }
   const hist = lc.contestHistory;
   if (!Array.isArray(hist) || !hist.length) return null;
   const ratings = hist.map((h) => h.rating).filter((n) => typeof n === "number" && n > 0);
-  return ratings.length ? Math.max(...ratings) : null;
+  return ratings.length ? Math.round(Math.max(...ratings)) : null;
 }
 
 /** LeetCode contest rating title bands (contest rating, not classic LC). */

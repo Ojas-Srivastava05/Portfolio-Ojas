@@ -13,12 +13,15 @@ export const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 24);
-      const scrollPosition = window.scrollY + 140;
-      const current = [...navItems].reverse().find((item) => {
-        const section = document.getElementById(item.id);
-        return section && section.offsetTop <= scrollPosition;
-      });
-      if (current) setActiveSection(current.id);
+      // Detection line just below the navbar; the last section whose top has
+      // crossed it is the active one (robust against varying section heights).
+      const line = 160;
+      let current = navItems[0].id;
+      for (const item of navItems) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top <= line) current = item.id;
+      }
+      setActiveSection(current);
     };
 
     handleScroll();
@@ -27,61 +30,56 @@ export const Navbar = () => {
   }, []);
 
   const scrollToSection = (id) => {
+    // Highlight immediately so the click always reflects the target.
+    setActiveSection(id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setIsMobileOpen(false);
   };
 
   return (
     <Motion.header
-      initial={{ y: -60, opacity: 0 }}
+      initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6"
+      className="fixed inset-x-0 top-3 z-50 px-4 sm:px-6"
     >
       <nav
-        className={`mx-auto flex max-w-[1240px] items-center justify-between rounded-xl border px-3 py-2.5 transition duration-500 ${
+        className={`mx-auto flex h-14 max-w-[1160px] items-center justify-between gap-2 rounded-full pl-2.5 pr-2.5 transition-all duration-500 ${
           isScrolled
-            ? "border-white/[0.08] bg-[rgba(8,9,12,0.78)] shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-xl"
-            : "border-white/[0.05] bg-[rgba(8,9,12,0.32)] backdrop-blur-md"
+            ? "border border-white/[0.08] bg-[rgba(10,11,14,0.72)] shadow-[0_10px_40px_-12px_rgba(0,0,0,0.7)] backdrop-blur-2xl"
+            : "border border-white/[0.05] bg-[rgba(10,11,14,0.28)] backdrop-blur-xl"
         }`}
       >
-        {/* Brand */}
+        {/* Brand — name, written elegantly with the site's shiny accent */}
         <button
           type="button"
           onClick={() => scrollToSection("hero")}
-          className="group flex items-center gap-3 px-2 text-left"
+          className="group shrink-0 rounded-full px-2.5 py-1 text-left transition hover:bg-white/[0.03]"
           aria-label="Go to home"
         >
-          <span className="relative grid h-9 w-9 place-items-center rounded-md border border-emerald-300/30 bg-emerald-300/[0.08] font-mono text-[13px] font-bold tracking-wider text-emerald-200">
-            <span className="relative">OS</span>
-            <span className="absolute -right-0.5 -top-0.5 h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-          </span>
-          <span className="hidden leading-tight sm:block">
-            <span className="block text-[14px] font-semibold text-white">{profile.name}</span>
-            <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-              {profile.role}
-            </span>
+          <span className="shiny-text animate-shiny whitespace-nowrap font-display text-[19px] italic leading-none tracking-tight sm:text-[21px]">
+            {profile.name}
           </span>
         </button>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-0.5 xl:flex">
+        {/* Desktop nav — sliding capsule */}
+        <div className="hidden items-center lg:flex">
           {navItems.map((item) => (
             <button
               key={item.id}
               type="button"
               onClick={() => scrollToSection(item.id)}
-              className={`relative rounded-md px-3 py-2 font-mono text-[12px] font-medium uppercase tracking-[0.14em] transition ${
+              className={`relative rounded-full px-3.5 py-2 text-[12.5px] font-medium transition-colors ${
                 activeSection === item.id
-                  ? "text-emerald-200"
-                  : "text-zinc-400 hover:text-zinc-100"
+                  ? "text-white"
+                  : "text-zinc-400 hover:text-white"
               }`}
             >
               {activeSection === item.id && (
                 <Motion.span
                   layoutId="nav-active"
-                  className="absolute inset-0 rounded-md border border-emerald-300/30 bg-emerald-300/[0.07]"
-                  transition={{ type: "spring", stiffness: 360, damping: 30 }}
+                  className="absolute inset-0 rounded-full bg-white/[0.08]"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               )}
               <span className="relative z-10">{item.name}</span>
@@ -89,19 +87,19 @@ export const Navbar = () => {
           ))}
         </div>
 
-        {/* Right cluster */}
-        <div className="hidden items-center gap-2 xl:flex">
+        {/* Right cluster — minimal */}
+        <div className="hidden shrink-0 items-center gap-1.5 lg:flex">
           <button
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
             aria-label="Open command palette"
-            className="group flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.02] px-2.5 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400 transition hover:border-emerald-300/30 hover:bg-emerald-300/[0.04] hover:text-emerald-200"
-            title="Open command palette"
+            title={`Search — ${isMac ? "⌘" : "Ctrl"} K`}
+            className="grid h-9 w-9 place-items-center rounded-full border border-white/[0.08] bg-white/[0.02] text-zinc-400 transition hover:border-emerald-300/30 hover:bg-emerald-300/[0.05] hover:text-emerald-200"
           >
             <svg
               aria-hidden="true"
               viewBox="0 0 24 24"
-              className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100"
+              className="h-4 w-4"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -111,26 +109,21 @@ export const Navbar = () => {
               <circle cx="11" cy="11" r="7" />
               <path d="m20 20-3.5-3.5" />
             </svg>
-            <kbd className="rounded border border-white/[0.08] bg-black/30 px-1 py-0.5 text-[9px] text-zinc-300">
-              {isMac ? "⌘" : "Ctrl"}
-            </kbd>
-            <kbd className="rounded border border-white/[0.08] bg-black/30 px-1 py-0.5 text-[9px] text-zinc-300">
-              K
-            </kbd>
           </button>
           <a
             href={profile.resume}
             download
-            className="rounded-md border border-white/[0.10] px-3.5 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-zinc-200 transition hover:border-amber-300/50 hover:text-amber-100"
+            className="rounded-full px-3.5 py-2 text-[12.5px] font-medium text-zinc-300 transition hover:text-white"
           >
-            Resume.pdf
+            Résumé
           </a>
           <button
             type="button"
             onClick={() => scrollToSection("contact")}
-            className="rounded-md border border-emerald-300/40 bg-emerald-300 px-3.5 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-ink transition hover:bg-emerald-200"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-emerald-300 px-4 py-2 text-[12.5px] font-semibold text-ink transition-all hover:bg-emerald-200 active:scale-[0.98]"
           >
-            Hire Me
+            Hire me
+            <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </button>
         </div>
 
@@ -138,7 +131,7 @@ export const Navbar = () => {
         <button
           type="button"
           onClick={() => setIsMobileOpen((open) => !open)}
-          className="grid h-10 w-10 place-items-center rounded-md border border-white/[0.10] text-zinc-200 transition hover:border-emerald-300/50 hover:text-emerald-100 xl:hidden"
+          className="grid h-10 w-10 place-items-center rounded-full border border-white/[0.10] text-zinc-200 transition hover:border-emerald-300/50 hover:text-emerald-100 lg:hidden"
           aria-label="Toggle navigation"
           aria-expanded={isMobileOpen}
         >
@@ -170,7 +163,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="mx-auto mt-2 max-w-[1240px] rounded-xl border border-white/[0.08] bg-[rgba(8,9,12,0.96)] p-2 shadow-2xl backdrop-blur-xl xl:hidden"
+            className="mx-auto mt-2 max-w-[1160px] rounded-2xl border border-white/[0.08] bg-[rgba(10,11,14,0.96)] p-2 shadow-2xl backdrop-blur-2xl lg:hidden"
           >
             <div className="grid gap-1">
               {navItems.map((item) => (
@@ -178,7 +171,7 @@ export const Navbar = () => {
                   key={item.id}
                   type="button"
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center justify-between rounded-md px-3 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] transition ${
+                  className={`flex items-center justify-between rounded-xl px-4 py-3 text-[14px] font-medium transition ${
                     activeSection === item.id
                       ? "bg-emerald-300/[0.08] text-emerald-200"
                       : "text-zinc-300 hover:bg-white/[0.04] hover:text-white"
@@ -192,18 +185,18 @@ export const Navbar = () => {
               <a
                 href={profile.resume}
                 download
-                className="flex items-center justify-between rounded-md px-3 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-amber-200"
+                className="flex items-center justify-between rounded-xl px-4 py-3 text-[14px] font-medium text-zinc-200"
               >
-                <span>Resume.pdf</span>
+                <span>Résumé</span>
                 <span>↓</span>
               </a>
               <button
                 type="button"
                 onClick={() => scrollToSection("contact")}
-                className="flex items-center justify-between rounded-md bg-emerald-300 px-3 py-3 font-mono text-[12px] font-bold uppercase tracking-[0.14em] text-ink"
+                className="flex items-center justify-between rounded-xl bg-emerald-300 px-4 py-3 text-[14px] font-semibold text-ink"
               >
-                <span>Hire Me</span>
-                <span>↗</span>
+                <span>Hire me</span>
+                <span>→</span>
               </button>
             </div>
           </Motion.div>

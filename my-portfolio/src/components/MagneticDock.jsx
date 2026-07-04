@@ -3,7 +3,13 @@
  * Social links float at the bottom center. Desktop only (pointer:fine).
  */
 import { useRef, useState, useEffect } from "react";
-import { motion as Motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion as Motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { socialLinks } from "../data/portfolio";
 
 // Force white icons so all logos are visible on the dark dock background.
@@ -69,6 +75,8 @@ export default function MagneticDock() {
   const [enabled, setEnabled] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia(DOCK_MEDIA_QUERY).matches : false,
   );
+  // Stay hidden across the hero so it never overlaps the hero CTAs; reveal on scroll.
+  const [revealed, setRevealed] = useState(false);
   const dockRef = useRef(null);
   const mouseX = useMotionValue(Infinity);
 
@@ -79,22 +87,41 @@ export default function MagneticDock() {
     return () => media.removeEventListener?.("change", onChange);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => {
+      setRevealed(window.scrollY > window.innerHeight * 0.75);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   if (!enabled) return null;
 
   return (
-    <div
-      className="fixed bottom-5 left-1/2 z-[100] -translate-x-1/2"
-      onMouseMove={(e) => mouseX.set(e.clientX)}
-      onMouseLeave={() => mouseX.set(Infinity)}
-      ref={dockRef}
-    >
-      <div className="flex items-end gap-2 rounded-2xl border border-white/[0.08] bg-[rgba(8,9,12,0.55)] px-3 py-2 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-xl">
-        {DOCK_ITEMS.map((item) => (
-          <DockItem key={item.label} item={item} mouseX={mouseX} />
-        ))}
-      </div>
-      {/* Dock reflection */}
-      <div className="mx-auto mt-0.5 h-px w-4/5 bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
-    </div>
+    <AnimatePresence>
+      {revealed && (
+        <Motion.div
+          // Keep translateX(-50%) inside Framer's transform so it isn't
+          // clobbered by the y animation (that was pushing the dock off-center).
+          initial={{ opacity: 0, x: "-50%", y: 24 }}
+          animate={{ opacity: 1, x: "-50%", y: 0 }}
+          exit={{ opacity: 0, x: "-50%", y: 24 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed bottom-5 left-1/2 z-[100]"
+          onMouseMove={(e) => mouseX.set(e.clientX)}
+          onMouseLeave={() => mouseX.set(Infinity)}
+          ref={dockRef}
+        >
+          <div className="flex items-end gap-2 rounded-2xl border border-white/[0.08] bg-[rgba(8,9,12,0.55)] px-3 py-2 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+            {DOCK_ITEMS.map((item) => (
+              <DockItem key={item.label} item={item} mouseX={mouseX} />
+            ))}
+          </div>
+          {/* Dock reflection */}
+          <div className="mx-auto mt-0.5 h-px w-4/5 bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
+        </Motion.div>
+      )}
+    </AnimatePresence>
   );
 }

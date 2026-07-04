@@ -1,11 +1,36 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { motion as Motion } from "framer-motion";
 import { profileLinks, profile, INTERNSHIP_AVAILABILITY, formatCgpaDisplay } from "../data/portfolio";
 import { useLiveCodingStats } from "../context/LiveCodingStatsContext";
+import CinematicVideo from "../components/CinematicVideo";
+
+// Code-split: three.js only loads for the background glow, never blocking first paint.
+const LightRays = lazy(() => import("../components/LightRays"));
 
 const headlineVerbs = ["ship.", "engineer.", "model.", "deploy.", "solve."];
 
-export default function Hero() {
+// Abstract fluid-waves loop (motionsites.ai) — hue-shifted to emerald + darkened in CSS.
+const HERO_VIDEO_SRC =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260302_085844_21a8f4b3-dea5-4ede-be16-d53f6973bb14.mp4";
+
+function ChevronRight({ className = "" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="m9 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+export default function Hero({ ready = true }) {
   const [verbIndex, setVerbIndex] = useState(0);
   const [time, setTime] = useState(() => new Date());
   const { derived } = useLiveCodingStats();
@@ -23,7 +48,10 @@ export default function Hero() {
       {
         kind: "field",
         label: "school",
-        value: cgpa != null ? `"SVNIT Surat · CGPA ${formatCgpaDisplay(cgpa)} · '28"` : '"SVNIT Surat · May 2028"',
+        value:
+          cgpa != null
+            ? `"SVNIT Surat · CGPA ${formatCgpaDisplay(cgpa)} · '28"`
+            : '"SVNIT Surat · May 2028"',
       },
       {
         kind: "field",
@@ -80,16 +108,47 @@ export default function Hero() {
       id="hero"
       className="relative min-h-[calc(100vh-2rem)] overflow-hidden pt-24 sm:pt-28"
     >
-      <div className="pointer-events-none absolute inset-0 -z-0">
-        <div className="aurora" />
+      {/* Cinematic video — dual-copy crossfade for a seamless infinite loop */}
+      <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+        <CinematicVideo
+          src={HERO_VIDEO_SRC}
+          fade={1.2}
+          rate={0.8}
+          className="absolute inset-0 h-full w-full opacity-[0.6] [filter:hue-rotate(-28deg)_saturate(1.12)_brightness(0.95)_contrast(1.05)]"
+        />
+        {/* Readability wash: keep the top/right visibly alive, darken the bottom seam. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/35 to-ink" />
+        {/* Protect the left text column while letting the right breathe. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/30 to-transparent" />
       </div>
 
+      {/* Faint emerald light glow (spell.sh) — a whisper, not a wash */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="mask-fade-b absolute inset-0 opacity-[0.32]">
+          <Suspense fallback={null}>
+            <LightRays
+              raysColor={{ mode: "single", color: "#34d399" }}
+              intensity={6}
+              rays={16}
+              reach={7}
+              position={58}
+              animation={{ animate: true, speed: 6 }}
+              backgroundColor="transparent"
+            />
+          </Suspense>
+        </div>
+        <div className="aurora opacity-60" />
+      </div>
+
+      {/* Keyed on `ready` so the whole hero animates in as the intro lifts. */}
+      <div key={ready ? "ready" : "idle"} className="contents">
       <div className="section-shell !py-12 lg:!py-20">
+        {/* macOS-style status strip */}
         <Motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-10 flex flex-wrap items-center justify-between gap-3 rounded-md border border-white/[0.07] bg-white/[0.02] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400 backdrop-blur"
+          className="liquid-glass mb-10 flex flex-wrap items-center justify-between gap-3 rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400"
         >
           <div className="flex items-center gap-3">
             <span className="live-dot" />
@@ -124,7 +183,7 @@ export default function Hero() {
               <span className="mt-1 flex flex-wrap items-baseline gap-x-3 sm:gap-x-4">
                 <span>I</span>
                 <span className="relative inline-block align-baseline" style={{ lineHeight: 1.12 }}>
-                  <span className="inline-block whitespace-nowrap italic gradient-text-accent">
+                  <span className="shiny-text animate-shiny inline-block whitespace-nowrap italic">
                     {headlineVerbs[verbIndex]}
                   </span>
                 </span>
@@ -132,35 +191,41 @@ export default function Hero() {
             </h1>
 
             <p className="mt-8 max-w-2xl text-balance text-[17px] leading-[1.7] text-zinc-300 sm:text-[19px]">
-              <span className="text-white">Penultimate-year B.Tech AI at SVNIT Surat — seeking Summer 2027 SWE internships.</span>{" "}
+              <span className="text-white">
+                Penultimate-year B.Tech AI at SVNIT Surat — seeking Summer 2027 SWE internships.
+              </span>{" "}
               I design backends that behave, ship full-stack products that survive deployment, and
               grind algorithms like the scoreboard is watching.{" "}
               <span className="text-emerald-200">{leetSubtitle}</span>
             </p>
 
-            <div className="mt-10 grid gap-3 sm:flex sm:flex-wrap">
+            <div className="mt-10 flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={() =>
                   document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="btn-primary"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-emerald-300 px-6 py-3 text-sm font-semibold text-ink transition-all hover:bg-emerald-200 active:scale-[0.98]"
               >
                 Explore the Build
-                <span className="text-[14px]">→</span>
+                <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </button>
-              <a href={profile.resume} download className="btn-ghost">
+              <a
+                href={profile.resume}
+                download
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/5"
+              >
                 Download CV
-                <span className="text-[14px]">↓</span>
+                <span className="text-[13px]">↓</span>
               </a>
               <a
                 href="https://github.com/Ojas-Srivastava05"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/5"
               >
                 GitHub
-                <span className="text-[14px]">↗</span>
+                <span className="text-[13px]">↗</span>
               </a>
             </div>
 
@@ -171,8 +236,8 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 + i * 0.06, duration: 0.5 }}
-                  className={`group panel panel-hover px-4 py-4 ${
-                    i === 0 ? "border-amber-300/25 bg-amber-300/[0.04]" : ""
+                  className={`liquid-glass group rounded-2xl px-4 py-4 ${
+                    i === 0 ? "liquid-glass-accent" : ""
                   }`}
                 >
                   <p className="font-display text-3xl font-normal tracking-ultratight text-white sm:text-4xl">
@@ -193,7 +258,7 @@ export default function Hero() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 rounded-md border border-white/[0.07] bg-white/[0.015] px-3 py-2.5 transition hover:-translate-y-0.5 hover:border-emerald-300/30 hover:bg-emerald-300/[0.04]"
+                  className="liquid-glass group flex items-center gap-2.5 rounded-xl px-3 py-2.5 transition hover:-translate-y-0.5"
                 >
                   <img src={link.icon} alt="" className="h-4 w-4 object-contain opacity-90" />
                   <span className="min-w-0 flex-1">
@@ -216,14 +281,14 @@ export default function Hero() {
             transition={{ duration: 0.85, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="absolute -inset-4 -z-10 rounded-[1.5rem] bg-gradient-to-br from-emerald-300/[0.10] via-indigo-400/[0.05] to-amber-300/[0.08] blur-3xl" />
+            <div className="absolute -inset-4 -z-10 rounded-[1.5rem] bg-gradient-to-br from-emerald-300/[0.12] via-cyan-400/[0.06] to-amber-300/[0.08] blur-3xl" />
 
-            <div className="panel-strong overflow-hidden rounded-xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
+            <div className="liquid-glass overflow-hidden rounded-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
               <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.015] px-4 py-2.5">
                 <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber-300/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-300/80" />
+                  <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                  <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                  <span className="h-3 w-3 rounded-full bg-[#28c840]" />
                 </div>
                 <p className="font-mono text-[11px] text-zinc-500">
                   builder.config.ts — <span className="text-emerald-300">~/portfolio</span>
@@ -280,9 +345,7 @@ export default function Hero() {
                       <div key={i} className="pl-3">
                         <span className="text-sky-300">{line.label}</span>
                         <span className="text-zinc-500">: </span>
-                        <span
-                          className={line.accent ? "text-emerald-300" : "text-emerald-200/85"}
-                        >
+                        <span className={line.accent ? "text-emerald-300" : "text-emerald-200/85"}>
                           {line.value}
                         </span>
                         <span className="text-zinc-500">,</span>
@@ -318,9 +381,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="absolute -right-3 -top-5 rounded-md border border-amber-300/30 bg-gradient-to-br from-amber-300 to-amber-400 px-4 py-3 text-ink shadow-[0_15px_40px_-10px_rgba(251,191,36,0.5)]"
             >
-              <p className="font-mono text-[9px] font-bold uppercase tracking-[0.22em]">
-                LeetCode
-              </p>
+              <p className="font-mono text-[9px] font-bold uppercase tracking-[0.22em]">LeetCode</p>
               <p className="font-display text-2xl leading-none">{rank ?? "—"}</p>
               <p className="mt-1 font-mono text-[10px] font-bold">
                 {peak != null ? `${peak} PEAK` : "SYNCING"}
@@ -331,7 +392,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="absolute -bottom-4 -left-3 rounded-md border border-white/[0.10] bg-[rgba(14,15,20,0.95)] px-3 py-2.5 shadow-2xl backdrop-blur"
+              className="liquid-glass absolute -bottom-4 -left-3 rounded-xl px-3 py-2.5 shadow-2xl"
             >
               <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
                 Recently Shipped
@@ -359,6 +420,7 @@ export default function Hero() {
           ))}
         </div>
       </Motion.div>
+      </div>
     </section>
   );
 }
