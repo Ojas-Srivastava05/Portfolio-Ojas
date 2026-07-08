@@ -69,7 +69,7 @@ export const recruiterBrief = [
     label: "Signal",
     value: "LeetCode Knight · CGPA 9.20",
     detail:
-      "LeetCode Knight (2048 peak, 637+ solved), Codeforces Specialist (1457), strong academics, and industry internship experience.",
+      "LeetCode Knight (2048 peak, 637+ solved), Codeforces Specialist (1419), strong academics, and industry internship experience.",
   },
   {
     label: "Availability",
@@ -591,14 +591,14 @@ export const codingProfiles = [
   {
     platform: "Codeforces",
     handle: "oju",
-    rating: "1457",
+    rating: "1419",
     rank: "Specialist",
     detail: "207 problems solved — rated rounds and consistent practice grind.",
     color: "#1F8ACB",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
     stats: [
-      { label: "Rating", value: "1457" },
+      { label: "Rating", value: "1419" },
       { label: "Rank", value: "Specialist" },
       { label: "Problems", value: "207" },
     ],
@@ -666,7 +666,7 @@ export const achievements = [
   },
   {
     title: "Codeforces Specialist",
-    detail: "Rating 1457 · 207 problems solved across rated rounds.",
+    detail: "Rating 1419 · 246 problems solved across rated rounds.",
     tag: "Competitive",
   },
   {
