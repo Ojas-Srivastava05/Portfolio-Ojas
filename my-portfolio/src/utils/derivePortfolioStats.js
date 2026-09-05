@@ -169,8 +169,9 @@ export function derivePortfolioStats(stats, projectList = projects) {
     "stack::node + python + react + c++",
     "gsc::global top 106 · logiflow",
     "shipped::logiflow · live deployment",
-    "civic::community-hero · vibe2ship 2026",
-    "automation::resume-optimiser · 965+ companies",
+    "civic::community-hero · vibe2ship global top 20",
+    "automation::resume-optimiser · 966 companies",
+    "leadership::chairperson · nexus svnit",
     "hackathon::airhelp · powermind 2026",
     gh?.repositories != null ? `github::${gh.repositories} public repos` : "github::syncing",
     "areas::backend · distributed · ai",
@@ -265,11 +266,12 @@ function buildNowFeed({ lcN, problemsTotal, peak, gh, rank }) {
       : "github::syncing repos";
   return [
     { tag: "SHIPPED", text: "LogiFlow · GSC Global Top 106 · multi-modal logistics platform" },
-    { tag: "SHIPPED", text: "Community Hero · CIVICPULSE AI · Vibe2Ship 2026 · Cloud Run" },
-    { tag: "AUTOMATING", text: "Career Automation Stack · 965+ companies · 14K+ OA questions" },
+    { tag: "SHIPPED", text: "Community Hero · CIVICPULSE AI · Vibe2Ship Global Top 20" },
+    { tag: "AUTOMATING", text: "Career Automation Stack · 966 companies · 14k+ OA questions" },
+    { tag: "LEADING", text: "Chairperson · Nexus SVNIT · workshops & contests for 500+ students" },
     { tag: "SHIPPED", text: "AirHelp · AI airport assistant · PowerMind Hackathon 2026" },
     { tag: "GRINDING", text: grinding },
-    { tag: "STUDYING", text: "Distributed systems · DBMS · Stanford ML Specialization" },
+    { tag: "STUDYING", text: "Distributed systems · DBMS · OS · computer architecture" },
     { tag: "OPEN TO", text: `Software Engineering internships · ${INTERNSHIP_AVAILABILITY}` },
     { tag: "GITHUB", text: ghLine },
   ];

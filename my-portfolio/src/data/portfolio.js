@@ -38,7 +38,9 @@ export const profile = {
   phone: "+91-7424978046",
   resume: "/Ojas-Srivastava-Resume.pdf",
   available:
-    "Seeking Software Engineering internships for Summer 2027 — Bengaluru, Hyderabad, Pune, or remote-friendly.",
+    "Seeking Software Engineering internships for Summer 2027 — Bengaluru, Hyderabad, Mumbai, Pune, or remote-friendly.",
+  headline:
+    "Chairperson @ Nexus SVNIT · B.Tech AI @ NIT Surat · GSC Top 106 · Vibe2Ship Global Top 20 · McKinsey.org Forward Fellow · LeetCode Knight (2048)",
 };
 
 export const navItems = [
@@ -63,13 +65,13 @@ export const recruiterBrief = [
     label: "Proof",
     value: "8+ shipped builds",
     detail:
-      "LogiFlow (GSC Top 106), Community Hero, Career Automation Stack, AirHelp, RangRiti, IFFCO production tooling, and more — all with source or live links.",
+      "LogiFlow (GSC Global Top 106), Community Hero (Vibe2Ship Global Top 20), Career Automation Stack, AirHelp, RangRiti, IFFCO production tooling — all with source or live links.",
   },
   {
     label: "Signal",
     value: "LeetCode Knight · CGPA 9.20",
     detail:
-      "LeetCode Knight (2048 peak, 637+ solved), Codeforces Specialist (1419), strong academics, and industry internship experience.",
+      "LeetCode Knight (2048 peak, 750+ solved), Codeforces Specialist (1419), Chairperson of Nexus SVNIT, and industry internship experience.",
   },
   {
     label: "Availability",
@@ -237,9 +239,9 @@ export const projects = [
   },
   {
     title: "Community Hero",
-    subtitle: "CIVICPULSE AI — Vibe2Ship 2026 · hyperlocal civic reporting",
+    subtitle: "CIVICPULSE AI — Vibe2Ship 2026 · Global Top 20",
     description:
-      "A hyperlocal civic issue reporting PWA for Indian urban citizens — photograph potholes, water leaks, and streetlights; Gemini classifies in seconds; six agents route, verify, and track SLA deadlines with public impact dashboards.",
+      "A hyperlocal civic issue reporting PWA for Indian urban citizens — photograph potholes, water leaks, and streetlights; Gemini classifies in seconds; six agents route, verify, and track SLA deadlines with public impact dashboards. Solo-owned end-to-end delivery for a Global Top 20 finish.",
     image: "/community-hero-preview.png?v=3",
     imagePosition: "center top",
     tech: [
@@ -255,39 +257,39 @@ export const projects = [
     github: "https://github.com/Ojas-Srivastava05/community-hero",
     live: "https://community-hero-987477089222.asia-south1.run.app",
     category: "AI Systems",
-    period: "2026 · Vibe2Ship",
+    period: "Jun 2026 · Vibe2Ship",
     role: "Solo builder — full-stack, AI agents, geo, deploy, and docs",
-    impact: ["8 civic features", "6-agent pipeline", "Live on Cloud Run"],
+    impact: ["Global Top 20", "6-agent pipeline", "Live on Cloud Run"],
     problem:
       "Citizens report civic issues through fragmented channels with no accountability, routing, or verifiable public tracking.",
     solution:
       "Built a mobile-first PWA on Google Cloud: AI categorization, geo-tagged reports, community upvotes, SLA timelines, analytics dashboards, and a civic assistant.",
     outcomes: [
-      "Shipped all eight Vibe2Ship example features with a 6-agent orchestration pipeline.",
+      "Finished Vibe2Ship 2026 Global Top 20 with solo end-to-end ownership.",
       "Deployed production app on Cloud Run (asia-south1) with Firebase Auth, Firestore, and Gemini Vision.",
       "Added gamification, hotspot analytics, Open311 export, and admin resolution workflows.",
     ],
-    proof: "Vibe2Ship 2026 · live Cloud Run deployment · public GitHub.",
-    highlights: ["Gemini Vision", "6-agent pipeline", "Civic PWA"],
+    proof: "Vibe2Ship 2026 Global Top 20 · live Cloud Run deployment · public GitHub.",
+    highlights: ["Global Top 20", "Gemini Vision", "Civic PWA"],
     bullets: [
-      "Architected solo full-stack delivery: React PWA, Express API, Firestore schema, and Cloud Run deployment.",
-      "Built Gemini-powered issue categorization, 6-agent routing/dedup/SLA pipeline, and civic assistant chat.",
+      "Solo-owned end-to-end delivery: React PWA, Express API, Firestore schema, Cloud Run deploy, and live demo.",
+      "Integrated Gemini API for report categorization with guard checks so bad model output does not break routing.",
       "Shipped map explorer, community verification tiers, impact dashboards, leaderboard gamification, and admin analytics.",
     ],
     featured: true,
   },
   {
     title: "Career Automation Stack",
-    subtitle: "Internship Scout & OA Forge — resume-optimiser monorepo",
+    subtitle: "Internship Scout, Hiring Scout & OA Forge — resume-optimiser monorepo",
     description:
-      "A production automation stack aggregating internship listings across 965+ companies and 14K+ evidence-tracked OA questions — with scheduled CI pipelines, Supabase-backed data, and GitHub Actions orchestration.",
+      "A production automation stack: Internship Scout across 966 companies, Hiring Scout over 10.7k+ public contacts (8.7k+ outreach-ready), and OA Forge with 14k+ evidence-tracked questions — orchestrated by 8 GitHub Actions workflows.",
     image: "/portfolio-preview.png?v=3",
     tech: [
       "Python",
+      "C++17",
       "GitHub Actions",
       "Supabase",
-      "BeautifulSoup",
-      "REST APIs",
+      "PostgreSQL",
       "Next.js",
       "TypeScript",
     ],
@@ -296,22 +298,22 @@ export const projects = [
     category: "AI Systems",
     period: "Jun 2026 — Present",
     role: "Sole architect — data pipelines, CI/CD, and automation tooling",
-    impact: ["965+ companies", "14K+ OA questions", "Scheduled CI pipelines"],
+    impact: ["966 companies", "14k+ OA questions", "10.7k+ contacts"],
     problem:
       "Internship hunting at scale means tracking hundreds of companies, OA question banks, and outreach — manually, it does not scale.",
     solution:
-      "Built a monorepo with Internship Scout (listing aggregation), OA Forge (question drill platform), and Hiring Contacts discovery — all wired through GitHub Actions and Supabase.",
+      "Built a monorepo with Internship Scout (listing aggregation + HTML digest email), Hiring Scout (rate-limited outreach), and OA Forge (hybrid C++ judge) — all wired through GitHub Actions and Supabase.",
     outcomes: [
-      "Aggregated listings across 965+ companies with evidence-tracked filtering.",
-      "Indexed 14K+ OA questions with daily drill workflows and CI validation.",
-      "Automated cold outreach and hiring-contact discovery via scheduled pipelines.",
+      "Aggregated listings across 966 companies with ingest → dedup → digest email pipelines.",
+      "Indexed 14k+ OA questions and 5.5k+ test cases with a hybrid C++ judge (g++, subprocess limits).",
+      "Scaled Hiring Scout to 10.7k+ public contacts (8.7k+ outreach-ready) across 8 scheduled GitHub Actions workflows.",
     ],
     proof: "Public monorepo with active GitHub Actions workflows and production deployments.",
-    highlights: ["GitHub Actions CI", "Data aggregation", "Supabase backend"],
+    highlights: ["8 GitHub Actions", "Hybrid C++ judge", "Hiring Scout"],
     bullets: [
-      "Architected internship listing aggregation across 965+ companies with BeautifulSoup scraping and REST API integrations.",
-      "Built OA Forge with 14K+ evidence-tracked questions, daily drill workflows, and pytest-validated pipelines.",
-      "Wired GitHub Actions for scheduled scouting, cold outreach, and hiring-contact discovery with Supabase persistence.",
+      "Built Internship Scout over 966 companies (ingest → dedup → HTML digest email) via BeautifulSoup and REST APIs.",
+      "Shipped OA Forge with 14k+ evidence-tracked questions, 5.5k+ test cases, timed mock sessions, and a hybrid C++ judge.",
+      "Ran Hiring Scout over 10.7k+ public contacts with rate-limited SMTP and 8 GitHub Actions workflows.",
     ],
     featured: true,
   },
@@ -453,16 +455,31 @@ export const projects = [
 
 export const experiences = [
   {
+    year: "Aug 2026 — Present",
+    role: "Chairperson",
+    company: "Nexus SVNIT",
+    location: "Surat, India",
+    description:
+      "Head the official departmental cell for DoCSE & DoAI — own planning and delivery of workshops, contests, and mentoring for 500+ students (AY 2026–27).",
+    bullets: [
+      "Elected Chairperson after a two-year path: Member → Social Media Coordinator → Academic Mentor → Technical Representative → Chairperson.",
+      "Coordinate core committee delivery across events, developers, design, media, and mentoring tracks.",
+      "Run DSA workshops, coding contests, and onboarding for juniors across CSE and AI.",
+    ],
+    tags: ["Leadership", "Community", "DSA"],
+    accent: "primary",
+  },
+  {
     year: "Jun — Jul 2025",
-    role: "Software Intern",
+    role: "Software Engineering Intern",
     company: "IFFCO — Phulpur Unit",
     location: "Prayagraj, India",
     description:
-      "Built and deployed a production full-stack application for the System Networking Division — automating 50+ daily enterprise workflows with JWT auth and structured error handling.",
+      "Built and deployed production tools for the plant operations team — automating 50+ daily enterprise workflows with Node.js, Express, and MySQL.",
     bullets: [
-      "Developed 10+ RESTful APIs in Node.js + Express with optimized MySQL queries, indexing, and joins.",
-      "Shipped through unit testing, integration testing, debugging, and peer code reviews on internal production infrastructure.",
-      "Contributed to Docker containerization, CI/CD pipelines, and end-to-end feature ownership from implementation to release.",
+      "Developed 10+ REST APIs with input validation, optimized SQL, and structured error handling.",
+      "Debugged broken flows using logs and stack traces; practiced peer code review and short technical docs.",
+      "Shipped through Git, Docker, and CI/CD before deployment on internal infrastructure.",
     ],
     tags: ["Node.js", "Express", "MySQL", "REST"],
     accent: "primary",
@@ -486,7 +503,7 @@ export const experiences = [
     company: "SVNIT Surat",
     location: "Surat, India",
     description:
-      "Studying AI, algorithms, operating systems, DBMS, computer organization, software engineering, and OOP.",
+      "Studying AI, algorithms, operating systems, DBMS, computer organization, software engineering, computer networks, and OOP.",
     metric: "CGPA 9.20",
     tags: ["AI / ML", "DSA", "Systems"],
   },
@@ -499,15 +516,6 @@ export const experiences = [
       "Organising coding workshops and technical events to grow a stronger programming culture across campus.",
     tags: ["Community", "Events", "Workshops"],
   },
-  {
-    year: "2024 — Present",
-    role: "Mentor & Representative",
-    company: "Nexus SVNIT",
-    location: "Surat, India",
-    description:
-      "Mentoring juniors in programming fundamentals and coordinating participation in technical initiatives.",
-    tags: ["Mentorship", "DSA", "Campus"],
-  },
 ];
 
 export const education = [
@@ -517,7 +525,7 @@ export const education = [
     location: "Surat, Gujarat",
     period: "2024 — May 2028",
     score: "9.20 / 10",
-    note: "Penultimate year · Concentrations in AI, systems, DSA, and software engineering.",
+    note: "Penultimate year · Chairperson, Nexus SVNIT · Concentrations in AI, systems, DSA, and software engineering.",
   },
   {
     title: "Class XII · CBSE",
@@ -567,6 +575,7 @@ export const interests = [
   "Distributed Systems",
   "Full-stack Web Development",
   "AI Integration",
+  "Financial Markets & Quant Systems",
 ];
 
 export const codingProfiles = [
@@ -575,7 +584,7 @@ export const codingProfiles = [
     handle: "Oju_Srivastava",
     rating: "2048",
     rank: "Knight",
-    detail: "637 solved · Peak 2048 · 32 contests.",
+    detail: "750+ solved · Peak 2048 · 32 contests.",
     color: "#FFA116",
     href: "https://leetcode.com/Oju_Srivastava",
     icon: "https://cdn.simpleicons.org/leetcode/FFA116",
@@ -583,9 +592,9 @@ export const codingProfiles = [
       { label: "Peak rating", value: "2048" },
       { label: "Current", value: "2048" },
       { label: "Rank", value: "Knight" },
-      { label: "Problems", value: "637" },
+      { label: "Problems", value: "750+" },
       { label: "Contests", value: "32" },
-      { label: "Global rank", value: "Top 3%" },
+      { label: "Global rank", value: "Top ~2%" },
     ],
   },
   {
@@ -593,14 +602,14 @@ export const codingProfiles = [
     handle: "oju",
     rating: "1419",
     rank: "Specialist",
-    detail: "207 problems solved — rated rounds and consistent practice grind.",
+    detail: "270 problems solved — rated rounds and consistent practice grind.",
     color: "#1F8ACB",
     href: "https://codeforces.com/profile/oju",
     icon: "https://cdn.simpleicons.org/codeforces/1F8ACB",
     stats: [
       { label: "Rating", value: "1419" },
       { label: "Rank", value: "Specialist" },
-      { label: "Problems", value: "207" },
+      { label: "Problems", value: "270" },
     ],
   },
   {
@@ -621,21 +630,27 @@ export const codingProfiles = [
   {
     platform: "GitHub",
     handle: "Ojas-Srivastava05",
-    rating: "31",
+    rating: "36",
     rank: "Public repos",
-    detail: "31 public repos · 20 followers · Active since 2021.",
+    detail: "36 public repos · 27 followers · Active since 2021.",
     color: "#FFFFFF",
     href: "https://github.com/Ojas-Srivastava05",
     icon: "https://cdn.simpleicons.org/github/FFFFFF",
     stats: [
-      { label: "Repos", value: "31" },
-      { label: "Followers", value: "20" },
+      { label: "Repos", value: "36" },
+      { label: "Followers", value: "27" },
       { label: "Lang", value: "Py/JS/C++" },
     ],
   },
 ];
 
 export const achievements = [
+  {
+    title: "Chairperson, Nexus SVNIT",
+    detail:
+      "Elected Chairperson for AY 2026–27 — own planning and delivery of departmental tech initiatives for 500+ CSE & AI students.",
+    tag: "Leadership",
+  },
   {
     title: "Google Solution Challenge 2026",
     detail:
@@ -645,7 +660,7 @@ export const achievements = [
   {
     title: "Community Hero · Vibe2Ship 2026",
     detail:
-      "Solo-built CIVICPULSE AI — hyperlocal civic PWA with Gemini Vision, 6-agent pipeline, and Cloud Run deploy.",
+      "Global Top 20 — solo-built CIVICPULSE AI, a hyperlocal civic PWA with Gemini Vision, 6-agent pipeline, and Cloud Run deploy.",
     tag: "Hackathon",
   },
   {
@@ -661,16 +676,16 @@ export const achievements = [
   },
   {
     title: "LeetCode Knight",
-    detail: "Rating 2048 · 637+ problems solved · 32 contests.",
+    detail: "Rating 2048 · 750+ problems solved · 32 contests.",
     tag: "Competitive",
   },
   {
     title: "Codeforces Specialist",
-    detail: "Rating 1419 · 246 problems solved across rated rounds.",
+    detail: "Rating 1419 · 270 problems solved across rated rounds.",
     tag: "Competitive",
   },
   {
-    title: "Software Intern at IFFCO",
+    title: "Software Engineering Intern at IFFCO",
     detail: "Shipped production tooling automating 50+ daily enterprise workflows.",
     tag: "Industry",
   },
@@ -684,11 +699,6 @@ export const achievements = [
     detail: "Organising DSA workshops, contests, and programming events on campus.",
     tag: "Community",
   },
-  {
-    title: "Nexus SVNIT Mentor",
-    detail: "Mentoring juniors in programming fundamentals and technical onboarding.",
-    tag: "Mentorship",
-  },
 ];
 
 export const toolkit = [
@@ -698,9 +708,10 @@ export const toolkit = [
     skills: [
       { name: "C / C++", logo: "https://cdn.simpleicons.org/cplusplus/00599C" },
       { name: "Python", logo: "https://cdn.simpleicons.org/python/3776AB" },
+      { name: "Java", logo: "https://cdn.simpleicons.org/openjdk/FFFFFF" },
       { name: "JavaScript", logo: "https://cdn.simpleicons.org/javascript/F7DF1E" },
       { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript/3178C6" },
-      { name: "HTML / CSS", logo: "https://cdn.simpleicons.org/html5/E34F26" },
+      { name: "SQL", logo: "https://cdn.simpleicons.org/mysql/4479A1" },
     ],
   },
   {
@@ -721,10 +732,11 @@ export const toolkit = [
     skills: [
       { name: "MongoDB", logo: "https://cdn.simpleicons.org/mongodb/47A248" },
       { name: "MySQL", logo: "https://cdn.simpleicons.org/mysql/4479A1" },
+      { name: "PostgreSQL", logo: "https://cdn.simpleicons.org/postgresql/4169E1" },
       { name: "Supabase", logo: "https://cdn.simpleicons.org/supabase/3FCF8E" },
       { name: "Redis", logo: "https://cdn.simpleicons.org/redis/DC382D" },
+      { name: "Firebase", logo: "https://cdn.simpleicons.org/firebase/FFCA28" },
       { name: "Pandas", logo: "https://cdn.simpleicons.org/pandas/FFFFFF" },
-      { name: "NumPy", logo: "https://cdn.simpleicons.org/numpy/013243" },
       { name: "Scikit-learn", logo: "https://cdn.simpleicons.org/scikitlearn/F7931E" },
     ],
   },

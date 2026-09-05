@@ -161,14 +161,15 @@ export default function About() {
             </h3>
             <div className="mt-5 space-y-4 text-[13.5px] leading-[1.75] text-zinc-400">
               <p>
-                Last summer I interned at IFFCO, shipping a full-stack internal tool that
+                Last summer I interned at IFFCO, shipping production tools that
                 automated 50+ daily workflows — REST APIs, optimized SQL, Docker, and CI/CD.
               </p>
               <p>
+                Now Chairperson of <span className="text-emerald-200">Nexus SVNIT</span>.
                 Shipped <span className="text-emerald-200">LogiFlow</span> (GSC Global Top 106)
-                and <span className="text-emerald-200">Community Hero</span> (Vibe2Ship) —
-                while building the <span className="text-emerald-200">Career Automation Stack</span>
-                across 965+ companies.
+                and <span className="text-emerald-200">Community Hero</span> (Vibe2Ship Global Top 20)
+                — while building the <span className="text-emerald-200">Career Automation Stack</span>
+                across 966 companies.
               </p>
             </div>
 

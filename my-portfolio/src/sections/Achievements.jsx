@@ -11,6 +11,7 @@ const tagAccent = {
   Community: "border-sky-300/30 bg-sky-300/[0.06] text-sky-200",
   Learning: "border-rose-300/30 bg-rose-300/[0.06] text-rose-200",
   Mentorship: "border-teal-300/30 bg-teal-300/[0.06] text-teal-200",
+  Fellowship: "border-fuchsia-300/30 bg-fuchsia-300/[0.06] text-fuchsia-200",
 };
 
 export default function Achievements() {
